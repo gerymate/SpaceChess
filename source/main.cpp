@@ -2,6 +2,7 @@
 #include <fstream>
 #include "game.h"
 #include "gamestate.h"
+#include "view.h"
 
 int main(int argc, char** argv)
 {
@@ -18,9 +19,14 @@ int main(int argc, char** argv)
     boardFile.close();
 
     Game model(initialBoard);
+    
+    // init 2D View
+    View scene;
+    scene.init();
         
     GameState state = model.getGameState();
     std::cout << state;
+    scene.update();
 
     // load file "move.list" and play
     std::string moveFileName("move.list");
@@ -44,9 +50,15 @@ int main(int argc, char** argv)
         } else {
             std::cout << "Illegal move." << std::endl;
         }
+        scene.update();
     }
     
+    char temp[100];
+    std::cin.getline(temp, 100);
+    
     //std::cout << std::endl;
+    
     moveFile.close();
+    scene.shutdown();
     return 0;
 }

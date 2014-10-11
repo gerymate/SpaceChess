@@ -3,7 +3,8 @@
 
 set(SOURCES main.cpp)
 
-include_directories(Model)
+set (INCLUDE_DIRECTORIES Model View)
+include_directories(${INCLUDE_DIRECTORIES})
 
 # Create an executable file called helloworld from sources:
 add_executable(SpaceChess ${SOURCES})
@@ -15,6 +16,7 @@ add_executable(SpaceChess ${SOURCES})
 # Make sure the linker can find the Hello library once it is built.
 #link_directories (${SPACECHESS_BINARY_DIR}/Hello)
 
-target_link_libraries(SpaceChess SpaceChessModel)
+target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D)
 
 add_subdirectory(Model)
+add_subdirectory(View)
