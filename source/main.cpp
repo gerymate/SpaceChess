@@ -2,37 +2,46 @@
 #include <fstream>
 #include "game.h"
 #include "gamestate.h"
-#include "view.h"
+#include "boardpainter2d.h"
+
+using namespace std;
+
+GameState loadBoard()
+{
+    // load file "initial.board"
+    const string boardFileName("initial.board");
+    ifstream boardFile(boardFileName);
+    if (!boardFile.is_open()) {
+        cerr << "Error, file not fould: " << boardFileName << endl;
+        exit(1);
+    }
+
+    GameState board;
+    boardFile >> board;
+    boardFile.close();
+
+    return board;
+}
 
 int main(int argc, char** argv)
 {
-    // load file "initial.board"
-    std::string boardFileName("initial.board");
-    std::ifstream boardFile(boardFileName);
-    if (!boardFile.is_open()) {
-        std::cerr << "Error, file not fould: " << boardFileName << std::endl;
-        return 1;
-    }
-    
-    GameState initialBoard;
-    boardFile >> initialBoard;
-    boardFile.close();
+    GameState initialBoard { loadBoard() };
 
-    Game model(initialBoard);
+    Game model { initialBoard };
     
     // init 2D View
-    View scene;
+    BoardPainter2D scene;
     scene.init();
         
     GameState state = model.getGameState();
-    std::cout << state;
+    cout << state;
     scene.update();
 
     // load file "move.list" and play
-    std::string moveFileName("move.list");
-    std::ifstream moveFile(moveFileName);
+    string moveFileName("move.list");
+    ifstream moveFile(moveFileName);
     if (!moveFile.is_open()) {
-        std::cerr << "Error, file not fould: " << moveFileName << std::endl;
+        cerr << "Error, file not fould: " << moveFileName << endl;
         return 1;
     }
 
@@ -40,23 +49,23 @@ int main(int argc, char** argv)
     bool isLegalMove = true;
     while(isLegalMove && moveFile >> place) {
         isLegalMove = model.touch(place);
-        std::cout << place << " (" << state.board.at(place) << ") ";
+        cout << place << " (" << state.board.at(place) << ") ";
         if (isLegalMove) {
-            std::cout << "OK\t";
+            cout << "OK\t";
             state = model.getGameState();
             if (state.phase == 0) {
-                std::cout << std::endl << state;
+                cout << endl << state;
             }
         } else {
-            std::cout << "Illegal move." << std::endl;
+            cout << "Illegal move." << endl;
         }
         scene.update();
+
+        char temp[100];
+        cin.getline(temp, 100);
     }
-    
-    char temp[100];
-    std::cin.getline(temp, 100);
-    
-    //std::cout << std::endl;
+        
+    //cout << endl;
     
     moveFile.close();
     scene.shutdown();
