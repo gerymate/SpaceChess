@@ -1,6 +1,8 @@
 #ifndef BOARDPAINTER_H
 #define BOARDPAINTER_H
 
+#include <vector>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include "../Model/board.h"
 
@@ -12,6 +14,10 @@ class BoardPainter
   int currentRow;
   int currentColumn;
   std::vector<std::vector<sf::Texture> > pieces;
+  sf::Font font;
+  const std::vector<std::string> smallNotation {"a", "b", "c", "d", "e"};
+  const std::vector<std::string> largeNotation {"A", "B", "C", "D", "E"};
+  const std::vector<std::string> digitNotation {"1", "2", "3", "4", "5"};
   
   // our layout constants are in pixels for now
   const int MARGINSIZE = 30;

@@ -29,22 +29,12 @@ BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Board* theBoard) : canva
 	    }
 	}
     }
-   
-    //    	int owner;	// 0..2
-	/* 0 - noone
-	 * 1 - white
-	 * 2 - black
-	*/
-//	int figure;	// 0..7 should be an enum?
-	/* 0 - none
-	 * 1 - king
-	 * 2 - queen
-	 * 3 - rook
-	 * 4 - bishop
-	 * 5 - knight
-	 * 6 - unicorn
-	 * 7 - pawn
-	*/
+    
+    // load font
+    if (! font.loadFromFile("sansation.ttf"))
+    {
+	std::cerr << "Error loading sansation.ttf" << std::endl;
+    }
 }
 
 void BoardPainter::setBoard(Board* theBoard)
@@ -65,22 +55,48 @@ void BoardPainter::draw()
 
 void BoardPainter::drawPlane(sf::Vector2f thePosition)
 {
-  for (int j = 0; j != 5; ++j)
-  {
-    currentRow = j;
-    sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * FIELDSIZE));
-    drawRow(position);
-  }
+    // draw notation to the upper left corner
+    sf::Text notation(smallNotation[currentPlane], font, 0.5f * MARGINSIZE);
+    notation.setColor(sf::Color::Yellow);
+    notation.setStyle(sf::Text::Bold);
+    notation.setPosition(thePosition + sf::Vector2f(-0.4f * MARGINSIZE, -0.6f * MARGINSIZE));
+    canvas->draw(notation);
+    
+    // draw the plane
+    for (int j = 0; j != 5; ++j)
+    {
+	currentRow = j;
+	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * FIELDSIZE));
+	drawRow(position);
+    }
+
+    // draw notation under the plane
+    notation.setColor(sf::Color::Red);
+    notation.setStyle(sf::Text::Regular);
+    for (int i = 0; i != 5; ++i)
+    {
+	notation.setString(digitNotation[i]);
+	sf::Vector2f offset(thePosition.x + i * FIELDSIZE, thePosition.y);
+	notation.setPosition(offset + sf::Vector2f(0.5f * FIELDSIZE, 5.f * FIELDSIZE));
+	canvas->draw(notation);
+    }    
 }
 
 void BoardPainter::drawRow(sf::Vector2f thePosition)
 {
-  for (int k = 0; k != 5; ++k)
-  {
-    currentColumn = k;
-    sf::Vector2f position(thePosition + sf::Vector2f(k * FIELDSIZE, 0.f));
-    drawField(position);
-  }
+    // draw notation beside the plane
+    sf::Text notation(largeNotation[4 - currentRow], font, 0.5f * MARGINSIZE);
+    notation.setColor(sf::Color::Red);
+    notation.setPosition(thePosition + sf::Vector2f(-0.5f * MARGINSIZE, 0.9f * (FIELDSIZE - MARGINSIZE)));
+    canvas->draw(notation);
+   
+    // draw the row
+    for (int k = 0; k != 5; ++k)
+    {
+	currentColumn = k;
+	sf::Vector2f position(thePosition + sf::Vector2f(k * FIELDSIZE, 0.f));
+	drawField(position);
+    }
 }
 
 void BoardPainter::drawField(sf::Vector2f thePosition)
