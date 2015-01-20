@@ -1,27 +1,21 @@
 #include "boardpainter2d.h"
 
-BoardPainter2D::BoardPainter2D()
-{
-}
-
 void BoardPainter2D::init()
 {
-    window.create( sf::VideoMode { 640, 480 }, "SpaceChess" );
 }
 
-void BoardPainter2D::update()
+void BoardPainter2D::update(GameState& newState)
 {
-    sf::CircleShape shape { 100.f };
-    shape.setFillColor(sf::Color::Yellow);
+    window->clear();
 
-    window.clear();
-    window.draw(shape);
-    window.display();        
+    boardPainter.setBoard(&(newState.board));
+    boardPainter.draw();
+
+    window->display();        
 }    
 
 void BoardPainter2D::shutdown()
 {
-    window.close();        
 }    
 
 

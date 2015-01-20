@@ -3,6 +3,7 @@
 #include "game.h"
 #include "gamestate.h"
 #include "boardpainter2d.h"
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -25,17 +26,21 @@ GameState loadBoard()
 
 int main(int argc, char** argv)
 {
+  
+    // init the model
     GameState initialBoard { loadBoard() };
-
     Game model { initialBoard };
     
-    // init 2D View
-    BoardPainter2D scene;
-    scene.init();
+    // init the 2D View
+    sf::RenderWindow window;
+    window.create( sf::VideoMode {1200, 600}, "SpaceChess" );
+    BoardPainter2D scene {&window};
         
     GameState state = model.getGameState();
+    scene.init();
+
     cout << state;
-    scene.update();
+    scene.update(state);
 
     // load file "move.list" and play
     string moveFileName("move.list");
@@ -59,7 +64,7 @@ int main(int argc, char** argv)
         } else {
             cout << "Illegal move." << endl;
         }
-        scene.update();
+        scene.update(state);
 
         char temp[100];
         cin.getline(temp, 100);
@@ -69,5 +74,7 @@ int main(int argc, char** argv)
     
     moveFile.close();
     scene.shutdown();
+    window.close();        
+
     return 0;
 }

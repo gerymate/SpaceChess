@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& os, const Field& field)
 		case 5 : figure = 'N'; break;
 		case 6 : figure = 'U'; break;
 		case 7 : figure = 'P'; break;
-		default: figure = (field.place.getColour() == 1) ? 'O' : '0';
+		default: figure = (field.place.getColour() == Coord::WHITE) ? 'O' : '0';
 	}
 	os << owner << figure;
     return os;
