@@ -56,7 +56,7 @@ void BoardPainter::draw()
 void BoardPainter::drawPlane(sf::Vector2f thePosition)
 {
     // draw notation to the upper left corner
-    sf::Text notation(smallNotation[currentPlane], font, 0.5f * MARGINSIZE);
+    sf::Text notation(largeNotation[currentPlane], font, 0.5f * MARGINSIZE);
     notation.setColor(sf::Color::Yellow);
     notation.setStyle(sf::Text::Bold);
     notation.setPosition(thePosition + sf::Vector2f(-0.4f * MARGINSIZE, -0.6f * MARGINSIZE));
@@ -75,9 +75,9 @@ void BoardPainter::drawPlane(sf::Vector2f thePosition)
     notation.setStyle(sf::Text::Regular);
     for (int i = 0; i != 5; ++i)
     {
-	notation.setString(digitNotation[i]);
+	notation.setString(smallNotation[i]);
 	sf::Vector2f offset(thePosition.x + i * FIELDSIZE, thePosition.y);
-	notation.setPosition(offset + sf::Vector2f(0.5f * FIELDSIZE, 5.f * FIELDSIZE));
+	notation.setPosition(offset + sf::Vector2f(0.4f * FIELDSIZE, 5.f * FIELDSIZE));
 	canvas->draw(notation);
     }    
 }
@@ -85,9 +85,9 @@ void BoardPainter::drawPlane(sf::Vector2f thePosition)
 void BoardPainter::drawRow(sf::Vector2f thePosition)
 {
     // draw notation beside the plane
-    sf::Text notation(largeNotation[4 - currentRow], font, 0.5f * MARGINSIZE);
+    sf::Text notation(digitNotation[4 - currentRow], font, 0.5f * MARGINSIZE);
     notation.setColor(sf::Color::Red);
-    notation.setPosition(thePosition + sf::Vector2f(-0.5f * MARGINSIZE, 0.9f * (FIELDSIZE - MARGINSIZE)));
+    notation.setPosition(thePosition + sf::Vector2f(-0.5f * MARGINSIZE, 1.f * (FIELDSIZE - MARGINSIZE)));
     canvas->draw(notation);
    
     // draw the row
