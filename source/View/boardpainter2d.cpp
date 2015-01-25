@@ -1,10 +1,12 @@
 #include "boardpainter2d.h"
 
+namespace View {
+
 void BoardPainter2D::init()
 {
 }
 
-void BoardPainter2D::update(GameState& newState)
+void BoardPainter2D::update(Model::GameState& newState)
 {
     window->clear();
 
@@ -22,3 +24,5 @@ void BoardPainter2D::shutdown()
 BoardPainter2D::~BoardPainter2D()
 {
 }    
+
+}

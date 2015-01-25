@@ -1,10 +1,11 @@
 #include "field.h"
 
+namespace Model {
+
 Field::Field(int _owner, int _figure, Coord _place) 
 	: owner(_owner), figure(_figure), place(_place) 
 {
-	
-}	
+}
 
 
 std::ostream& operator<<(std::ostream& os, const Field& field)
@@ -49,4 +50,6 @@ std::istream& operator>>(std::istream& is, Field& field)
 		default: field.figure = 0;
 	}
 	return is;
+}
+
 }

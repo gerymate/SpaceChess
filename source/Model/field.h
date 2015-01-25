@@ -4,6 +4,8 @@
 #include<iostream>
 #include "coord.h"
 
+namespace Model {
+    
 //	Field holds information about a field in the chessboard
 struct Field
 {
@@ -29,4 +31,5 @@ struct Field
 	friend std::istream& operator>>(std::istream& is, Field& field);
 };
 
+}
 #endif

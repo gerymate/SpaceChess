@@ -1,14 +1,10 @@
 #include "boardpainter.h"
 
-/*
- sf::RenderTarget* canvas;
-GameState* board;
-int currentPlane;
-int currentRow;
-int currentColumn;
-*/
+using namespace Model;
 
-BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Board* theBoard) : canvas(theCanvas), board(theBoard)
+namespace View {
+
+BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard) : canvas(theCanvas), board(theBoard)
 {
     // load pieces!
     pieces.resize(2);
@@ -37,7 +33,7 @@ BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Board* theBoard) : canva
     }
 }
 
-void BoardPainter::setBoard(Board* theBoard)
+void BoardPainter::setBoard(Model::Board* theBoard)
 {
     board = theBoard;
 }
@@ -124,3 +120,4 @@ void BoardPainter::drawField(sf::Vector2f thePosition)
     }
 }
 
+}

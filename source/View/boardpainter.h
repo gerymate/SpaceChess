@@ -4,12 +4,14 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "../Model/board.h"
+#include "Model/board.h"
+
+namespace View {
 
 class BoardPainter
 {
   sf::RenderTarget* canvas;
-  Board* board;
+  Model::Board* board;
   int currentPlane;
   int currentRow;
   int currentColumn;
@@ -25,8 +27,8 @@ class BoardPainter
   const int PLANESIZE = FIELDSIZE * 5; // 5 is number of fields in a row
   
 public:
-  BoardPainter(sf::RenderTarget* theCanvas, Board* theBoard=nullptr);
-  void setBoard(Board* theBoard);
+  BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard=nullptr);
+  void setBoard(Model::Board* theBoard);
   void draw();
 private:
   void drawPlane(sf::Vector2f thePosition);
@@ -34,5 +36,7 @@ private:
   void drawField(sf::Vector2f thePosition);
   
 };
+
+}
 
 #endif // BOARDPAINTER_H

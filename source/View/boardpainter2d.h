@@ -5,6 +5,8 @@
 #include "gamestate.h"
 #include "boardpainter.h"
 
+namespace View {
+
 class BoardPainter2D
 {
     sf::RenderWindow* window;
@@ -13,8 +15,9 @@ public:
     BoardPainter2D(sf::RenderWindow* theWindow) : window(theWindow), boardPainter(theWindow) {};
     ~BoardPainter2D();
     void init();
-    void update(GameState& newState);  
+    void update(Model::GameState& newState);  
     void shutdown();  
 };
 
+}
 #endif

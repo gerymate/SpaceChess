@@ -1,7 +1,14 @@
 #include "game.h"
 
+using namespace Model;
+
 Game::Game(const GameState& gs = GameState()) : state(gs)
 {
+}
+
+void Game::setGameState(const GameState& gs)
+{
+    state = gs;
 }
 
 const GameState& Game::getGameState() const

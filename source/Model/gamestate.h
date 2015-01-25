@@ -6,6 +6,8 @@
 #include "field.h"
 #include "coord.h"
 
+namespace Model {
+
 //	A GameState object describes a single situation that could emerge in a Game
 
 struct GameState
@@ -20,9 +22,9 @@ struct GameState
 	Coord touched; 
 	GameState();
 	
-	friend std::ostream& operator<<(std::ostream& os, const GameState& gs);
-	friend std::istream& operator>>(std::istream& is, GameState& gs);
+	friend std::ostream& operator<<(std::ostream& os, const Model::GameState& gs);
+	friend std::istream& operator>>(std::istream& is, Model::GameState& gs);
 };
 
-
+}
 #endif

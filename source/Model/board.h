@@ -5,6 +5,8 @@
 #include "field.h"
 #include "coord.h"
 
+namespace Model {
+    
 //	A Board holds information about a whole 5x5x5 chessboard
 struct Board
 {
@@ -14,8 +16,9 @@ struct Board
 	// at : returns a Field at a given Coord of the board
 	Field& at(const Coord& place);
 	
-	friend std::ostream& operator<<(std::ostream& os, const Board& board);
-	friend std::istream& operator>>(std::istream& is, Board& board);
+	friend std::ostream& operator<<(std::ostream& os, const Model::Board& board);
+	friend std::istream& operator>>(std::istream& is, Model::Board& board);
 };
 
+}
 #endif

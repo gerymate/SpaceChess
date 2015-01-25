@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+namespace Model {
 //	A Coord stores information about a field in the board.
 
 struct Coord
@@ -15,8 +16,9 @@ struct Coord
 	static const int WHITE = 1;
 	const int getColour() const;
 
-	friend std::ostream& operator<<(std::ostream& os, const Coord& coord);
-	friend std::istream& operator>>(std::istream& is, Coord& coord);
+	friend std::ostream& operator<<(std::ostream& os, const Model::Coord& coord);
+	friend std::istream& operator>>(std::istream& is, Model::Coord& coord);
 };
 
+}
 #endif
