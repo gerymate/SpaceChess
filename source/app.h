@@ -2,7 +2,7 @@
 #define APP_H
 
 #include <SFML/Graphics.hpp>
-#include "gamecontroller.h"
+#include "Controller/gamecontroller.h"
 #include <memory>
 
 class App
