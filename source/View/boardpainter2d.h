@@ -17,6 +17,7 @@ public:
     void init();
     void update(Model::GameState& newState);  
     void shutdown();  
+    Model::Coord getCoordByPosition(sf::Vector2f position);
 };
 
 }

@@ -12,9 +12,11 @@ class LocalGameController : public GameController
     sf::RenderWindow* window;
     Model::Game game;
     View::BoardPainter2D boardPainter;
+    Model::Coord cursor;
 
     void initLocalGame();
     bool update(sf::Event event);
+    void setCursor(sf::Event event);
     
 public:
     LocalGameController(sf::RenderWindow* theWindow);

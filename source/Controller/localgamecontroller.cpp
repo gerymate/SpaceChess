@@ -39,8 +39,11 @@ void LocalGameController::dispatchEvents()
 		    break;
 		case sf::Event::MouseMoved:
 		    {
+			setCursor(event);
 			std::cout << "new mouse x: " << event.mouseMove.x << std::endl;
 			std::cout << "new mouse y: " << event.mouseMove.y << std::endl;
+			std::cout << "cursor: " << cursor<< std::endl;
+			
 		    }
 		default:
 		    break;
@@ -48,6 +51,13 @@ void LocalGameController::dispatchEvents()
 	}
     }
 }
+
+void LocalGameController::setCursor(sf::Event event)
+{
+    sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);
+    cursor = boardPainter.getCoordByPosition(position);
+}
+
 
 bool LocalGameController::update(sf::Event event)
 {

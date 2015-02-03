@@ -14,11 +14,16 @@ void BoardPainter2D::update(Model::GameState& newState)
     boardPainter.draw();
 
     window->display();        
-}    
+}
 
 void BoardPainter2D::shutdown()
 {
 }    
+
+Model::Coord BoardPainter2D::getCoordByPosition(sf::Vector2f position)
+{
+    return boardPainter.getCoordByPosition(position);
+}
 
 
 BoardPainter2D::~BoardPainter2D()

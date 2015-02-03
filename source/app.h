@@ -11,7 +11,6 @@ class App
     sf::RenderWindow window;
     void setUpWindow();
     void setUpAGameController();
-    void dispatchEventLoop();
 public:
     App();
     int run();
