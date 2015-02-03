@@ -18,7 +18,7 @@ class BoardPainter
   int currentRow;
   int currentColumn;
   StyleSheet style;
-  std::vector<Field> fields;
+  std::vector<Field> drawableFields;
 
 public:
   BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard=nullptr);

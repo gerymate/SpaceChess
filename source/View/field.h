@@ -16,6 +16,8 @@ class Field : public sf::Drawable
 public:
     Field(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, const Model::Field &theContent);
     ~Field();
+    sf::FloatRect getBoundaries();
+    Model::Coord getCoord();
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

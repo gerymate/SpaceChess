@@ -13,6 +13,18 @@ Field::~Field()
 
 }
 
+sf::FloatRect Field::getBoundaries()
+{
+    sf::FloatRect boundaries {topLeft, style->FieldSize};
+    return boundaries;
+}
+
+Model::Coord Field::getCoord()
+{
+    return content.place;
+}
+
+
 void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::RectangleShape fieldShape(style->FieldSize);

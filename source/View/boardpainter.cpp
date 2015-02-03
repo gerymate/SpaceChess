@@ -14,6 +14,8 @@ void BoardPainter::setBoard(Model::Board* theBoard)
 
 void BoardPainter::draw()
 {
+    drawableFields.clear();
+    
     for (int i = 0; i != 5; ++i)
     {
 	currentPlane = i;
@@ -22,7 +24,7 @@ void BoardPainter::draw()
 	drawPlane(position);
     }
     
-    for (auto field : fields)
+    for (auto field : drawableFields)
     {
 	canvas->draw(field);
     }
@@ -66,7 +68,7 @@ void BoardPainter::buildRow(sf::Vector2f thePosition)
 	currentColumn = k;
 	sf::Vector2f position(thePosition + sf::Vector2f(k * style.FIELDSIZE, 0.f));
 	const Model::Field content {board->space[currentPlane][currentColumn][4 - currentRow]};
-	fields.emplace_back(position, &style, content);
+	drawableFields.emplace_back(position, &style, board->space[currentPlane][currentColumn][4 - currentRow]);
     }
 }
 
@@ -82,6 +84,14 @@ void BoardPainter::drawRowDecoration(sf::Vector2f thePosition)
 Model::Coord BoardPainter::getCoordByPosition(sf::Vector2f position)
 {
     Model::Coord cursor {0, 0, 0};
+    for (auto field : drawableFields)
+    {
+	if (field.getBoundaries().contains(position))
+	{
+	    cursor = field.getCoord();
+	    break;
+	}
+    }
     return cursor;
 }
 
