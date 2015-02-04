@@ -16,7 +16,7 @@ Board::Board() : space(5, vector<vector<Field> >(5, vector<Field>(5)))
 }
 
 Field& Board::at(const Coord& place) {
-	return space[place.y - 1][place.x - 1][place.z - 1];
+	return space[place.y][place.x][place.z];
 }
 
 std::ostream& operator<<(std::ostream& os, const Model::Board& board)

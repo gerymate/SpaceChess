@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Model/gamestate.h"
 #include "Model/board.h"
 #include "View/stylesheet.h"
 #include "View/field.h"
@@ -14,6 +15,7 @@ class BoardPainter
 {
   sf::RenderTarget* canvas;
   const Model::Board* board;
+  const Model::GameState* gameState;
   int currentPlane;
   int currentRow;
   int currentColumn;
@@ -22,8 +24,8 @@ class BoardPainter
   Model::Coord cursor {-1, -1, -1};
 
 public:
-  BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard=nullptr);
-  void setBoard(const Model::Board* theBoard);
+  BoardPainter(sf::RenderTarget* theCanvas, Model::GameState* theGameState=nullptr);
+  void setGameState(const Model::GameState* theGameState);
   void draw();
   Model::Coord getCoordByPosition(sf::Vector2f position);
   Model::Coord setAndGetCursorByPosition(sf::Vector2f position);
@@ -33,6 +35,7 @@ private:
   void buildRow(sf::Vector2f thePosition);
   void drawRowDecoration(sf::Vector2f thePosition);
   void highlightFieldUnderCursor();
+  void highlightTouchedField();
   
 };
 

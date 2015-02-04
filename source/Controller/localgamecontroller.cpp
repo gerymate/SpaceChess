@@ -35,13 +35,15 @@ void LocalGameController::dispatchEvents()
 		    window->close();
 		    break;
 		case sf::Event::MouseButtonPressed:
-		    if ( ! update(event) ) window->close();
+		    if (game.touch(cursor))
+		    {
+			renderer.update(game.getGameState());
+		    }
 		    break;
 		case sf::Event::MouseMoved:
-		    {
-			setCursor(event);
-			renderer.update(game.getGameState());			
-		    }
+		    setCursor(event);
+		    renderer.update(game.getGameState());
+		    break;
 		default:
 		    break;
 	    }

@@ -8,18 +8,25 @@
 
 namespace View {
 
+enum class Highlight
+{
+    None,
+    MouseOver,
+    Touched
+};
+    
 class Field : public sf::Drawable
 {
     sf::Vector2f topLeft;
     StyleSheet *style;
     Model::Field content;
-    int highlight {0};
+    Highlight highlight { Highlight::None };
 public:
     Field(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, const Model::Field &theContent);
     ~Field();
     sf::FloatRect getBoundaries();
     Model::Coord getCoord();
-    void setHighlight(int level);
+    void setHighlight(Highlight type);
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

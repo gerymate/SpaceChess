@@ -4,14 +4,16 @@
 
 namespace View {
 
-BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard) : canvas(theCanvas), board(theBoard)
+BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::GameState* theGameState) 
+    : canvas(theCanvas), gameState(theGameState)
 {
-
+    if (gameState) board = &(gameState->board);
 }
 
-void BoardPainter::setBoard(const Model::Board* theBoard)
+void BoardPainter::setGameState(const Model::GameState* theGameState)
 {
-    board = theBoard;
+    gameState = theGameState;
+    board = &(gameState->board);
 }
 
 void BoardPainter::draw()
@@ -41,13 +43,23 @@ void BoardPainter::highlightFieldUnderCursor()
     {
 	if (field.getCoord() == cursor)
 	{
-	    field.setHighlight(1);
+	    field.setHighlight(Highlight::MouseOver);
 	} else {
-	    field.setHighlight(0);
+	    field.setHighlight(Highlight::None);
 	}
     }
 }
 
+void BoardPainter::highlightTouchedField()
+{
+    if (gameState->phase == 1)
+    {
+	
+	// I don't like this way of implementation... Think again!	
+	
+    }
+    
+}
 
 void BoardPainter::drawPlane(sf::Vector2f thePosition)
 {

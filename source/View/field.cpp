@@ -31,7 +31,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     fieldShape.setPosition(topLeft);
     sf::Color backgroundColor = (content.place.getColour() == Model::Coord::BLACK) ?
 	style->BlackFieldColor : style->WhiteFieldColor;
-    if (highlight == 1) backgroundColor *= style->CursorHighlightColor;
+    if (highlight == Highlight::MouseOver) backgroundColor *= style->CursorHighlightColor;
     fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  
@@ -47,9 +47,9 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }
 }
 
-void Field::setHighlight(int level)
+void Field::setHighlight(Highlight type)
 {
-    highlight = level;
+    highlight = type;
 }
 
 

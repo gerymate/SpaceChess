@@ -10,7 +10,7 @@ void Render2D::update(const Model::GameState& newState)
 {
     window->clear();
 
-    boardPainter.setBoard(&(newState.board));
+    boardPainter.setGameState(&newState);
     boardPainter.draw();
 
     window->display();        

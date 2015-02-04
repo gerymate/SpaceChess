@@ -8,9 +8,9 @@ namespace Model {
 
 struct Coord
 {
-	// x, y, z : Place in the board (1..5) There are 5 levels of 5x5 planes
+	// x, y, z : Place in the board (0..4) There are 5 levels of 5x5 planes
 	int y, x, z;
-	Coord(int _y = 1, int _x = 1, int _z = 1);
+	Coord(int _y = 0, int _x = 0, int _z = 0);
 	// getColour() : Reports if the field is black (2) or white (1)
 	static const int BLACK = 2;
 	static const int WHITE = 1;
