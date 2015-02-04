@@ -31,9 +31,10 @@ public:
   Model::Coord setAndGetCursorByPosition(sf::Vector2f position);
 
 private:
-  void drawPlane(sf::Vector2f thePosition);
+  void buildPlane(sf::Vector2f thePosition);
   void buildRow(sf::Vector2f thePosition);
   void drawRowDecoration(sf::Vector2f thePosition);
+  void drawPlaneDecoration(sf::Vector2f thePosition);
   void highlightFieldUnderCursor();
   void highlightTouchedField();
   

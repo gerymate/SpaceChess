@@ -7,26 +7,23 @@
 #include "View/stylesheet.h"
 
 namespace View {
-
-enum class Highlight
-{
-    None,
-    MouseOver,
-    Touched
-};
     
 class Field : public sf::Drawable
 {
     sf::Vector2f topLeft;
     StyleSheet *style;
     Model::Field content;
-    Highlight highlight { Highlight::None };
+    bool underCursor { false };
+    bool touched { false };
 public:
     Field(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, const Model::Field &theContent);
     ~Field();
     sf::FloatRect getBoundaries();
     Model::Coord getCoord();
-    void setHighlight(Highlight type);
+    void setUnderCursor();
+    void notUnderCursor();
+    void setTouched();
+    void notTouched();
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

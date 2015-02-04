@@ -31,7 +31,8 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     fieldShape.setPosition(topLeft);
     sf::Color backgroundColor = (content.place.getColour() == Model::Coord::BLACK) ?
 	style->BlackFieldColor : style->WhiteFieldColor;
-    if (highlight == Highlight::MouseOver) backgroundColor *= style->CursorHighlightColor;
+    if (underCursor) backgroundColor *= style->CursorHighlightColor;
+    if (touched) backgroundColor *= style->TouchHighlightColor;
     fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  
@@ -47,10 +48,29 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }
 }
 
-void Field::setHighlight(Highlight type)
+void Field::setTouched()
 {
-    highlight = type;
+    touched = true;
 }
+
+void Field::notTouched()
+{
+    touched = false;
+}
+
+void Field::setUnderCursor()
+{
+    underCursor = true;
+}
+
+void Field::notUnderCursor()
+{
+    underCursor = false;
+}
+
+
+
+
 
 
 }
