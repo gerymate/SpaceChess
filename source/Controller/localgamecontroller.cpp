@@ -3,7 +3,7 @@
 
 using namespace std;
 
-LocalGameController::LocalGameController(sf::RenderWindow* theWindow) : window{theWindow}, boardPainter{theWindow}
+LocalGameController::LocalGameController(sf::RenderWindow* theWindow) : window{theWindow}, renderer{theWindow}
 {
     // init the model
     game.setGameState(loadBoardFromFile());
@@ -13,7 +13,7 @@ LocalGameController::LocalGameController(sf::RenderWindow* theWindow) : window{t
 void LocalGameController::initLocalGame()
 {
     Model::GameState currentState = game.getGameState();
-    boardPainter.update(currentState);
+    renderer.update(currentState);
 }
 
 
@@ -40,10 +40,7 @@ void LocalGameController::dispatchEvents()
 		case sf::Event::MouseMoved:
 		    {
 			setCursor(event);
-			std::cout << "new mouse x: " << event.mouseMove.x << std::endl;
-			std::cout << "new mouse y: " << event.mouseMove.y << std::endl;
-			std::cout << "cursor: " << cursor<< std::endl;
-			
+			renderer.update(game.getGameState());			
 		    }
 		default:
 		    break;
@@ -54,8 +51,8 @@ void LocalGameController::dispatchEvents()
 
 void LocalGameController::setCursor(sf::Event event)
 {
-    sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);
-    cursor = boardPainter.getCoordByPosition(position);
+    sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);    
+    cursor = renderer.setAndGetCoordByPosition(position);
 }
 
 
@@ -78,9 +75,8 @@ bool LocalGameController::update(sf::Event event)
     }
     boardPainter.update(state);
     return isLegalMove;        
-*/
+  */
 return true;
-    
 }
 
 

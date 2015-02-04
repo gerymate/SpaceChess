@@ -13,11 +13,13 @@ class Field : public sf::Drawable
     sf::Vector2f topLeft;
     StyleSheet *style;
     Model::Field content;
+    int highlight {0};
 public:
     Field(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, const Model::Field &theContent);
     ~Field();
     sf::FloatRect getBoundaries();
     Model::Coord getCoord();
+    void setHighlight(int level);
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

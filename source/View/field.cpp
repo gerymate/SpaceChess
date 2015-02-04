@@ -29,12 +29,10 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::RectangleShape fieldShape(style->FieldSize);
     fieldShape.setPosition(topLeft);
-    if (content.place.getColour() == Model::Coord::BLACK)
-    {
-	fieldShape.setFillColor(style->BlackFieldColor);
-    } else {
-	fieldShape.setFillColor(style->WhiteFieldColor);
-    }
+    sf::Color backgroundColor = (content.place.getColour() == Model::Coord::BLACK) ?
+	style->BlackFieldColor : style->WhiteFieldColor;
+    if (highlight == 1) backgroundColor *= style->CursorHighlightColor;
+    fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  
 
@@ -48,5 +46,11 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(figure, states);
     }
 }
+
+void Field::setHighlight(int level)
+{
+    highlight = level;
+}
+
 
 }

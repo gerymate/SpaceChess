@@ -14,6 +14,12 @@ const int Coord::getColour() const
 	return ((x + y + z) % 2) ? 1 : 2; // is that field black(2) or white(1) ?
 }
 
+bool Coord::operator==(const Coord& other) const
+{
+    return (y == other.y) && (x == other.x) && (z == other.z);
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Model::Coord& coord)
 {
 	os << coord.y << coord.x << coord.z;

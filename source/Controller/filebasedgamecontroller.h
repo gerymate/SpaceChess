@@ -6,14 +6,14 @@
 #include <SFML/Graphics.hpp>
 #include "Model/game.h"
 #include "Model/gamestate.h"
-#include "View/boardpainter2d.h"
+#include "View/render2d.h"
 #include "Controller/gamecontroller.h"
 
 class FileBasedGameController : public GameController
 {
     sf::RenderWindow* window;
     Model::Game game;
-    View::BoardPainter2D boardPainter;
+    View::Render2D boardPainter;
     std::ifstream fileOfMoves;
 
     void initFileBasedGame();

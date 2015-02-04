@@ -23,6 +23,7 @@ struct StyleSheet
 
     const sf::Color WhiteFieldColor {230, 230, 230};
     const sf::Color BlackFieldColor {100, 100, 100};
+    const sf::Color CursorHighlightColor {128, 220, 128};
 public:
     StyleSheet();
     ~StyleSheet();

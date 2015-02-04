@@ -1,5 +1,7 @@
 #include "boardpainter.h"
 
+#include <iostream>
+
 namespace View {
 
 BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard) : canvas(theCanvas), board(theBoard)
@@ -7,7 +9,7 @@ BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::Board* theBoard) 
 
 }
 
-void BoardPainter::setBoard(Model::Board* theBoard)
+void BoardPainter::setBoard(const Model::Board* theBoard)
 {
     board = theBoard;
 }
@@ -24,12 +26,28 @@ void BoardPainter::draw()
 	drawPlane(position);
     }
     
+    highlightFieldUnderCursor();
+    
     for (auto field : drawableFields)
     {
 	canvas->draw(field);
     }
     
 }
+
+void BoardPainter::highlightFieldUnderCursor()
+{
+    for (Field& field : drawableFields)
+    {
+	if (field.getCoord() == cursor)
+	{
+	    field.setHighlight(1);
+	} else {
+	    field.setHighlight(0);
+	}
+    }
+}
+
 
 void BoardPainter::drawPlane(sf::Vector2f thePosition)
 {
@@ -83,7 +101,7 @@ void BoardPainter::drawRowDecoration(sf::Vector2f thePosition)
 
 Model::Coord BoardPainter::getCoordByPosition(sf::Vector2f position)
 {
-    Model::Coord cursor {0, 0, 0};
+    Model::Coord cursor {-1, -1, -1};
     for (auto field : drawableFields)
     {
 	if (field.getBoundaries().contains(position))
@@ -94,6 +112,12 @@ Model::Coord BoardPainter::getCoordByPosition(sf::Vector2f position)
     }
     return cursor;
 }
+
+Model::Coord BoardPainter::setAndGetCursorByPosition(sf::Vector2f position)
+{
+    return cursor = getCoordByPosition(position);
+}
+
 
 
 }

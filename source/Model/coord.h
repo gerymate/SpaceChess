@@ -15,6 +15,7 @@ struct Coord
 	static const int BLACK = 2;
 	static const int WHITE = 1;
 	const int getColour() const;
+	bool operator==(const Coord &other) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Model::Coord& coord);
 	friend std::istream& operator>>(std::istream& is, Model::Coord& coord);
