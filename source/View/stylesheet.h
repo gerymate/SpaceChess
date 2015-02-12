@@ -11,15 +11,16 @@ struct StyleSheet
 {
     std::vector<std::vector<sf::Texture> > pieces;
     sf::Font font;
-    const std::vector<std::string> smallNotation {"a", "b", "c", "d", "e"};
-    const std::vector<std::string> largeNotation {"A", "B", "C", "D", "E"};
-    const std::vector<std::string> digitNotation {"1", "2", "3", "4", "5"};
+    const std::string XNotation {"abcde"};
+    const std::string YNotation {"ABCDE"};
+    const std::string ZNotation {"12345"};
   
     // our layout constants are in pixels for now
     const float MARGINSIZE = 30.f;
     const float FIELDSIZE = 40.f;
     const sf::Vector2f FieldSize {FIELDSIZE, FIELDSIZE};
     const int PLANESIZE = FIELDSIZE * 5; // 5 is number of fields in a row
+    const int FONTSIZE = 0.5f * MARGINSIZE;
 
     const sf::Color WhiteFieldColor {230, 230, 230};
     const sf::Color BlackFieldColor {100, 100, 100};

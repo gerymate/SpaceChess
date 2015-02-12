@@ -14,20 +14,20 @@ namespace View {
 class BoardPainter
 {
   sf::RenderTarget* canvas;
+  StyleSheet* style;
   const Model::Board* board;
   const Model::GameState* gameState;
   int currentPlane;
   int currentRow;
   int currentColumn;
-  StyleSheet style;
   std::vector<Field> drawableFields;
   Model::Coord cursor {-1, -1, -1};
 
 public:
-  BoardPainter(sf::RenderTarget* theCanvas, Model::GameState* theGameState=nullptr);
+  BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet);
   void setGameState(const Model::GameState* theGameState);
-  void draw();
-  Model::Coord getCoordByPosition(sf::Vector2f position);
+  void draw(sf::Vector2f thePosition = sf::Vector2f(0, 0));
+  Model::Coord getFieldCoordByPosition(sf::Vector2f position);
   Model::Coord setAndGetCursorByPosition(sf::Vector2f position);
 
 private:

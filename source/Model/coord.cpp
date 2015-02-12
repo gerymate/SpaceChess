@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace Model {
-
+    
 Coord::Coord(int _y, int _x, int _z) : y(_y), x(_x), z(_z) 
 {
 }
@@ -17,6 +17,26 @@ const int Coord::getColour() const
 bool Coord::operator==(const Coord& other) const
 {
     return (y == other.y) && (x == other.x) && (z == other.z);
+}
+
+std::string Coord::getNotation() const
+{
+    std::string notation;
+    if (isOnTheBoard())
+    {
+	const char* XNotation = "abcde";
+	const char* YNotation = "ABCDE";
+	const char* ZNotation = "12345";
+	notation += YNotation[y];
+	notation += XNotation[x];
+	notation += ZNotation[z];
+    }
+    return notation;
+}
+
+bool Coord::isOnTheBoard() const
+{
+    return x >= 0 && x <= 4 && y >= 0 && y <= 4 && z >= 0 && z <= 4;
 }
 
 

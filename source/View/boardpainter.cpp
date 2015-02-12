@@ -4,10 +4,9 @@
 
 namespace View {
 
-BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, Model::GameState* theGameState) 
-    : canvas(theCanvas), gameState(theGameState)
+BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet) 
+    : canvas(theCanvas), style(theStyleSheet)
 {
-    if (gameState) board = &(gameState->board);
 }
 
 void BoardPainter::setGameState(const Model::GameState* theGameState)
@@ -16,15 +15,16 @@ void BoardPainter::setGameState(const Model::GameState* theGameState)
     board = &(gameState->board);
 }
 
-void BoardPainter::draw()
+void BoardPainter::draw(sf::Vector2f thePosition)
 {
     drawableFields.clear();
     
     for (int i = 0; i != 5; ++i)
     {
 	currentPlane = i;
-	float xOffset = style.MARGINSIZE + i * (style.MARGINSIZE + style.PLANESIZE);
-	sf::Vector2f position(xOffset, style.MARGINSIZE);
+	float xOffset = style->MARGINSIZE + i * (style->MARGINSIZE + style->PLANESIZE);
+	sf::Vector2f position {thePosition};
+	position += sf::Vector2f(xOffset, style->MARGINSIZE);
 	buildPlane(position);
 	drawPlaneDecoration(position);
     }
@@ -32,7 +32,7 @@ void BoardPainter::draw()
     highlightFieldUnderCursor();
     highlightTouchedField();
     
-    for (auto field : drawableFields)
+    for (auto& field : drawableFields)
     {
 	canvas->draw(field);
     }
@@ -71,15 +71,15 @@ void BoardPainter::highlightTouchedField()
 void BoardPainter::drawPlaneDecoration(sf::Vector2f thePosition)
 {
     // draw notation to the upper left corner
-    sf::Text notation(style.largeNotation[currentPlane], style.font, 0.5f * style.MARGINSIZE);
+    sf::Text notation(style->YNotation[currentPlane], style->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Yellow);
     notation.setStyle(sf::Text::Bold);
-    notation.setPosition(thePosition + sf::Vector2f(-0.4f * style.MARGINSIZE, -0.6f * style.MARGINSIZE));
+    notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));
     canvas->draw(notation);
 
     for (int j = 0; j != 5; ++j)
     {
-	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style.FIELDSIZE));
+	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
 	currentRow = j;
 	drawRowDecoration(position);
     }
@@ -89,9 +89,9 @@ void BoardPainter::drawPlaneDecoration(sf::Vector2f thePosition)
     notation.setStyle(sf::Text::Regular);
     for (int i = 0; i != 5; ++i)
     {
-	notation.setString(style.smallNotation[i]);
-	sf::Vector2f offset(thePosition.x + i * style.FIELDSIZE, thePosition.y);
-	notation.setPosition(offset + sf::Vector2f(0.4f * style.FIELDSIZE, 5.f * style.FIELDSIZE));
+	notation.setString(style->XNotation[i]);
+	sf::Vector2f offset(thePosition.x + i * style->FIELDSIZE, thePosition.y);
+	notation.setPosition(offset + sf::Vector2f(0.4f * style->FIELDSIZE, 5.f * style->FIELDSIZE));
 	canvas->draw(notation);
     }    
 }
@@ -99,9 +99,9 @@ void BoardPainter::drawPlaneDecoration(sf::Vector2f thePosition)
 void BoardPainter::drawRowDecoration(sf::Vector2f thePosition)
 {
     // draw notation beside the plane
-    sf::Text notation(style.digitNotation[4 - currentRow], style.font, 0.5f * style.MARGINSIZE);
+    sf::Text notation(style->ZNotation[4 - currentRow], style->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Red);
-    notation.setPosition(thePosition + sf::Vector2f(-0.5f * style.MARGINSIZE, 1.f * (style.FIELDSIZE - style.MARGINSIZE)));
+    notation.setPosition(thePosition + sf::Vector2f(-0.5f * style->MARGINSIZE, 1.f * (style->FIELDSIZE - style->MARGINSIZE)));
     canvas->draw(notation);
 }
 
@@ -110,7 +110,7 @@ void BoardPainter::buildPlane(sf::Vector2f thePosition)
     for (int j = 0; j != 5; ++j)
     {
 	currentRow = j;
-	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style.FIELDSIZE));
+	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
 	buildRow(position);
     }
 }
@@ -120,13 +120,13 @@ void BoardPainter::buildRow(sf::Vector2f thePosition)
     for (int k = 0; k != 5; ++k)
     {
 	currentColumn = k;
-	sf::Vector2f position(thePosition + sf::Vector2f(k * style.FIELDSIZE, 0.f));
+	sf::Vector2f position(thePosition + sf::Vector2f(k * style->FIELDSIZE, 0.f));
 	const Model::Field content {board->space[currentPlane][currentColumn][4 - currentRow]};
-	drawableFields.emplace_back(position, &style, board->space[currentPlane][currentColumn][4 - currentRow]);
+	drawableFields.emplace_back(position, style, board->space[currentPlane][currentColumn][4 - currentRow]);
     }
 }
 
-Model::Coord BoardPainter::getCoordByPosition(sf::Vector2f position)
+Model::Coord BoardPainter::getFieldCoordByPosition(sf::Vector2f position)
 {
     Model::Coord cursor {-1, -1, -1};
     for (auto field : drawableFields)
@@ -142,7 +142,7 @@ Model::Coord BoardPainter::getCoordByPosition(sf::Vector2f position)
 
 Model::Coord BoardPainter::setAndGetCursorByPosition(sf::Vector2f position)
 {
-    return cursor = getCoordByPosition(position);
+    return cursor = getFieldCoordByPosition(position);
 }
 
 

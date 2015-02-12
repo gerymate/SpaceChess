@@ -2,6 +2,8 @@
 #define COORD_H
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 namespace Model {
 //	A Coord stores information about a field in the board.
@@ -16,6 +18,8 @@ struct Coord
 	static const int WHITE = 1;
 	const int getColour() const;
 	bool operator==(const Coord &other) const;
+	std::string getNotation() const;
+	bool isOnTheBoard() const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Model::Coord& coord);
 	friend std::istream& operator>>(std::istream& is, Model::Coord& coord);
