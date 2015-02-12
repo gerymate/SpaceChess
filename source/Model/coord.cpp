@@ -19,6 +19,13 @@ bool Coord::operator==(const Coord& other) const
     return (y == other.y) && (x == other.x) && (z == other.z);
 }
 
+bool Coord::operator!=(const Coord& other) const
+{
+    return ! operator==(other);
+
+}
+
+
 std::string Coord::getNotation() const
 {
     std::string notation;

@@ -18,6 +18,7 @@ struct Coord
 	static const int WHITE = 1;
 	const int getColour() const;
 	bool operator==(const Coord &other) const;
+	bool operator!=(const Coord &other) const;
 	std::string getNotation() const;
 	bool isOnTheBoard() const;
 

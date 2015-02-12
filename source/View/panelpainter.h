@@ -8,6 +8,7 @@
 #include "Model/gamestate.h"
 #include "View/widget.h"
 #include "View/cursorinfo.h"
+#include "View/nextplayerinfo.h"
 
 namespace View {
 

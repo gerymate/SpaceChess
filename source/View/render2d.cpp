@@ -5,6 +5,7 @@ namespace View {
 Render2D::Render2D(sf::RenderWindow* theWindow) 
     : window(theWindow), boardPainter(theWindow, &style), panelPainter(theWindow, &style)
 {
+    window->setVerticalSyncEnabled(true);
 }
 
     

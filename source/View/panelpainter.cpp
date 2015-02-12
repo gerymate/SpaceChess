@@ -32,7 +32,12 @@ void PanelPainter::draw(sf::Vector2f thePosition)
 
 void PanelPainter::buildPanel(sf::Vector2f thePosition)
 {
-    std::shared_ptr<Widget> cursorInfoWidget (new CursorInfo (thePosition, style, *cursor) );
+    sf::Vector2f position = thePosition;
+    std::shared_ptr<Widget> nextPlayerInfoWidget (new NextPlayerInfo (position, style, gameState->nextPlayer));
+    panel.push_back(nextPlayerInfoWidget);
+    
+    position += sf::Vector2f(200, 0);
+    std::shared_ptr<Widget> cursorInfoWidget (new CursorInfo (position, style, *cursor) );
     panel.push_back(cursorInfoWidget);
 
 }

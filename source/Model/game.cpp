@@ -18,27 +18,40 @@ const GameState& Game::getGameState() const
 
 bool Game::touch(const Coord& place)
 {
-	if (state.phase == 0) {
-		if (state.board.at(place).owner != state.nextPlayer) {
-			return false;
-		}
+    bool validTouch = false;
+    if (! place.isOnTheBoard())
+    { 
+	// this is not a real touch :-)
+    } else if (state.phase == Phase::Selection) {
+	    if (state.board.at(place).owner == state.nextPlayer) 
+	    {
 		state.touched = place;
-		state.phase = 1;
-	} else if (state.phase == 1) {
-		move(state.touched, place);
-		if (state.nextPlayer == 1) ++(state.nextPlayer);
-		else if (state.nextPlayer == 2) --(state.nextPlayer);
+		state.phase = Phase::Move;
+		validTouch = true;
+	    }
+    } else if (state.phase == Phase::Move) {
+	    if (move(state.touched, place))
+	    {
+		if (state.nextPlayer == Player::Black) state.nextPlayer = Player::White;
+		else if (state.nextPlayer == Player::White) state.nextPlayer = Player::Black;
 		state.touched = place;
-		state.phase = 0;
-	}
-	return true;
+		state.phase = Phase::Selection;
+		validTouch = true;
+	    }
+    }
+    return validTouch;
 }
 
 bool Game::move(const Coord& from, const Coord& to)
 {
+    bool validMove = false;
+    if (from != to)
+    {
 	state.board.at(to).owner = state.board.at(from).owner;
 	state.board.at(to).figure = state.board.at(from).figure;
-	state.board.at(from).owner = 0;
-	state.board.at(from).figure = 0;	
-	return true;
+	state.board.at(from).owner = Player::Nobody;
+	state.board.at(from).figure = Figure::None;
+	validMove = true;
+    }
+    return validMove;
 }

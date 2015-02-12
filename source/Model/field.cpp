@@ -2,7 +2,7 @@
 
 namespace Model {
 
-Field::Field(int _owner, int _figure, Coord _place) 
+Field::Field(Player _owner, Figure _figure, Coord _place) 
 	: owner(_owner), figure(_figure), place(_place) 
 {
 }
@@ -35,19 +35,19 @@ std::istream& operator>>(std::istream& is, Field& field)
 	char owner, figure;
 	is >> owner >> figure;
 	switch (owner) {
-		case 'w' : field.owner = 1; break;
-		case 'b' : field.owner = 2; break;
-		default : field.owner = 0; break;
+	    case 'w' : field.owner = Player::White; break;
+	    case 'b' : field.owner = Player::Black; break;
+	    default : field.owner = Player::Nobody; break;
 	}
 	switch(figure) {
-		case 'K' : field.figure = 1; break;
-		case 'Q' : field.figure = 2; break;
-		case 'R' : field.figure = 3; break;
-		case 'B' : field.figure = 4; break;
-		case 'N' : field.figure = 5; break;
-		case 'U' : field.figure = 6; break;
-		case 'P' : field.figure = 7; break;
-		default: field.figure = 0;
+	    case 'K' : field.figure = Figure::King; break;
+	    case 'Q' : field.figure = Figure::Queen; break;
+	    case 'R' : field.figure = Figure::Rook; break;
+	    case 'B' : field.figure = Figure::Bishop; break;
+	    case 'N' : field.figure = Figure::Knight; break;
+	    case 'U' : field.figure = Figure::Unicorn; break;
+	    case 'P' : field.figure = Figure::Pawn; break;
+	    default: field.figure = Figure::None;
 	}
 	return is;
 }

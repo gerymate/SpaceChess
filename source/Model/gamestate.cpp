@@ -4,8 +4,8 @@ namespace Model {
     
 GameState::GameState() 
 	: board(Board())
-	, nextPlayer(1)
-	, phase(0)
+	, nextPlayer(Player::White)
+	, phase(Phase::Selection)
 	, touched(Coord())
 {
 }

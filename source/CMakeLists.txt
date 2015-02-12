@@ -29,7 +29,7 @@ add_executable(SpaceChess ${SOURCES})
 # Make sure the linker can find the Hello library once it is built.
 #link_directories (${SPACECHESS_BINARY_DIR}/Hello)
 
-target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessControllers)
+target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessControllers )
 
 add_subdirectory(Model)
 add_subdirectory(View)
