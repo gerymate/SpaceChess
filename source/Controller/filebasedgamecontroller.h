@@ -22,7 +22,7 @@ class FileBasedGameController : public GameController
 public:
     FileBasedGameController(sf::RenderWindow* theWindow);
     ~FileBasedGameController();
-    void dispatchEvents();
+    void dispatchEvents() override;
 };
 
 #endif // FILEBASEDGAMECONTROLLER_H

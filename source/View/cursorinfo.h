@@ -11,7 +11,7 @@ class CursorInfo : public Widget
     Model::Coord cursor;
 public:
     CursorInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Model::Coord theCursor);
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
 }

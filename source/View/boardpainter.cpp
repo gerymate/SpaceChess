@@ -19,7 +19,8 @@ void BoardPainter::draw(sf::Vector2f thePosition)
 {
     drawableFields.clear();
     
-    for (int i = 0; i != 5; ++i)
+    const int numberOfPlanes = 5;
+    for (int i = 0; i != numberOfPlanes; ++i)
     {
 	currentPlane = i;
 	float xOffset = style->MARGINSIZE + i * (style->MARGINSIZE + style->PLANESIZE);

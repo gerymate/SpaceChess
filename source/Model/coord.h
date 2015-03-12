@@ -11,6 +11,7 @@ namespace Model {
 struct Coord
 {
 	// x, y, z : Place in the board (0..4) There are 5 levels of 5x5 planes
+	// would prefer chess terminology, eg. level, file, rank, ...
 	int y, x, z;
 	Coord(int _y = 0, int _x = 0, int _z = 0);
 	// getColour() : Reports if the field is black (2) or white (1)

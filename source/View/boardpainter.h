@@ -27,6 +27,7 @@ public:
   BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet);
   void setGameState(const Model::GameState* theGameState);
   void draw(sf::Vector2f thePosition = sf::Vector2f(0, 0));
+
   Model::Coord getFieldCoordByPosition(sf::Vector2f position);
   Model::Coord setAndGetCursorByPosition(sf::Vector2f position);
 

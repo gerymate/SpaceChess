@@ -20,8 +20,8 @@ class LocalGameController : public GameController
     
 public:
     LocalGameController(sf::RenderWindow* theWindow);
-    ~LocalGameController();
-    virtual void dispatchEvents();
+    virtual ~LocalGameController();
+    void dispatchEvents() override;
 };
 
 #endif // LOCALGAMECONTROLLER_H
