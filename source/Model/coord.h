@@ -22,10 +22,11 @@ struct Coord
 	bool operator!=(const Coord &other) const;
 	std::string getNotation() const;
 	bool isOnTheBoard() const;
-
-	friend std::ostream& operator<<(std::ostream& os, const Model::Coord& coord);
-	friend std::istream& operator>>(std::istream& is, Model::Coord& coord);
 };
+
+std::ostream& operator<<(std::ostream& os, const Model::Coord& coord);
+std::istream& operator>>(std::istream& is, Model::Coord& coord);
+
 
 }
 #endif

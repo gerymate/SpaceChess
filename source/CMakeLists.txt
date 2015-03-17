@@ -4,6 +4,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (spacechess)
 
+enable_testing()
+
 # Enable C++11
 set (CMAKE_CXX_FLAGS    "-Wall -std=c++11")
 
@@ -19,7 +21,6 @@ set(SOURCES app.cpp main.cpp)
 set (INCLUDE_DIRECTORIES . Model View Controller)
 include_directories(${INCLUDE_DIRECTORIES})
 
-# Create an executable file called helloworld from sources:
 add_executable(SpaceChess ${SOURCES})
 
 # Example:
@@ -34,3 +35,5 @@ target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessCont
 add_subdirectory(Model)
 add_subdirectory(View)
 add_subdirectory(Controller)
+
+add_subdirectory(Tests)

@@ -17,14 +17,14 @@ std::ostream& operator<<(std::ostream& os, const Field& field)
 		default : owner = '.'; break;
 	}
 	switch(field.figure) {
-		case 1 : figure = 'K'; break;
-		case 2 : figure = 'Q'; break;
-		case 3 : figure = 'R'; break;
-		case 4 : figure = 'B'; break;
-		case 5 : figure = 'N'; break;
-		case 6 : figure = 'U'; break;
-		case 7 : figure = 'P'; break;
-		default: figure = (field.place.getColour() == Coord::WHITE) ? 'O' : '0';
+	    case Figure::King : figure = 'K'; break;
+	    case Figure::Queen : figure = 'Q'; break;
+	    case Figure::Rook : figure = 'R'; break;
+	    case Figure::Bishop : figure = 'B'; break;
+	    case Figure::Knight : figure = 'N'; break;
+	    case Figure::Unicorn : figure = 'U'; break;
+	    case Figure::Pawn : figure = 'P'; break;
+	    default: figure = (field.place.getColour() == Coord::WHITE) ? 'O' : '0';
 	}
 	os << owner << figure;
     return os;

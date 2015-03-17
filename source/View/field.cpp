@@ -43,7 +43,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
 	sf::RectangleShape figure(style->FieldSize);
 	figure.setPosition(topLeft);
-	figure.setTexture(style->getPieceFor(content.owner, content.figure));
+	figure.setTexture(style->getPieceFor(content.owner, static_cast<int>(content.figure)));
 	target.draw(figure, states);
     }
 }
