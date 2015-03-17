@@ -16,6 +16,7 @@ class Board
     std::map<Position, PointerToPiece > piecesOnBoard;
 public:
     bool addPiece(const Position& atField, PointerToPiece piece);
+    bool removePiece(const Position& atField);
     PointerToPiece getPiece(const Position& atField);
     FullBoard getFullBoard() const;
 };

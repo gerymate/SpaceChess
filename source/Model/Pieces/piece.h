@@ -14,6 +14,7 @@ public:
     const Player getPlayer() const { return player; };
     virtual const Figure getFigure() const = 0;
     const Position& getPosition() const { return position; };
+    void setPosition(const Position& thePosition) { position = thePosition; }
 protected:
     Player player { Player::Nobody };
     Position position;

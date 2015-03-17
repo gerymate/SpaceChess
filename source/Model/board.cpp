@@ -14,6 +14,18 @@ bool Board::addPiece(const Position& atField, PointerToPiece piece)
     return success;
 }
 
+bool Board::removePiece(const Position& atField)
+{
+    bool success = false;
+    auto pi = piecesOnBoard.find(atField);    
+    if (pi != end(piecesOnBoard))
+    {
+	piecesOnBoard.erase(pi);
+	success = true;
+    }
+    return success;    
+}
+
 PointerToPiece Board::getPiece(const Position& atField)
 {
     auto pi = piecesOnBoard.find(atField);

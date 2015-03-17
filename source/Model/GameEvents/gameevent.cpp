@@ -8,4 +8,6 @@ GameEvent::~GameEvent()
 
 }
 
+Board* GameEvent::board = nullptr;
+
 }

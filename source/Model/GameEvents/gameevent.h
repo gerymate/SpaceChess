@@ -8,19 +8,20 @@
 namespace Model
 {
 
-class History;
-    
 class GameEvent
 {
-    PointerToBoard board;
 public:
     virtual bool execute() = 0;
-    virtual void revert() = 0;
+    virtual bool revert() = 0;
     virtual std::string getNotation() = 0;
-    void setBoard(PointerToBoard theBoard) { board = theBoard; }
-    void setHistory(History& theHistory);
+    static void setBoard(Board& theBoard) { board = &theBoard; }
     virtual ~GameEvent();
+protected:
+    static Board* board;
+    bool executed {false};
 };
+
+using PointerToGameEvent = std::shared_ptr<GameEvent>;
 
 }
 #endif // GAMEEVENT_H
