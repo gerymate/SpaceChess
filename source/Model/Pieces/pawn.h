@@ -1,7 +1,7 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

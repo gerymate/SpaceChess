@@ -1,9 +1,9 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include "Model/player.h"
-#include "Model/figure.h"
-#include "Model/position.h"
+#include "player.h"
+#include "figure.h"
+#include "position.h"
 
 namespace Model {
 

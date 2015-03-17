@@ -1,7 +1,7 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

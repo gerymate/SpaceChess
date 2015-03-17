@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/rook.h"
+
+#include "rook.h"
 
 SCENARIO("A Rook is queryable", "[pieces]")
 {

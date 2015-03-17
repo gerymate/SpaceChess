@@ -1,7 +1,8 @@
 #include "catch.hpp"
-#include "Model/board.h"
-#include "Model/king.h"
-#include "Model/queen.h"
+
+#include "board.h"
+#include "king.h"
+#include "queen.h"
 
 SCENARIO("Pieces can be added and get from a Board", "[board]")
 {

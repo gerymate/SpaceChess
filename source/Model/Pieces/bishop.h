@@ -1,7 +1,7 @@
 #ifndef BISHOP_H
 #define BISHOP_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

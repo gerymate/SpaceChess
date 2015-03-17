@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/pawn.h"
+
+#include "pawn.h"
 
 SCENARIO("A Pawn is queryable", "[pieces]")
 {

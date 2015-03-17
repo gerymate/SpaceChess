@@ -1,7 +1,7 @@
 #ifndef UNICORN_H
 #define UNICORN_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

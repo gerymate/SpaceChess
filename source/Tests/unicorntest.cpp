@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/unicorn.h"
+
+#include "unicorn.h"
 
 SCENARIO("An Unicorn is queryable", "[pieces]")
 {

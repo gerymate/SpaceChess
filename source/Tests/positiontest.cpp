@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/position.h"
+
+#include "position.h"
 
 SCENARIO("Positions are comparable", "[position]")
 {

@@ -1,7 +1,7 @@
 #ifndef KING_H
 #define KING_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

@@ -1,7 +1,7 @@
 #ifndef ROOK_H
 #define ROOK_H
 
-#include "Model/piece.h"
+#include "piece.h"
 
 namespace Model
 {

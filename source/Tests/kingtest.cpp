@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/king.h"
+
+#include "king.h"
 
 SCENARIO("A King is queryable", "[pieces]")
 {

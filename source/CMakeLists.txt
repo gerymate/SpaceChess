@@ -18,7 +18,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
 
 set(SOURCES app.cpp main.cpp)
 
-set (INCLUDE_DIRECTORIES . Model View Controller)
+set (INCLUDE_DIRECTORIES . 
+    Model Model/Pieces Model/GameEvents 
+    View 
+    Controller
+    Tests)
 include_directories(${INCLUDE_DIRECTORIES})
 
 add_executable(SpaceChess ${SOURCES})

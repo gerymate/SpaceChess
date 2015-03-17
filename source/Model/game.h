@@ -3,7 +3,6 @@
 
 #include "gamestate.h"
 #include "coord.h"
-#include "king.h"
 
 namespace Model {
 //	A Game is a full abstraction of a single SpaceChess game

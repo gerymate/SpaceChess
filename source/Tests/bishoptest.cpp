@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include "Model/bishop.h"
+
+#include "bishop.h"
 
 SCENARIO("A Bishop is queryable", "[pieces]")
 {

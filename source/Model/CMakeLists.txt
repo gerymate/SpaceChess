@@ -2,16 +2,13 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create a variable called helloworld_SOURCES containing all .cpp files:
-set(SOURCES position.cpp piece.cpp board.cpp
-	    king.cpp queen.cpp rook.cpp bishop.cpp knight.cpp unicorn.cpp pawn.cpp
-	    coord.cpp field.cpp fullboard.cpp gamestate.cpp game.cpp)
+set(SOURCES position.cpp board.cpp
+	    coord.cpp field.cpp fullboard.cpp gamestate.cpp game.cpp
+    )
 	    
 # For a large number of source files you can create it in a simpler way
 # using file() function:
 # file(GLOB hellworld_SOURCES *.cpp)
-
-# Create an executable file called helloworld from sources:
-add_library(SpaceChessModel ${SOURCES})
 
 # Example:
 # include_directories (${SPACECHESS_SOURCE_DIR}/lib/glfw/include)
@@ -22,3 +19,10 @@ add_library(SpaceChessModel ${SOURCES})
 # Example:
 # Link the executable to the glfw library.
 # target_link_libraries(095_GLMandel glfw ${GLFW_LIBRARIES})
+
+add_library(SpaceChessModel ${SOURCES})
+target_link_libraries(SpaceChessModel SpaceChessPieces SpaceChessGameEvents)
+
+add_subdirectory(Pieces)
+add_subdirectory(GameEvents)
+
