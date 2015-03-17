@@ -3,7 +3,7 @@
 namespace Model {
     
 GameState::GameState() 
-	: board(Board())
+	: board(FullBoard())
 	, nextPlayer(Player::White)
 	, phase(Phase::Selection)
 	, touched(Coord())

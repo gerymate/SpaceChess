@@ -5,7 +5,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Model/gamestate.h"
-#include "Model/board.h"
+#include "Model/fullboard.h"
 #include "View/stylesheet.h"
 #include "View/field.h"
 
@@ -15,7 +15,7 @@ class BoardPainter
 {
   sf::RenderTarget* canvas;
   StyleSheet* style;
-  const Model::Board* board;
+  const Model::FullBoard* board;
   const Model::GameState* gameState;
   int currentPlane;
   int currentRow;

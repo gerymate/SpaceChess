@@ -1,5 +1,6 @@
 set(TEST_SOURCES tests.cpp 
     kingtest.cpp queentest.cpp rooktest.cpp bishoptest.cpp knighttest.cpp unicorntest.cpp pawntest.cpp
+    positiontest.cpp boardtest.cpp
     )
 
 add_executable(Tests ${TEST_SOURCES})

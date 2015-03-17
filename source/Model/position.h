@@ -11,6 +11,7 @@ public:
     const int getLevel() const { return level; }
     const int getFile() const { return file; }
     const int getRank() const { return rank; }
+    friend bool operator< (const Position& lhs, const Position& rhs);
 };
 
 }

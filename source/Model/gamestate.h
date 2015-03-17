@@ -2,7 +2,7 @@
 #define GAMESTATE_H
 
 #include<vector>
-#include "board.h"
+#include "fullboard.h"
 #include "field.h"
 #include "coord.h"
 #include "player.h"
@@ -12,7 +12,7 @@ namespace Model {
     
 struct GameState
 {
-	Board board;
+	FullBoard board;
 	Player nextPlayer;
 	Phase phase;
 	Coord touched; 

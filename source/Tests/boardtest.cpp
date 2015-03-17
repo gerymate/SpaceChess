@@ -1,0 +1,35 @@
+#include "catch.hpp"
+#include "Model/board.h"
+#include "Model/king.h"
+#include "Model/queen.h"
+
+SCENARIO("Pieces can be added and get from a Board", "[board]")
+{
+    using namespace Model;
+    GIVEN("An empty board")
+    {
+	Board board;
+	Position pos {3, 3, 3};
+	REQUIRE ( board.getPiece(pos) == nullptr );
+	
+	WHEN("A piece is added to the board")
+	{
+	    PointerToPiece aKing {new King};
+	    REQUIRE ( board.addPiece(pos, aKing) == true );
+	    
+	    THEN("you can't add another piece to the same place")
+	    {
+		PointerToPiece aQueen {new Queen};
+		REQUIRE ( board.addPiece(pos, aQueen) == false );
+	    }
+	    
+	    THEN("you get your piece back by querying that place")
+	    {
+		REQUIRE ( board.getPiece(pos) == aKing );
+	    }
+	}
+    }
+    
+}
+
+
