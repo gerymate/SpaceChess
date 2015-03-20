@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "board.h"
+#include "history.h"
 
 namespace Model
 {
@@ -14,11 +15,12 @@ public:
     virtual bool execute() = 0;
     virtual bool revert() = 0;
     virtual std::string getNotation() = 0;
-    static void setBoard(Board& theBoard) { board = &theBoard; }
+    static void setBoard(Board* theBoard) { board = theBoard; }
+    static void setHistory(History* theHistory);
     virtual ~GameEvent();
 protected:
     static Board* board;
-    bool executed {false};
+    static History* history;
 };
 
 using PointerToGameEvent = std::shared_ptr<GameEvent>;

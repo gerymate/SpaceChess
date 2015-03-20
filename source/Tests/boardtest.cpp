@@ -28,6 +28,21 @@ SCENARIO("Pieces can be added and get from a Board", "[board]")
 	    {
 		REQUIRE ( board.getPiece(pos) == aKing );
 	    }
+
+	    THEN("that place is occupied")
+	    {
+		REQUIRE ( board.isOccupied(pos) );
+	    }
+	    
+	    WHEN("you remove that piece")
+	    {
+		REQUIRE( board.removePiece(pos) == true );
+		
+		THEN("the piece is removed")
+		{
+		    REQUIRE ( board.isOccupied(pos) == false );    
+		}
+	    }
 	}
     }
     

@@ -18,6 +18,7 @@ public:
     bool addPiece(const Position& atField, PointerToPiece piece);
     bool removePiece(const Position& atField);
     PointerToPiece getPiece(const Position& atField);
+    bool isOccupied(const Position& atField);
     FullBoard getFullBoard() const;
 };
 

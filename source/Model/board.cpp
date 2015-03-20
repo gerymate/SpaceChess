@@ -37,6 +37,12 @@ PointerToPiece Board::getPiece(const Position& atField)
     return piece;
 }
 
+bool Board::isOccupied(const Position& atField)
+{
+    return !(nullptr == getPiece(atField));
+}
+
+
     
     
     

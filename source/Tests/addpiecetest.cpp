@@ -14,7 +14,7 @@ SCENARIO("An AddPiece GameEvent adds and removes pieces from and to a board", "[
 	Position pos {3, 3, 3};
 	PointerToPiece aKing {new King};
 	PointerToGameEvent aGameEvent {new AddPiece {pos, aKing} };
-	aGameEvent->setBoard(board);
+	aGameEvent->setBoard(&board);
 	
 	REQUIRE ( board.getPiece(pos) == nullptr );
 	
