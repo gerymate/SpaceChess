@@ -11,6 +11,9 @@ namespace Model
     using PointerToPiece = std::shared_ptr<Piece>;
     class Board;
     using PointerToBoard = std::shared_ptr<Board>;
+    
+    class Position;
+    struct Coord;
 }
 
 

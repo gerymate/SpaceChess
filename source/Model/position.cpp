@@ -10,6 +10,13 @@ Position::Position(int theLevel, int theFile, int theRank) :
 
 }
 
+Position::Position(const Coord& coord) :
+	level{coord.y}, file{coord.x}, rank{coord.z}
+{
+
+}
+
+
 bool Position::isValid() const
 {
     return 1 <= level && level <= 5

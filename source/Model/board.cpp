@@ -43,6 +43,24 @@ bool Board::isOccupied(const Position& atField)
     return !(nullptr == getPiece(atField));
 }
 
+FullBoard Board::getFullBoard()
+{
+    FullBoard fb;
+    for(int y = 0; y != 5; ++y) 
+    {
+	for(int x = 0; x != 5; ++x) 
+	{
+	    for(int z = 0; z != 5; ++z) 
+	    {
+		if(auto piece = getPiece({y, x, z}))
+		{
+		    fb.space.at(y).at(x).at(z) = Field(piece->getPlayer(), piece->getFigure(), Coord(y, x, z));
+		}
+	    }
+	}
+    }
+    return fb;
+}
 
     
     

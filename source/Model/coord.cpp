@@ -2,12 +2,18 @@
 
 #include <string>
 #include <sstream>
+#include "position.h"
 
 namespace Model {
     
 Coord::Coord(int _y, int _x, int _z) : y(_y), x(_x), z(_z) 
 {
 }
+
+Coord::Coord(const Position& pos) : y{pos.getLevel()}, x{pos.getFile()}, z{pos.getRank()}
+{
+}
+
 
 const int Coord::getColour() const 
 {

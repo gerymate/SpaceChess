@@ -18,7 +18,7 @@ public:
     bool removePiece(const Position& atField);
     PointerToPiece getPiece(const Position& atField);
     bool isOccupied(const Position& atField);
-    FullBoard getFullBoard() const;
+    FullBoard getFullBoard();
 };
 
 }

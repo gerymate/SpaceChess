@@ -2,6 +2,7 @@
 #define POSITION_H
 
 #include <iostream>
+#include "coord.h"
 
 namespace Model {
 
@@ -10,6 +11,7 @@ class Position
     int level, file, rank;
 public:
     Position(int theLevel = 0, int theFile = 0, int theRank = 0);
+    Position(const Coord& coord);
     const int getLevel() const { return level; }
     const int getFile() const { return file; }
     const int getRank() const { return rank; }

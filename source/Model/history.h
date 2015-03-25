@@ -7,7 +7,6 @@
 #include "board.h"
 #include "common.h"
 
-
 namespace Model
 {
 

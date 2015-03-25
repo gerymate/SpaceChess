@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "common.h"
 
 namespace Model {
 //	A Coord stores information about a field in the board.
@@ -14,6 +15,7 @@ struct Coord
 	// would prefer chess terminology, eg. level, file, rank, ...
 	int y, x, z;
 	Coord(int _y = 0, int _x = 0, int _z = 0);
+	Coord(const Position& pos);
 	// getColour() : Reports if the field is black (2) or white (1)
 	static const int BLACK = 2;
 	static const int WHITE = 1;
