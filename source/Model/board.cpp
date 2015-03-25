@@ -9,6 +9,7 @@ bool Board::addPiece(const Position& atField, PointerToPiece piece)
     if (piecesOnBoard.find(atField) == end(piecesOnBoard))
     {
 	piecesOnBoard[atField] = piece;
+	piece->setPosition(atField);
 	success = true;
     }
     return success;

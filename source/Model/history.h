@@ -5,24 +5,23 @@
 #include <memory>
 #include "player.h"
 #include "board.h"
+#include "common.h"
+
 
 namespace Model
 {
-    
-class GameEvent;
-using PointerToGameEvent = std::shared_ptr<GameEvent>;
 
 class History
 {
     Board* board;
     std::vector<PointerToGameEvent> eventLog;
-    std::vector<PointerToGameEvent>::iterator current;
+    size_t indexOfNextEvent {0};
     Player nextPlayer { Player::Nobody };
 public:
     History(Board* theBoard);
     void addEvent(PointerToGameEvent& event) { eventLog.push_back(event); }
-    PointerToGameEvent getCurrentEvent() const { return *(current - 1); }
-    void reset() { current = eventLog.begin() + 1; }
+    PointerToGameEvent getCurrentEvent() const { return eventLog.at(indexOfNextEvent - 1); }
+    void reset() { indexOfNextEvent = 1; }
     bool actualize();
     void clearFuture();
     bool stepForward();

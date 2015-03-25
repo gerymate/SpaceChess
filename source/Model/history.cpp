@@ -8,19 +8,18 @@ namespace Model
 History::History(Board* theBoard) : board(theBoard)
 {
     eventLog.emplace_back(PointerToGameEvent {new Creation(board, this)});
-    current = eventLog.begin();
     actualize();
 }
 
 void History::clearFuture()
 {
-    eventLog.erase(current, eventLog.end());
+    eventLog.resize(indexOfNextEvent);
 }
 
 bool History::actualize()
 {
-    bool success = (current != eventLog.end());
-    while (current != eventLog.end())
+    bool success = (indexOfNextEvent != eventLog.size());
+    while (indexOfNextEvent != eventLog.size())
     {
 	success &= stepForward();
     }
@@ -30,10 +29,10 @@ bool History::actualize()
 bool History::stepForward()
 {
     bool success = false;
-    if (current != eventLog.end())
+    if (indexOfNextEvent != eventLog.size())
     {
-	success = (*current)->execute();
-	++current;
+	success = eventLog.at(indexOfNextEvent)->execute();
+	++indexOfNextEvent;
     }
     return success;
 }
@@ -41,10 +40,10 @@ bool History::stepForward()
 bool History::stepBack()
 {
     bool success = false;
-    if (current - 1 != eventLog.begin())
+    if (indexOfNextEvent - 1 != 0)
     {
-	--current;
-	success = (*current)->revert();
+	--indexOfNextEvent;
+	success = eventLog.at(indexOfNextEvent)->revert();
     }
     return success;
 }

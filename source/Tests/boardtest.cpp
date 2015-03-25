@@ -28,6 +28,11 @@ SCENARIO("Pieces can be added and get from a Board", "[board]")
 	    {
 		REQUIRE ( board.getPiece(pos) == aKing );
 	    }
+	    
+	    THEN("that piece knows where it is")
+	    {
+		REQUIRE( board.getPiece(pos)->getPosition() == pos );		
+	    }
 
 	    THEN("that place is occupied")
 	    {

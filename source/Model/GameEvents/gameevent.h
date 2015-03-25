@@ -23,7 +23,5 @@ protected:
     static History* history;
 };
 
-using PointerToGameEvent = std::shared_ptr<GameEvent>;
-
 }
 #endif // GAMEEVENT_H

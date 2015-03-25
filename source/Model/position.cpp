@@ -1,4 +1,5 @@
 #include "position.h"
+#include <string>
 
 namespace Model 
 {
@@ -8,6 +9,14 @@ Position::Position(int theLevel, int theFile, int theRank) :
 {
 
 }
+
+bool Position::isValid() const
+{
+    return 1 <= level && level <= 5
+	&& 1 <= file && file <= 5
+	&& 1 <= rank && rank <= 5;
+}
+
 
 bool operator< (const Position& lhs, const Position& rhs)
 {
@@ -20,6 +29,25 @@ bool operator< (const Position& lhs, const Position& rhs)
     if (lhs.rank < rhs.rank) return true;
     return false;
 }
+
+std::ostream& operator<<(std::ostream& outputStream, const Model::Position& position)
+{
+    if (position.isValid())
+    {
+	const std::string levelNotation {"ABCDE"};
+	const std::string fileNotation {"abcde"};
+	const std::string rankNotation {"12345"};
+	
+	outputStream 
+	    << levelNotation.at(position.getLevel()-1) 
+	    << fileNotation.at(position.getFile()-1) 
+	    << rankNotation.at(position.getRank()-1);
+    } else {
+	outputStream << "???";
+    }
+    return outputStream;
+}
+
 
 
 
