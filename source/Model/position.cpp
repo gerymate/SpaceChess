@@ -11,7 +11,7 @@ Position::Position(int theLevel, int theFile, int theRank) :
 }
 
 Position::Position(const Coord& coord) :
-	level{coord.y}, file{coord.x}, rank{coord.z}
+	level{coord.y + 1}, file{coord.x + 1}, rank{coord.z + 1}
 {
 
 }
@@ -53,6 +53,27 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::Position& posi
 	outputStream << "???";
     }
     return outputStream;
+}
+
+Position::Position(const std::string& positionDesc)
+{
+    try {
+	const std::string levelNotation {"ABCDE"};
+	const std::string fileNotation {"abcde"};
+	const std::string rankNotation {"12345"};
+	
+	level = 1 + levelNotation.find(positionDesc.at(0));
+	file = 1 + fileNotation.find(positionDesc.at(1));
+	rank = 1 + rankNotation.find(positionDesc.at(2));
+
+	if( ! this->isValid() ) 
+	{
+	    throw std::exception{};
+	}
+	
+    } catch(std::exception& e) {
+	throw std::invalid_argument("Bad position data, cannot create position");
+    }
 }
 
 

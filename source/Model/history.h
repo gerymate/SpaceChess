@@ -26,6 +26,10 @@ public:
     bool stepForward();
     bool stepBack();
     Player getNextPlayer() const { return nextPlayer; }
+    
+    friend std::ostream& operator<<(std::ostream& outputStream, const Model::History& history);
+    friend std::istream& operator>>(std::istream& inputStream, Model::History& history);
+
 };
 
 }

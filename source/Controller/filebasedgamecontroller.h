@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
-#include "Model/game.h"
+#include "Model/gamev1.h"
 #include "Model/gamestate.h"
 #include "View/render2d.h"
 #include "Controller/gamecontroller.h"
@@ -12,7 +12,7 @@
 class FileBasedGameController : public GameController
 {
     sf::RenderWindow* window;
-    Model::Game game;
+    Model::GameV1 game;
     View::Render2D boardPainter;
     std::ifstream fileOfMoves;
 

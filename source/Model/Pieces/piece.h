@@ -4,12 +4,14 @@
 #include "player.h"
 #include "figure.h"
 #include "position.h"
+#include <string>
 
 namespace Model {
 
 class Piece
 {
 public:
+    static PointerToPiece generatePiece(std::string);
     virtual ~Piece();
     const Player getPlayer() const { return player; };
     virtual const Figure getFigure() const = 0;
@@ -19,6 +21,7 @@ protected:
     Player player { Player::Nobody };
     Position position;
 };
+
 
 }
 #endif // PIECE_H

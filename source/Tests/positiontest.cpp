@@ -36,6 +36,28 @@ SCENARIO("Positions are comparable", "[position]")
 	REQUIRE( p1 < p2 );
 	REQUIRE( ! (p2 < p1) );
     }
+}
+
+SCENARIO("Positions are generated from notation")
+{
+    using namespace Model;
+
+    Position p1 {"Aa1"};
+    
+    REQUIRE( p1.isValid() );
+    REQUIRE( p1.getLevel() == 1 );
+    REQUIRE( p1.getFile() == 1 );
+    REQUIRE( p1.getRank() == 1 );
+
+    Position p2 {"Ee5"};
+    
+    REQUIRE( p2.isValid() );
+    REQUIRE( p2.getLevel() == 5 );
+    REQUIRE( p2.getFile() == 5 );
+    REQUIRE( p2.getRank() == 5 );
+
+    REQUIRE_THROWS( Position p3 {"#"} );
+    REQUIRE_THROWS( Position p4 {"Eh3"} );
 
     
 }

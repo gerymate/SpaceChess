@@ -2,8 +2,8 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create a variable called helloworld_SOURCES containing all .cpp files:
-set(SOURCES position.cpp figure.cpp board.cpp history.cpp
-	    coord.cpp field.cpp fullboard.cpp gamestate.cpp game.cpp
+set(SOURCES position.cpp figure.cpp board.cpp history.cpp game.cpp
+	    coord.cpp field.cpp fullboard.cpp gamestate.cpp gamev1.cpp
     )
 	    
 # For a large number of source files you can create it in a simpler way

@@ -2,7 +2,9 @@
 #define POSITION_H
 
 #include <iostream>
+#include <string>
 #include "coord.h"
+#include "common.h"
 
 namespace Model {
 
@@ -12,6 +14,7 @@ class Position
 public:
     Position(int theLevel = 0, int theFile = 0, int theRank = 0);
     Position(const Coord& coord);
+    Position(const std::string& positionDesc); 
     const int getLevel() const { return level; }
     const int getFile() const { return file; }
     const int getRank() const { return rank; }

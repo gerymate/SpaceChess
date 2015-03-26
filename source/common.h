@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include <memory>
+#include <stdexcept>
 
 namespace Model
 {

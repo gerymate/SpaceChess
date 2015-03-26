@@ -48,5 +48,22 @@ bool History::stepBack()
     return success;
 }
 
+std::ostream& operator<<(std::ostream& outputStream, const Model::History& history)
+{
+    outputStream << history.board;
+    return outputStream;
+    
+}
+
+
+std::istream& operator>>(std::istream& inputStream, Model::History& history)
+{
+    inputStream >> *(history.board);
+    return inputStream;
+    
+    
+}
+
+
 
 }

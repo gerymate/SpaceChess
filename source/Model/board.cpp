@@ -1,7 +1,15 @@
 #include "board.h"
+#include <sstream>
 
 namespace Model
 {
+
+Board::Board(std::string boardDesc)
+{
+    std::stringstream stringStream;
+    stringStream << boardDesc;
+    stringStream >> (*this);
+}
 
 bool Board::addPiece(const Position& atField, PointerToPiece piece)
 {
@@ -52,7 +60,7 @@ FullBoard Board::getFullBoard()
 	{
 	    for(int z = 0; z != 5; ++z) 
 	    {
-		if(auto piece = getPiece({y, x, z}))
+		if(auto piece = getPiece({y + 1, x + 1, z + 1}))
 		{
 		    fb.space.at(y).at(x).at(z) = Field(piece->getPlayer(), piece->getFigure(), Coord(y, x, z));
 		}
@@ -62,7 +70,29 @@ FullBoard Board::getFullBoard()
     return fb;
 }
 
+std::ostream& operator<<(std::ostream& outputStream, const Model::Board& board)
+{
+    for (auto piece : board.piecesOnBoard)
+    {
+	outputStream << piece.second << piece.first << " ";
+    }
     
+    return outputStream;
     
+}
+
+
+std::istream& operator>>(std::istream& inputStream, Model::Board& board)
+{
+    std::string temp;
+    while (inputStream >> temp)
+    {
+	PointerToPiece piece = Piece::generatePiece(temp);
+	board.addPiece(piece->getPosition(), piece); 	// error checking?
+    }
     
+    return inputStream;
+    
+}
+
 }

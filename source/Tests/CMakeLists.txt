@@ -1,4 +1,5 @@
 set(TEST_SOURCES tests.cpp 
+    piecetest.cpp
     kingtest.cpp queentest.cpp rooktest.cpp bishoptest.cpp knighttest.cpp unicorntest.cpp pawntest.cpp
     addpiecetest.cpp movetest.cpp
     positiontest.cpp boardtest.cpp historytest.cpp

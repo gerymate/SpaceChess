@@ -10,7 +10,7 @@ Coord::Coord(int _y, int _x, int _z) : y(_y), x(_x), z(_z)
 {
 }
 
-Coord::Coord(const Position& pos) : y{pos.getLevel()}, x{pos.getFile()}, z{pos.getRank()}
+Coord::Coord(const Position& pos) : y{pos.getLevel() - 1}, x{pos.getFile() - 1}, z{pos.getRank() - 1}
 {
 }
 

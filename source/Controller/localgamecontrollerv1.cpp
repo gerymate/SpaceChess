@@ -1,26 +1,28 @@
-#include "localgamecontroller.h"
+#include "localgamecontrollerv1.h"
 #include <iostream>
 
 using namespace std;
 
-LocalGameController::LocalGameController(sf::RenderWindow* theWindow) : window{theWindow}, renderer{theWindow}
+LocalGameControllerV1::LocalGameControllerV1(sf::RenderWindow* theWindow) : window{theWindow}, renderer{theWindow}
 {
+    // init the model
+    game.setGameState(loadBoardFromFile());
     initLocalGame();
 }
 
-void LocalGameController::initLocalGame()
+void LocalGameControllerV1::initLocalGame()
 {
     Model::GameState currentState = game.getGameState();
     renderer.update(currentState);
 }
 
 
-LocalGameController::~LocalGameController()
+LocalGameControllerV1::~LocalGameControllerV1()
 {
 
 }
 
-void LocalGameController::dispatchEvents()
+void LocalGameControllerV1::dispatchEvents()
 {
     sf::Event event;
     while (window->isOpen())
@@ -47,14 +49,14 @@ void LocalGameController::dispatchEvents()
     }
 }
 
-void LocalGameController::setCursor(sf::Event event)
+void LocalGameControllerV1::setCursor(sf::Event event)
 {
     sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);    
     cursor = renderer.setAndGetCoordByPosition(position);
 }
 
 
-bool LocalGameController::update(sf::Event event)
+bool LocalGameControllerV1::update(sf::Event event)
 {
 /*
     Model::GameState state;
