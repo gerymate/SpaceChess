@@ -2,6 +2,8 @@
 #define COMMON_H
 
 #include <memory>
+#include <set>
+#include <list>
 #include <stdexcept>
 
 namespace Model
@@ -14,6 +16,7 @@ namespace Model
     using PointerToBoard = std::shared_ptr<Board>;
     
     class Position;
+    using PositionList = std::list<Position>;
     struct Coord;
 }
 

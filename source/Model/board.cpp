@@ -87,7 +87,7 @@ std::istream& operator>>(std::istream& inputStream, Model::Board& board)
     std::string temp;
     while (inputStream >> temp)
     {
-	PointerToPiece piece = Piece::generatePiece(temp);
+	PointerToPiece piece = Piece::generatePiece(temp, &board);
 	board.addPiece(piece->getPosition(), piece); 	// error checking?
     }
     

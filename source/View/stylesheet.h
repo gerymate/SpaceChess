@@ -11,9 +11,9 @@ struct StyleSheet
 {
     std::vector<std::vector<sf::Texture> > pieces;
     sf::Font font;
-    const std::string XNotation {"abcde"};
-    const std::string YNotation {"ABCDE"};
-    const std::string ZNotation {"12345"};
+	const std::string XNotation = std::string{ "abcde" };
+	const std::string YNotation = std::string{ "ABCDE" };
+	const std::string ZNotation = std::string{ "12345" };
   
     // our layout constants are in pixels for now
     const float MARGINSIZE = 30.f;

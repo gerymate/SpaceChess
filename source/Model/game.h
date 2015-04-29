@@ -27,7 +27,7 @@ public:
 //	void setGameState(const GameState& gs);
 	GameState getGameState();
 	bool touch(const Coord& place); // DEPRECATED
-	std::list<Position> getPossibleMovesFrom(Position& from);
+	PositionList getPossibleMovesFrom(Position& from);
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
 };

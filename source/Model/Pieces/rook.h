@@ -11,6 +11,7 @@ class Rook : public Piece
     const Figure figure { Figure::Rook };
 public:
     const Figure getFigure() const override { return figure; }
+    PositionList getPossibleMoves();
 };
 
 }

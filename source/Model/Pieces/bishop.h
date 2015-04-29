@@ -11,6 +11,7 @@ class Bishop : public Piece
     const Figure figure { Figure::Bishop };
 public:
     const Figure getFigure() const override { return figure; }
+    PositionList getPossibleMoves();
 };
 
 }

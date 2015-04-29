@@ -13,6 +13,9 @@ set (CMAKE_CXX_FLAGS    "-Wall -std=c++11")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
 
+set(SFML_ROOT ${PROJECT_BINARY_DIR}/../SFML-2.2)
+find_package(SFML COMPONENTS graphics window system REQUIRED)
+
 # Include the directory itself as a path to include directories
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -22,10 +25,13 @@ set (INCLUDE_DIRECTORIES .
     Model Model/Pieces Model/GameEvents 
     View 
     Controller
-    Tests)
+    Tests
+	${SFML_INCLUCE_DIR}
+	)
 include_directories(${INCLUDE_DIRECTORIES})
 
 add_executable(SpaceChess ${SOURCES})
+target_link_libraries(SpaceChess ${SFML_LIBRARIES})
 
 # Example:
 # include_directories (${SPACECHESS_SOURCE_DIR}/lib/glfw/include)

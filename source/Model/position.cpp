@@ -1,5 +1,6 @@
 #include "position.h"
 #include <string>
+#include <sstream>
 
 namespace Model 
 {
@@ -53,6 +54,13 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::Position& posi
 	outputStream << "???";
     }
     return outputStream;
+}
+
+std::string Position::getNotation()
+{
+    std::stringstream notation;
+    notation << *this;
+    return notation.str();
 }
 
 Position::Position(const std::string& positionDesc)
