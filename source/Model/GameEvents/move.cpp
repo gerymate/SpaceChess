@@ -53,7 +53,7 @@ std::string Move::getNotation()
 	<< destination;
     if (pieceAfterPromotion)
     {
-	notation << "=" << pieceAfterPromotion->getFigure();
+//	notation << "=" << pieceAfterPromotion->getFigure();
     }
   return notation.str();
 }

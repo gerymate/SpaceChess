@@ -26,7 +26,7 @@ endif ()
 # Include the directory itself as a path to include directories
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(SOURCES app.cpp main.cpp)
+set(SOURCES app.cpp main.cpp event.cpp)
 
 set (INCLUDE_DIRECTORIES . 
     Model Model/Pieces Model/GameEvents 
@@ -53,7 +53,7 @@ endif ()
 # Make sure the linker can find the Hello library once it is built.
 #link_directories (${SPACECHESS_BINARY_DIR}/Hello)
 
-target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessControllers )
+target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessController SpaceChessGameEvents SpaceChessPieces )
 
 add_subdirectory(Model)
 add_subdirectory(View)

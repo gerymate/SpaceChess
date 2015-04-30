@@ -6,7 +6,8 @@
 #include "Model/game.h"
 #include "Model/gamestate.h"
 #include "View/render2d.h"
-#include "Controller/event.h"
+#include "event.h"
+#include "Controller/playercontroller.h"
 
 namespace Controller
 {
@@ -17,6 +18,7 @@ class GameController
     Model::Game game;
     EventQueue eventQueue;
     View::Render2D renderer;
+    PlayerController playerController;
 
     Model::Coord cursor {-1, -1, -1};
 

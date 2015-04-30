@@ -5,6 +5,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "common.h"
+#include "event.h"
 #include "Model/game.h"
 #include "Model/gamestate.h"
 #include "Model/fullboard.h"
@@ -18,7 +19,7 @@ class BoardPainter
   sf::RenderTarget* canvas;
   StyleSheet* style;
   Model::Game* game;
-  Controller::EventQueue* eventQueue;
+  EventQueue* eventQueue;
   const Model::FullBoard* board;
   const Model::GameState* gameState;
   int currentPlane;
@@ -27,15 +28,18 @@ class BoardPainter
   std::vector<Field> drawableFields;
   Model::Coord cursor {-1, -1, -1};
   sf::Vector2f topLeft {0, 0};
+  Model::Position selectedField {Model::Position::Invalid};
 
 public:
   BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
-	       Model::Game* theGame, Controller::EventQueue* theEventQueue);
+	       Model::Game* theGame, EventQueue* theEventQueue);
   void setGameState(const Model::GameState* theGameState);
   void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
   void draw();
   sf::FloatRect getRect() const;
   void handleClick(sf::Vector2f &mousePosition);
+  void setSelectedField(Model::Position theSelectedField) { selectedField = theSelectedField; }
+  void clearSelectedField() { selectedField = Model::Position::Invalid; }
 
 
   Model::Coord getFieldCoordByPosition(sf::Vector2f position);

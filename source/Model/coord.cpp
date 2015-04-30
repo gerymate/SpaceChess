@@ -14,6 +14,7 @@ Coord::Coord(const Position& pos) : y{pos.getLevel() - 1}, x{pos.getFile() - 1},
 {
 }
 
+const Coord Coord::Invalid = Coord {-1, -1, -1};
 
 const int Coord::getColour() const 
 {

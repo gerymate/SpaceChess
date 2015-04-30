@@ -21,11 +21,9 @@ namespace Model
     struct Coord;
 }
 
-namespace Controller
-{
-    class Event;
-    using EventQueue = std::queue<std::shared_ptr<Event>>;
-}
+class Event;
+using PointerToEvent = std::shared_ptr<Event>;
+using EventQueue = std::queue<PointerToEvent>;
 
 
 #endif // COMMON_H

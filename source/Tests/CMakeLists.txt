@@ -9,4 +9,4 @@ add_executable(Tests ${TEST_SOURCES})
 
 add_test(All_tests Tests)
 
-target_link_libraries(Tests SpaceChessModel SpaceChessView2D SpaceChessControllers )
+target_link_libraries(Tests SpaceChessModel SpaceChessView2D SpaceChessController )

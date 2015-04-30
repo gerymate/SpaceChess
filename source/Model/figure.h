@@ -12,6 +12,7 @@ enum class Figure
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Figure figure);
 
+
 }
 
 #endif

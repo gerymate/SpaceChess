@@ -4,7 +4,8 @@
 
 namespace View {
 
-BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, Model::Game* theGame, Controller::EventQueue* theEventQueue)
+BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
+			   Model::Game* theGame, EventQueue* theEventQueue)
     : canvas(theCanvas), style(theStyleSheet), game(theGame), eventQueue(theEventQueue)
 {
 
@@ -18,8 +19,15 @@ void BoardPainter::setGameState(const Model::GameState* theGameState)
 
 void BoardPainter::handleClick(sf::Vector2f& mousePosition)
 {
-    // generate event for controller
-
+    setAndGetCursorByPosition(mousePosition);    
+    if (cursor != Model::Coord{-1, -1, -1})
+    {
+	std::string sender { "Board" };
+	std::string message { "Selection" };
+	std::string params { cursor.getNotation() };
+	PointerToEvent event {new Event {sender, message, params} };
+	eventQueue->push(event);
+    }
 }
 
 
@@ -63,11 +71,11 @@ void BoardPainter::highlightFieldUnderCursor()
 
 void BoardPainter::highlightTouchedField()
 {
-    if (gameState->phase == 1)
+    if (selectedField != Model::Position::Invalid)
     {
 	for (Field& field : drawableFields)
 	{
-	    if (field.getCoord() == gameState->touched)
+	    if (field.getCoord() == selectedField)
 	    {
 		field.setTouched();
 	    } else {

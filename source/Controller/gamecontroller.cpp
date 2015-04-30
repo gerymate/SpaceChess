@@ -8,7 +8,7 @@ namespace Controller
 {
 
 GameController::GameController(sf::RenderWindow* theWindow) 
-    : window{theWindow}, renderer{theWindow, &game, &eventQueue}
+    : window{theWindow}, renderer{theWindow, &game, &eventQueue}, playerController{&game, &renderer}
 {
     initLocalGame();
 }
@@ -35,7 +35,17 @@ void GameController::mainLoop()
 
 void GameController::handleGameEvents()
 {
-
+    while (!eventQueue.empty())
+    {
+	PointerToEvent event = eventQueue.front();
+	eventQueue.pop();
+	std::string sender = event->getSender();
+	
+	if (sender == "Board")
+	{
+	    playerController.handleSelection(event);
+	}
+    }
 }
 
 void GameController::handleSystemEvents()

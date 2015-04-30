@@ -3,14 +3,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create a variable called helloworld_SOURCES containing all .cpp files:
 set(SOURCES 
-    gamecontroller.cpp event.cpp)
+    gamecontroller.cpp playercontroller.cpp)
 
 # For a large number of source files you can create it in a simpler way
 # using file() function:
 # file(GLOB hellworld_SOURCES *.cpp)
 
 # Create an executable file called helloworld from sources:
-add_library(SpaceChessControllers ${SOURCES})
+add_library(SpaceChessController ${SOURCES})
 
 
 # Make sure the compiler can find include files from our glfw library.
@@ -24,4 +24,4 @@ add_library(SpaceChessControllers ${SOURCES})
 
 # Example:
 # Link the executable to the glfw library.
-target_link_libraries(SpaceChessControllers SpaceChessModel SpaceChessView2D)
+target_link_libraries(SpaceChessController SpaceChessModel SpaceChessView2D)

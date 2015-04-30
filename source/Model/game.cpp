@@ -27,8 +27,6 @@ GameState Game::getGameState()
     GameState currentState;
     currentState.board = board.getFullBoard();
     currentState.nextPlayer = history.getNextPlayer();
-    currentState.phase = Phase::Selection;
-    currentState.touched == Coord{};
     return currentState;
 }
 
@@ -36,8 +34,26 @@ GameState Game::getGameState()
 bool Game::touch(const Coord& place)
 {
     return false;
-
 }
+
+std::string Game::move(Position& from, Position& to, Figure promoteTo)
+{
+    std::string result;
+    
+    // get info: is it a valid move???
+    
+    PointerToGameEvent aMove { new Move { from, to } };
+    history.addEvent(aMove);
+    history.actualize();
+    
+    return std::string{ "OK" };
+}
+
+std::string Game::move(Position& from, Position& to)
+{
+    return move(from, to, Figure::Queen);
+}
+
     
     
 }

@@ -17,6 +17,7 @@ Position::Position(const Coord& coord) :
 
 }
 
+const Position Position::Invalid {-1, -1, -1};
 
 bool Position::isValid() const
 {

@@ -12,6 +12,7 @@
 #include <list>
 #include "common.h"
 #include "figure.h"
+#include "move.h"
 
 namespace Model {
 //	A Game is a full abstraction of a single SpaceChess game

@@ -6,7 +6,6 @@
 #include "field.h"
 #include "coord.h"
 #include "player.h"
-#include "phase.h"
 
 namespace Model {
     
@@ -14,8 +13,6 @@ struct GameState
 {
 	FullBoard board;
 	Player nextPlayer;
-	Phase phase;
-	Coord touched; 
 	GameState();
 	
 	friend std::ostream& operator<<(std::ostream& os, const Model::GameState& gs);
