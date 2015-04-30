@@ -20,7 +20,8 @@ void FileBasedGameController::initFileBasedGame()
 
     Model::GameState currentState = game.getGameState();
     cout << currentState;
-    boardPainter.update(currentState);
+	boardPainter.init(&game);
+    boardPainter.update();
 }
 
 bool FileBasedGameController::update(sf::Event event)

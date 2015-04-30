@@ -10,8 +10,8 @@ LocalGameController::LocalGameController(sf::RenderWindow* theWindow) : window{t
 
 void LocalGameController::initLocalGame()
 {
-    Model::GameState currentState = game.getGameState();
-    renderer.update(currentState);
+	renderer.init(&game);
+    renderer.update();
 }
 
 
@@ -43,7 +43,7 @@ void LocalGameController::dispatchEvents()
 	    }
 	}
 	
-	renderer.update(game.getGameState());
+	renderer.update();
     }
 }
 

@@ -45,7 +45,7 @@ void LocalGameControllerV1::dispatchEvents()
 	    }
 	}
 	
-	renderer.update(game.getGameState());
+	renderer.update();
     }
 }
 

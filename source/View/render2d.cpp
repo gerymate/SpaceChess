@@ -9,12 +9,14 @@ Render2D::Render2D(sf::RenderWindow* theWindow)
 }
 
     
-void Render2D::init()
+void Render2D::init(Model::Game* theGame)
 {
+	game = theGame;
 }
 
-void Render2D::update(const Model::GameState& newState)
+void Render2D::update()
 {
+	auto newState = game->getGameState();
     window->clear();
 
     boardPainter.setGameState(&newState);

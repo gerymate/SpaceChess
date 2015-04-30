@@ -2,6 +2,7 @@
 #define RENDER2D_H
 
 #include <SFML/Graphics.hpp>
+#include "Model/game.h"
 #include "Model/gamestate.h"
 #include "Model/coord.h"
 #include "boardpainter.h"
@@ -11,6 +12,7 @@ namespace View {
 
 class Render2D
 {
+	Model::Game* game;
     sf::RenderWindow* window;
     StyleSheet style;
     BoardPainter boardPainter;
@@ -19,8 +21,8 @@ class Render2D
 public:
     Render2D(sf::RenderWindow* theWindow);
     ~Render2D();
-    void init();
-    void update(const Model::GameState& newState);  
+    void init(Model::Game* theGame);
+    void update();  
     void shutdown();  
     Model::Coord setAndGetCoordByPosition(sf::Vector2f position);
 };
