@@ -7,7 +7,7 @@
 
 class App
 {
-    std::unique_ptr<GameController> gameController;
+    std::unique_ptr<Controller::GameController> gameController;
     sf::RenderWindow window;
     void setUpWindow();
     void setUpAGameController();

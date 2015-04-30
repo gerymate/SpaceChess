@@ -13,6 +13,8 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
     std::string nextPlayerText {"Game Over"};
     if (nextPlayer == Model::Player::White) nextPlayerText = "White to move";
     if (nextPlayer == Model::Player::Black) nextPlayerText = "Black to move";
+    
+    if (nextPlayerText.length() > (size_t)MAXCHARS) nextPlayerText.erase(MAXCHARS);
 
     sf::Text cursorInfo(nextPlayerText, style->font, style->FONTSIZE);
     cursorInfo.setColor(sf::Color::Yellow);
@@ -20,5 +22,12 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
     cursorInfo.setPosition(position);
     target.draw(cursorInfo);
 }
+
+sf::FloatRect NextPlayerInfo::getRect() const
+{
+    sf::Vector2f size { (float)style->FONTSIZE * MAXCHARS, (float)style->FONTSIZE };
+    return sf::FloatRect( position, size );
+}
+
     
 }

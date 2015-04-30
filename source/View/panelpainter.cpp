@@ -17,18 +17,37 @@ void PanelPainter::setCursorInfo(const Model::Coord* theCursor)
     cursor = theCursor;
 }
 
-
-void PanelPainter::draw(sf::Vector2f thePosition)
+void PanelPainter::draw()
 {
     panel.clear();
 
-    buildPanel(thePosition);
+    buildPanel(topLeft);
 
     for (auto& widget : panel)
     {
 	canvas->draw(*widget);
     }
 }
+
+sf::FloatRect PanelPainter::getRect() const
+{
+    float top, maxRight, maxBottom, left;
+    maxBottom = top = topLeft.y;
+    maxRight = left = topLeft.x;    
+    
+    for (auto widget : panel)
+    {
+	sf::FloatRect boundaries = widget->getRect();
+	float bottom = boundaries.top + boundaries.height;
+	float right = boundaries.left + boundaries.width;
+	if (bottom > maxBottom) maxBottom = bottom;
+	if (right > maxRight) maxRight = right;
+    }
+    
+    sf::Vector2f size {maxRight - left, maxBottom - top};
+    return sf::FloatRect { topLeft, size };
+}
+
 
 void PanelPainter::buildPanel(sf::Vector2f thePosition)
 {

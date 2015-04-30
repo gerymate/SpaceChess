@@ -16,4 +16,12 @@ void CursorInfo::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(cursorInfo);
 }
     
+sf::FloatRect CursorInfo::getRect() const
+{
+    const int MAXCHARS = 10;
+    sf::Vector2f size { (float)style->FONTSIZE * MAXCHARS, (float)style->FONTSIZE };
+    return sf::FloatRect( position, size );
+}
+
+    
 }

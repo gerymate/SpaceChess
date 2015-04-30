@@ -12,6 +12,7 @@ class CursorInfo : public Widget
 public:
     CursorInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Model::Coord theCursor);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    sf::FloatRect getRect() const override;
 };
 
 }

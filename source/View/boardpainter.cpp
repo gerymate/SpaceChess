@@ -4,9 +4,10 @@
 
 namespace View {
 
-BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet) 
-    : canvas(theCanvas), style(theStyleSheet)
+BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, Model::Game* theGame, Controller::EventQueue* theEventQueue)
+    : canvas(theCanvas), style(theStyleSheet), game(theGame), eventQueue(theEventQueue)
 {
+
 }
 
 void BoardPainter::setGameState(const Model::GameState* theGameState)
@@ -15,7 +16,14 @@ void BoardPainter::setGameState(const Model::GameState* theGameState)
     board = &(gameState->board);
 }
 
-void BoardPainter::draw(sf::Vector2f thePosition)
+void BoardPainter::handleClick(sf::Vector2f& mousePosition)
+{
+    // generate event for controller
+
+}
+
+
+void BoardPainter::draw()
 {
     drawableFields.clear();
     
@@ -24,7 +32,7 @@ void BoardPainter::draw(sf::Vector2f thePosition)
     {
 	currentPlane = i;
 	float xOffset = style->MARGINSIZE + i * (style->MARGINSIZE + style->PLANESIZE);
-	sf::Vector2f position {thePosition};
+	sf::Vector2f position {topLeft};
 	position += sf::Vector2f(xOffset, style->MARGINSIZE);
 	buildPlane(position);
 	drawPlaneDecoration(position);
@@ -146,6 +154,11 @@ Model::Coord BoardPainter::setAndGetCursorByPosition(sf::Vector2f position)
     return cursor = getFieldCoordByPosition(position);
 }
 
+sf::FloatRect BoardPainter::getRect() const
+{
+    sf::Vector2f size { (float)canvas->getSize().x, (float)style->BOARDHEIGHT };
+    return sf::FloatRect{ topLeft, size };
+}
 
 
 }

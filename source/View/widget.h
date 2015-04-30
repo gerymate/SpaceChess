@@ -14,6 +14,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 public:
     Widget(const sf::Vector2f &thePosition, StyleSheet *theStyle);
+    virtual sf::FloatRect getRect() const = 0;
 };
 
 }

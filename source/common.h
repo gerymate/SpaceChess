@@ -5,6 +5,7 @@
 #include <set>
 #include <list>
 #include <stdexcept>
+#include <queue>
 
 namespace Model
 {
@@ -18,6 +19,12 @@ namespace Model
     class Position;
     using PositionList = std::list<Position>;
     struct Coord;
+}
+
+namespace Controller
+{
+    class Event;
+    using EventQueue = std::queue<std::shared_ptr<Event>>;
 }
 
 
