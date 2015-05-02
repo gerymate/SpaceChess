@@ -139,62 +139,18 @@ PointerToPositionList Piece::moveOrTakeStraightFrom(const Position& position)
     }
 
     PointerToPositionList possibleMoves = std::make_shared<PositionList>();
-    Position current;
-    
-    // up
-    current = position.over();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.over();
-    }
-    
-    // down
-    current = position.under();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.under();
-    }
-    
-    // left
-    current = position.left();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.left();
-    }
 
-    // right
-    current = position.right();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.right();
-    }
+    DirectionFunctionList directions {
+	[] (Position p) { return Position::over(p); },
+	[] (Position p) { return Position::under(p); },
+	[] (Position p) { return Position::right(p); },
+	[] (Position p) { return Position::left(p); },
+	[] (Position p) { return Position::farther(p); },
+	[] (Position p) { return Position::closer(p); }
+    };
     
-    // farther
-    current = position.farther();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.farther();
-    }
+    addPositionsFromSourceInManyDirections(possibleMoves, position, directions);    
     
-    // closer
-    current = position.closer();
-    while (canMoveToOrTakeAt(current))
-    {
-	possibleMoves->push_back(current);
-	if(canTakeAt(current)) break;
-	current = current.closer();
-    }
-
     return possibleMoves;  
 }
 
