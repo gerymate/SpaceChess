@@ -4,9 +4,9 @@
 #include <map>
 #include <string>
 #include "position.h"
-#include "piece.h"
 #include "fullboard.h"
 #include "common.h"
+#include "piece.h"
 
 namespace Model{
 

@@ -73,9 +73,8 @@ void GameController::handleSystemEvents()
 void GameController::setCursor(sf::Event event)
 {
     sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);    
-    cursor = renderer.setAndGetCoordByPosition(position);
+    cursor = renderer.setAndGetBoardCursorFromScreenPosition(position);
 }
-
 
 Model::GameState GameController::loadBoardFromFile()
 {

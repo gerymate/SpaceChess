@@ -27,6 +27,7 @@ struct StyleSheet
     const sf::Color BlackFieldColor {100, 100, 100};
     const sf::Color CursorHighlightColor {128, 255, 128};
     const sf::Color TouchHighlightColor {128, 128, 255};
+    const sf::Color HighlightColor {255, 128, 128};
 public:
     StyleSheet();
     ~StyleSheet();

@@ -37,8 +37,8 @@ bool Board::removePiece(const Position& atField)
 
 PointerToPiece Board::getPiece(const Position& atField)
 {
-    auto pi = piecesOnBoard.find(atField);
     PointerToPiece piece = nullptr;
+    auto pi = piecesOnBoard.find(atField);
     if (pi != end(piecesOnBoard))
     {
 	piece = pi->second;
@@ -62,7 +62,7 @@ FullBoard Board::getFullBoard()
 	    {
 		if(auto piece = getPiece({y + 1, x + 1, z + 1}))
 		{
-		    fb.space.at(y).at(x).at(z) = Field(piece->getPlayer(), piece->getFigure(), Coord(y, x, z));
+		    fb.space.at(y).at(x).at(z) = Field(piece->getPlayer(), piece->getFigure(), Position(y+1, x+1, z+1));
 		}
 	    }
 	}

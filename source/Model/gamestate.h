@@ -4,7 +4,6 @@
 #include<vector>
 #include "fullboard.h"
 #include "field.h"
-#include "coord.h"
 #include "player.h"
 
 namespace Model {

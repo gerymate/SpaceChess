@@ -2,8 +2,8 @@
 
 namespace Model {
 
-Field::Field(Player _owner, Figure _figure, Coord _place) 
-	: owner(_owner), figure(_figure), place(_place) 
+Field::Field(Player _owner, Figure _figure, Position _position) 
+	: owner(_owner), figure(_figure), position(_position) 
 {
 }
 
@@ -24,7 +24,7 @@ std::ostream& operator<<(std::ostream& os, const Field& field)
 	    case Figure::Knight : figure = 'N'; break;
 	    case Figure::Unicorn : figure = 'U'; break;
 	    case Figure::Pawn : figure = 'P'; break;
-	    default: figure = (field.place.getColour() == Coord::WHITE) ? 'O' : '0';
+	    default: figure = '_';
 	}
 	os << owner << figure;
     return os;

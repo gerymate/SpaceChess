@@ -8,7 +8,7 @@ BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleShee
 			   Model::Game* theGame, EventQueue* theEventQueue)
     : canvas(theCanvas), style(theStyleSheet), game(theGame), eventQueue(theEventQueue)
 {
-
+    highlightedFields = nullptr;
 }
 
 void BoardPainter::setGameState(const Model::GameState* theGameState)
@@ -19,8 +19,8 @@ void BoardPainter::setGameState(const Model::GameState* theGameState)
 
 void BoardPainter::handleClick(sf::Vector2f& mousePosition)
 {
-    setAndGetCursorByPosition(mousePosition);    
-    if (cursor != Model::Coord{-1, -1, -1})
+    setAndGetBoardCursorFromScreenPosition(mousePosition);
+    if (cursor != Model::Position::Invalid)
     {
 	std::string sender { "Board" };
 	std::string message { "Selection" };
@@ -48,6 +48,7 @@ void BoardPainter::draw()
     
     highlightFieldUnderCursor();
     highlightTouchedField();
+    highlightPossibleMoves();
     
     for (auto& field : drawableFields)
     {
@@ -60,11 +61,10 @@ void BoardPainter::highlightFieldUnderCursor()
 {
     for (Field& field : drawableFields)
     {
-	if (field.getCoord() == cursor)
+	if (field.getPosition() == cursor)
 	{
 	    field.setUnderCursor();
-	} else {
-	    field.notUnderCursor();
+	    break;
 	}
     }
 }
@@ -75,13 +75,30 @@ void BoardPainter::highlightTouchedField()
     {
 	for (Field& field : drawableFields)
 	{
-	    if (field.getCoord() == selectedField)
+	    if (field.getPosition() == selectedField)
 	    {
 		field.setTouched();
-	    } else {
-		field.notTouched();
+		break;
 	    }
 	}	
+    }
+}
+
+void BoardPainter::highlightPossibleMoves()
+{
+    if (highlightedFields != nullptr)
+    {
+	for (Model::Position& pos : *highlightedFields)
+	{
+	    for (Field& field : drawableFields)
+	    {
+		if (field.getPosition() == pos)
+		{
+		    field.setHighlighted();
+		    break;
+		}
+	    }
+	}
     }
 }
 
@@ -143,23 +160,24 @@ void BoardPainter::buildRow(sf::Vector2f thePosition)
     }
 }
 
-Model::Coord BoardPainter::getFieldCoordByPosition(sf::Vector2f position)
+Model::Position BoardPainter::getFieldPositionFromScreenPosition(sf::Vector2f screenPosition)
 {
-    Model::Coord cursor {-1, -1, -1};
-    for (auto field : drawableFields)
+    Model::Position cursor {Model::Position::Invalid};
+
+    for (auto& field : drawableFields)
     {
-	if (field.getBoundaries().contains(position))
+	if (field.getBoundaries().contains(screenPosition))
 	{
-	    cursor = field.getCoord();
+	    cursor = field.getPosition();
 	    break;
 	}
     }
     return cursor;
 }
 
-Model::Coord BoardPainter::setAndGetCursorByPosition(sf::Vector2f position)
+Model::Position BoardPainter::setAndGetBoardCursorFromScreenPosition(sf::Vector2f screenPosition)
 {
-    return cursor = getFieldCoordByPosition(position);
+    return cursor = getFieldPositionFromScreenPosition(screenPosition);
 }
 
 sf::FloatRect BoardPainter::getRect() const

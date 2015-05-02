@@ -8,6 +8,7 @@
 #include "View/render2d.h"
 #include "event.h"
 #include "Controller/playercontroller.h"
+#include "Model/position.h"
 
 namespace Controller
 {
@@ -20,7 +21,7 @@ class GameController
     View::Render2D renderer;
     PlayerController playerController;
 
-    Model::Coord cursor {-1, -1, -1};
+    Model::Position cursor {Model::Position::Invalid};
 
     void initLocalGame();
     void setCursor(sf::Event event);

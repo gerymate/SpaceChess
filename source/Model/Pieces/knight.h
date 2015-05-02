@@ -11,7 +11,7 @@ class Knight : public Piece
     const Figure figure { Figure::Knight };
 public:
     const Figure getFigure() const override { return figure; }
-    PositionList getPossibleMoves();
+    PointerToPositionList getPossibleMoves() override;
 };
 
 }

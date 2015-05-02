@@ -9,16 +9,16 @@
 
 namespace Model
 {
+    class Position;
+    using PositionList = std::list<Position>;
+    using PointerToPositionList = std::shared_ptr<PositionList>;
+
     class GameEvent;
     using PointerToGameEvent = std::shared_ptr<GameEvent>;
     class Piece;
     using PointerToPiece = std::shared_ptr<Piece>;
     class Board;
-    using PointerToBoard = std::shared_ptr<Board>;
-    
-    class Position;
-    using PositionList = std::list<Position>;
-    struct Coord;
+    using PointerToBoard = std::shared_ptr<Board>;    
 }
 
 class Event;

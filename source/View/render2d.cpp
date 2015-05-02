@@ -15,7 +15,7 @@ void Render2D::update()
     auto newState = game->getGameState();
     window->clear();
 
-    setAndGetCoordByPosition(sf::Vector2f{ sf::Mouse::getPosition(*window) });
+    setAndGetBoardCursorFromScreenPosition(sf::Vector2f{ sf::Mouse::getPosition(*window) });
     
     boardPainter.setGameState(&newState);
     boardPainter.draw();
@@ -43,9 +43,9 @@ void Render2D::shutdown()
 {
 }    
 
-Model::Coord Render2D::setAndGetCoordByPosition(sf::Vector2f position)
+Model::Position Render2D::setAndGetBoardCursorFromScreenPosition(sf::Vector2f position)
 {
-    return cursor = boardPainter.setAndGetCursorByPosition(position);
+    return cursor = boardPainter.setAndGetBoardCursorFromScreenPosition(position);
 }
 
 

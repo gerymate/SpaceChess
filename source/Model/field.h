@@ -2,7 +2,7 @@
 #define FIELD_H
 
 #include<iostream>
-#include "coord.h"
+#include "position.h"
 #include "player.h"
 #include "figure.h"
 
@@ -13,8 +13,8 @@ struct Field
 {
 	Player owner;
 	Figure figure;
-	Coord place;
-	Field(Player _owner = Player::Nobody, Figure _figure = Figure::None, Coord _place = Coord());	
+	Position position;
+	Field(Player _owner = Player::Nobody, Figure _figure = Figure::None, Position _position = Position());	
 
 	friend std::ostream& operator<<(std::ostream& os, const Field& field);
 	friend std::istream& operator>>(std::istream& is, Field& field);

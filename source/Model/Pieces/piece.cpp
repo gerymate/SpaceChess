@@ -59,6 +59,61 @@ PointerToPiece Piece::generatePieceFromString(std::string pieceDesc, Board* theB
     return piece;
 }
 
+PointerToPositionList Piece::getPossibleMoves()
+{
+    PointerToPositionList basicPossibilities { new PositionList {{3, 3, 3}, {3, 2, 3}, {3, 4, 3}} };
+    
+    basicPossibilities->remove_if([](Position p){ return ! (p.isValid()); }); // remove offboard fields
+
+    return basicPossibilities;
+}
+
+bool Piece::canMoveTo(const Position& position)
+{
+    return (position.isValid() && !board->isOccupied(position));
+}
+
+bool Piece::canTakeAt(const Position& position)
+{
+    return (position.isValid() && 
+	    board->isOccupied(position) && 
+	    board->getPiece(position)->getPlayer() != player);
+}
+
+void Piece::filterForMove(PointerToPositionList targets)
+{
+    auto current = targets->begin();
+    auto last = targets->end();
+    while (current != last)
+    {
+	if (! canMoveTo(*current))
+	{
+	    current = targets->erase(current);
+	} else {
+	    ++current;
+	}
+    }    
+}
+
+void Piece::filterForTake(PointerToPositionList targets)
+{
+    auto current = targets->begin();
+    auto last = targets->end();
+    while (current != last)
+    {
+	if (! canTakeAt(*current))
+	{
+	    current = targets->erase(current);
+	} else {
+	    ++current;
+	}
+    }    
+}
+
+
+
+
+
 
 
 }

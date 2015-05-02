@@ -17,7 +17,7 @@ class PanelPainter
     sf::RenderTarget* canvas;
     StyleSheet* style;
     const Model::GameState* gameState;
-    const Model::Coord* cursor;
+    const Model::Position* cursor;
     std::vector< std::shared_ptr<Widget> > panel;
     sf::Vector2f topLeft {0, 0};
 public:
@@ -25,7 +25,7 @@ public:
     void setGameState(const Model::GameState* theGameState);
     void draw();
     void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
-    void setCursorInfo(const Model::Coord* theCursor);
+    void setCursorInfo(const Model::Position* theCursor);
     sf::FloatRect getRect() const;
     void handleClick(sf::Vector2f &mousePosition) {}
 

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include "player.h"
 #include "board.h"
 #include "history.h"
@@ -17,6 +18,8 @@ class Judge
     History* history;
 public:
     Judge(Board* theBoard, History* theHistory);
+    PointerToPositionList getPossibleMovesFrom(Position& from);
+    bool isValidMove(Position& from, Position& to);
 //    Player getNextPlayer() const { return nextPlayer; }
     
 

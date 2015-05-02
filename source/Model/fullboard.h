@@ -3,7 +3,6 @@
 
 #include<vector>
 #include "field.h"
-#include "coord.h"
 
 namespace Model {
     
@@ -14,7 +13,7 @@ struct FullBoard
 	std::vector<std::vector<std::vector<Field> > > space;
 	FullBoard();
 	// at : returns a Field at a given Coord of the board
-	Field& at(const Coord& place);
+	Field& at(const Position& position);
 	
 	friend std::ostream& operator<<(std::ostream& os, const Model::FullBoard& board);
 	friend std::istream& operator>>(std::istream& is, Model::FullBoard& board);

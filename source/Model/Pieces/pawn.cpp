@@ -3,25 +3,36 @@
 namespace Model
 {
     
-PositionList Pawn::getPossibleMoves()
+PointerToPositionList Pawn::getPossibleMoves()
 {
-    PositionList basicPossibilities {
-	position.over().farther().left() , position.over().farther() , position.over().farther().right(),
-	position.over().left()		 , position.over()           , position.over().right(),
-	position.over().closer().left()  , position.over().closer()  , position.over().closer().right(),
-	
-	position.farther().left()        , position.farther()        , position.farther().right(),
-	position.left()						     , position.right(),
-	position.closer().left()         , position.closer()         , position.closer().right(),
-	
-	position.under().farther().left(), position.under().farther(), position.under().farther().right(),
-	position.under().left()    	 , position.under()	     , position.under().right(),
-	position.under().closer().left() , position.under().closer() , position.under().closer().right()
-    };
+    PointerToPositionList movePossibilities;
+    PointerToPositionList takePossibilities;
     
-    basicPossibilities.remove_if([](Position p){ return ! (p.isValid()); });
+    if (player == Player::White)
+    {
+	movePossibilities.reset( new PositionList { position.farther(), position.over() } );
+	takePossibilities.reset( new PositionList
+	    {
+		position.farther().left(), position.farther().right(),
+		position.over().left(), position.over().right(), 
+		position.farther().over()
+	    } );
+    } else { // it's Black!
+	movePossibilities.reset( new PositionList { position.closer(), position.under() } );
+	takePossibilities.reset( new PositionList
+	    {
+		position.closer().left(), position.closer().right(),
+		position.under().left(), position.under().right(), 
+		position.closer().under()
+	    } );
+    }
 
-    return basicPossibilities;
+    filterForMove(movePossibilities);
+    filterForTake(takePossibilities);
+    
+    movePossibilities->splice(movePossibilities->begin(), *takePossibilities);
+
+    return movePossibilities;    
 }
     
     

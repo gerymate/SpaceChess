@@ -11,7 +11,7 @@ class King : public Piece
     const Figure figure { Figure::King };
 public:
     const Figure getFigure() const override { return figure; };
-    PositionList getPossibleMoves();
+    PointerToPositionList getPossibleMoves() override;
 };
 
 }

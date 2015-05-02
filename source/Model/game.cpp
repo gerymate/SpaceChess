@@ -16,7 +16,7 @@ const std::string defaultBoard =
     " wPAa2 wPAb2 wPAc2 wPAd2 wPAe2"
     " wRAa1 wNAb1 wKAc1 wNAd1 wRAe1";
     
-Game::Game() : board{defaultBoard}, history(&board)
+Game::Game() : board{ defaultBoard }, history{ &board }, judge{ &board, &history }
 {
 
 }
@@ -30,23 +30,26 @@ GameState Game::getGameState()
     return currentState;
 }
 
-
-bool Game::touch(const Coord& place)
+PointerToPositionList Game::getPossibleMovesFrom(Position& from)
 {
-    return false;
+    return judge.getPossibleMovesFrom(from);
 }
 
 std::string Game::move(Position& from, Position& to, Figure promoteTo)
 {
-    std::string result;
+    std::string result {"Invalid move"};
     
-    // get info: is it a valid move???
+    if (judge.isValidMove(from, to))
+    {
     
     PointerToGameEvent aMove { new Move { from, to } };
     history.addEvent(aMove);
     history.actualize();
     
-    return std::string{ "OK" };
+    result = aMove->getNotation();
+    }
+    
+    return result;
 }
 
 std::string Game::move(Position& from, Position& to)

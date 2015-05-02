@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include "coord.h"
 #include "common.h"
 
 namespace Model {
@@ -13,7 +12,6 @@ class Position
     int level, file, rank;
 public:
     Position(int theLevel = 0, int theFile = 0, int theRank = 0);
-    Position(const Coord& coord);
     Position(const std::string& positionDesc); 
     const int getLevel() const { return level; }
     const int getFile() const { return file; }
@@ -32,7 +30,7 @@ public:
     Position farther() const 	{ return Position{level, file, rank + 1}; }
     Position closer() const 	{ return Position{level, file, rank - 1}; }
     
-    std::string getNotation();
+    std::string getNotation() const;
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Position& position);

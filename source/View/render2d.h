@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Model/game.h"
 #include "Model/gamestate.h"
-#include "Model/coord.h"
+#include "Model/position.h"
 #include "boardpainter.h"
 #include "panelpainter.h"
 
@@ -19,17 +19,20 @@ class Render2D
     StyleSheet style;
     BoardPainter boardPainter;
     PanelPainter panelPainter;
-    Model::Coord cursor;
+    Model::Position cursor;
 public:
     Render2D(sf::RenderWindow* theWindow, Model::Game* theGame, EventQueue* theEventQueue);
     ~Render2D();
     void update();  
     void shutdown();
     void handleClick(sf::Vector2f &mousePosition);
-    Model::Coord setAndGetCoordByPosition(sf::Vector2f position);
+    Model::Position setAndGetBoardCursorFromScreenPosition(sf::Vector2f position);
     void setSelectedField(Model::Position theSelectedField) 
 	    { boardPainter.setSelectedField(theSelectedField); }
     void clearSelectedField() { boardPainter.clearSelectedField(); }
+    void setHighlightedFields(Model::PointerToPositionList thePositions)
+	    { boardPainter.setHighlightedFields(thePositions); }
+    void clearHighlightedFields() { setHighlightedFields(nullptr); }
 
 };
 

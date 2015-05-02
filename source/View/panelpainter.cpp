@@ -12,7 +12,7 @@ void PanelPainter::setGameState(const Model::GameState* theGameState)
     gameState = theGameState;
 }
 
-void PanelPainter::setCursorInfo(const Model::Coord* theCursor)
+void PanelPainter::setCursorInfo(const Model::Position* theCursor)
 {
     cursor = theCursor;
 }

@@ -3,11 +3,11 @@
 
 // old
 #include "gamestate.h"
-#include "coord.h"
 
 // new
 #include "board.h"
 #include "history.h"
+#include "judge.h"
 #include <string>
 #include <list>
 #include "common.h"
@@ -21,14 +21,14 @@ class Game
 {
     Board board;
     History history;
+    Judge judge;
 
 public:
 	Game();
 //	Game(const GameState& gs);
 //	void setGameState(const GameState& gs);
 	GameState getGameState();
-	bool touch(const Coord& place); // DEPRECATED
-	PositionList getPossibleMovesFrom(Position& from);
+	PointerToPositionList getPossibleMovesFrom(Position& from);
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
 };

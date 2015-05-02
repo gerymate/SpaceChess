@@ -11,7 +11,7 @@ class Queen : public Piece
     const Figure figure { Figure::Queen };
 public:
     const Figure getFigure() const override { return figure; }
-    PositionList getPossibleMoves();
+    PointerToPositionList getPossibleMoves() override;
 };
 
 }

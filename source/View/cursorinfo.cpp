@@ -2,7 +2,7 @@
 
 namespace View {
  
-CursorInfo::CursorInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Model::Coord theCursor) 
+CursorInfo::CursorInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Model::Position theCursor) 
     : Widget(thePosition, theStyle), cursor(theCursor)
 {
 }

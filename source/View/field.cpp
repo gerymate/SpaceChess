@@ -19,20 +19,15 @@ sf::FloatRect Field::getBoundaries()
     return boundaries;
 }
 
-Model::Coord Field::getCoord()
-{
-    return content.place;
-}
-
-
 void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::RectangleShape fieldShape(style->FieldSize);
     fieldShape.setPosition(topLeft);
-    sf::Color backgroundColor = (content.place.getColour() == Model::Coord::BLACK) ?
-	style->BlackFieldColor : style->WhiteFieldColor;
+    sf::Color backgroundColor = (isWhiteField(content.position)) ?
+	style->WhiteFieldColor : style->BlackFieldColor;
     if (underCursor) backgroundColor *= style->CursorHighlightColor;
     if (touched) backgroundColor *= style->TouchHighlightColor;
+    if (highlighted) backgroundColor *= style->HighlightColor;
     fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  
@@ -41,10 +36,10 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
   
     if (content.owner != 0)
     {
-	sf::RectangleShape figure(style->FieldSize);
-	figure.setPosition(topLeft);
-	figure.setTexture(style->getPieceFor(content.owner, static_cast<int>(content.figure)));
-	target.draw(figure, states);
+	sf::RectangleShape figureImage(style->FieldSize);
+	figureImage.setPosition(topLeft);
+	figureImage.setTexture(style->getPieceFor(content.owner, static_cast<int>(content.figure)));
+	target.draw(figureImage, states);
     }
 }
 
@@ -68,6 +63,20 @@ void Field::notUnderCursor()
     underCursor = false;
 }
 
+void Field::setHighlighted()
+{
+    highlighted = true;
+}
+
+void Field::notHighlighted()
+{
+    highlighted = false;
+}
+
+bool Field::isWhiteField(const Model::Position& position)
+{
+    return (position.getFile() + position.getLevel() + position.getRank()) % 2;
+}
 
 
 

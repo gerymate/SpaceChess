@@ -5,14 +5,9 @@
 namespace Model 
 {
 
-Position::Position(int theLevel, int theFile, int theRank) :
+    
+Position::Position(int theLevel, int theFile, int theRank) : // (y, x, z)!
 	level(theLevel), file(theFile), rank(theRank)
-{
-
-}
-
-Position::Position(const Coord& coord) :
-	level{coord.y + 1}, file{coord.x + 1}, rank{coord.z + 1}
 {
 
 }
@@ -57,7 +52,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::Position& posi
     return outputStream;
 }
 
-std::string Position::getNotation()
+std::string Position::getNotation() const
 {
     std::stringstream notation;
     notation << *this;
