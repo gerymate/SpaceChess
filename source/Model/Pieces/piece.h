@@ -34,7 +34,8 @@ protected:
     void filterForTake(PointerToPositionList targets);
     void filterForMoveOrTake(PointerToPositionList targets);
     PointerToPositionList moveOrTakeStraightFrom(const Position& position);
-    PointerToPositionList moveOrTakeDiagonalFrom(const Position& position);
+    PointerToPositionList moveOrTakePlaneDiagonallyFrom(const Position& position);
+    PointerToPositionList moveOrTakeTrueDiagonallyFrom(const Position& position);
     
     using DirectionFunction = std::function<Position(const Position&)>;
     using DirectionFunctionList = std::list<DirectionFunction>;

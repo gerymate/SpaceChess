@@ -7,11 +7,11 @@ const std::string defaultBoard =
     " bREa5 bNEb5 bKEc5 bNEd5 bREe5"
     " bPEa4 bPEb4 bPEc4 bPEd4 bPEe4"
 
-    " bBDa5 bUDb5 bQDc5 bUDd5 bBDe5"
+    " bBDa5 bUDb5 bQDc5 bBDd5 bUDe5"
     " bPDa4 bPDb4 bPDc4 bPDd4 bPDe4"
 
     " wPBa2 wPBb2 wPBc2 wPBd2 wPBe2"
-    " wBBa1 wUBb1 wQBc1 wUBd1 wBBe1"
+    " wBBa1 wUBb1 wQBc1 wBBd1 wUBe1"
     
     " wPAa2 wPAb2 wPAc2 wPAd2 wPAe2"
     " wRAa1 wNAb1 wKAc1 wNAd1 wRAe1";

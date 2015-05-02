@@ -5,7 +5,7 @@ namespace Model
     
 PointerToPositionList Unicorn::getPossibleMoves()
 {
-    return Piece::getPossibleMoves();
+    return Piece::moveOrTakeTrueDiagonallyFrom(position);
 }
     
     

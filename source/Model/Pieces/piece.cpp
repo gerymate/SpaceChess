@@ -154,7 +154,7 @@ PointerToPositionList Piece::moveOrTakeStraightFrom(const Position& position)
     return possibleMoves;  
 }
 
-PointerToPositionList Piece::moveOrTakeDiagonalFrom(const Position& position)
+PointerToPositionList Piece::moveOrTakePlaneDiagonallyFrom(const Position& position)
 {
     if (!position.isValid())
     {
@@ -179,6 +179,33 @@ PointerToPositionList Piece::moveOrTakeDiagonalFrom(const Position& position)
 	[] (Position p) { return Position::under(Position::right(p)); },
 	[] (Position p) { return Position::over(Position::left(p)); },
 	[] (Position p) { return Position::under(Position::left(p)); }
+    };
+    
+    addPositionsFromSourceInManyDirections(possibleMoves, position, directions);    
+    
+    return possibleMoves;
+}
+
+PointerToPositionList Piece::moveOrTakeTrueDiagonallyFrom(const Position& position)
+{
+    if (!position.isValid())
+    {
+	return nullptr;
+    }
+
+    PointerToPositionList possibleMoves = std::make_shared<PositionList>();
+
+    DirectionFunctionList directions {
+    // up
+	[] (Position p) { return Position::over(Position::farther(Position::right(p))); },
+	[] (Position p) { return Position::over(Position::closer(Position::right(p))); },
+	[] (Position p) { return Position::over(Position::farther(Position::left(p))); },
+	[] (Position p) { return Position::over(Position::closer(Position::left(p))); },
+    // down
+	[] (Position p) { return Position::under(Position::farther(Position::right(p))); },
+	[] (Position p) { return Position::under(Position::closer(Position::right(p))); },
+	[] (Position p) { return Position::under(Position::farther(Position::left(p))); },
+	[] (Position p) { return Position::under(Position::closer(Position::left(p))); },
     };
     
     addPositionsFromSourceInManyDirections(possibleMoves, position, directions);    
