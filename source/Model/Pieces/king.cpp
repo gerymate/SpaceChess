@@ -20,9 +20,9 @@ PointerToPositionList King::getPossibleMoves()
 		    position.under().closer().left() , position.under().closer() , position.under().closer().right()
 		} 
 	    };
-    
-    basicPossibilities->remove_if([](Position p){ return ! (p.isValid()); }); // remove offboard fields
-
+	    
+    filterForMoveOrTake(basicPossibilities);
+	    
     return basicPossibilities;    
 }
 

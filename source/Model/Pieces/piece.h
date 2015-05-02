@@ -27,8 +27,10 @@ protected:
     Board* board;
     bool canMoveTo(const Position& position);
     bool canTakeAt(const Position& position);
+    bool canMoveToOrTakeAt(const Position& position);
     void filterForMove(PointerToPositionList targets);
     void filterForTake(PointerToPositionList targets);
+    void filterForMoveOrTake(PointerToPositionList targets);
 private:
     static PointerToPiece generatePieceFromString(std::string PieceDesc, Board* theBoard);
 };

@@ -68,18 +68,6 @@ PointerToPositionList Piece::getPossibleMoves()
     return basicPossibilities;
 }
 
-bool Piece::canMoveTo(const Position& position)
-{
-    return (position.isValid() && !board->isOccupied(position));
-}
-
-bool Piece::canTakeAt(const Position& position)
-{
-    return (position.isValid() && 
-	    board->isOccupied(position) && 
-	    board->getPiece(position)->getPlayer() != player);
-}
-
 void Piece::filterForMove(PointerToPositionList targets)
 {
     auto current = targets->begin();
@@ -93,6 +81,11 @@ void Piece::filterForMove(PointerToPositionList targets)
 	    ++current;
 	}
     }    
+}
+
+bool Piece::canMoveTo(const Position& position)
+{
+    return (position.isValid() && !board->isOccupied(position));
 }
 
 void Piece::filterForTake(PointerToPositionList targets)
@@ -110,8 +103,33 @@ void Piece::filterForTake(PointerToPositionList targets)
     }    
 }
 
+bool Piece::canTakeAt(const Position& position)
+{
+    return (position.isValid() && 
+	    board->isOccupied(position) && 
+	    board->getPiece(position)->getPlayer() != player);
+}
 
+void Piece::filterForMoveOrTake(PointerToPositionList targets)
+{
+    auto current = targets->begin();
+    auto last = targets->end();
+    while (current != last)
+    {
+	if (! canMoveToOrTakeAt(*current))
+	{
+	    current = targets->erase(current);
+	} else {
+	    ++current;
+	}
+    }    
+}
 
+bool Piece::canMoveToOrTakeAt(const Position& position)
+{
+    return (position.isValid() &&
+	    (!board->isOccupied(position) || board->getPiece(position)->getPlayer() != player));
+}
 
 
 
