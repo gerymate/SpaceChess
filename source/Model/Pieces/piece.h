@@ -8,6 +8,8 @@
 #include "board.h"
 
 #include <string>
+#include <functional>
+#include <list>
 
 namespace Model {
 
@@ -31,6 +33,18 @@ protected:
     void filterForMove(PointerToPositionList targets);
     void filterForTake(PointerToPositionList targets);
     void filterForMoveOrTake(PointerToPositionList targets);
+    PointerToPositionList moveOrTakeStraightFrom(const Position& position);
+    PointerToPositionList moveOrTakeDiagonalFrom(const Position& position);
+    
+    using DirectionFunction = std::function<Position(const Position&)>;
+    using DirectionFunctionList = std::list<DirectionFunction>;
+    void addPositionsFromSourceInDirection(PointerToPositionList positionList, 
+					   const Position& sourcePosition,
+					   DirectionFunction directionFunction);
+    void addPositionsFromSourceInManyDirections(PointerToPositionList positionList,
+						const Position& sourcePosition,
+						DirectionFunctionList directions);
+    
 private:
     static PointerToPiece generatePieceFromString(std::string PieceDesc, Board* theBoard);
 };

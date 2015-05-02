@@ -5,7 +5,7 @@ namespace Model
 
 PointerToPositionList Bishop::getPossibleMoves()
 {
-    return Piece::getPossibleMoves();
+    return Piece::moveOrTakeDiagonalFrom(position);
 }
 
     

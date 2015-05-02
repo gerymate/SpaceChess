@@ -75,7 +75,7 @@ void Field::notHighlighted()
 
 bool Field::isWhiteField(const Model::Position& position)
 {
-    return (position.getFile() + position.getLevel() + position.getRank()) % 2;
+    return !((position.getFile() + position.getLevel() + position.getRank()) % 2);
 }
 
 

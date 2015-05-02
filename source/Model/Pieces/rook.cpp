@@ -5,9 +5,8 @@ namespace Model
 
 PointerToPositionList Rook::getPossibleMoves()
 {
-    return Piece::getPossibleMoves();
+    return Piece::moveOrTakeStraightFrom(position);
 }
     
-    
-    
+  
 }

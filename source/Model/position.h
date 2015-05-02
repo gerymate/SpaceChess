@@ -23,12 +23,19 @@ public:
     
     static const Position Invalid;
     
-    Position over() const 	{ return Position{level + 1, file, rank}; }
-    Position under() const 	{ return Position{level - 1, file, rank}; }
-    Position right() const 	{ return Position{level, file + 1, rank}; }
-    Position left() const 	{ return Position{level, file - 1, rank}; }
-    Position farther() const 	{ return Position{level, file, rank + 1}; }
-    Position closer() const 	{ return Position{level, file, rank - 1}; }
+    Position over() const 	{ return over(*this); }
+    Position under() const 	{ return under(*this); }
+    Position right() const 	{ return right(*this); }
+    Position left() const 	{ return left(*this); }
+    Position farther() const 	{ return farther(*this); }
+    Position closer() const 	{ return closer(*this); }
+
+    static Position over(const Position& p) 	{ return Position{p.level+1, p.file, p.rank}; }
+    static Position under(const Position& p) 	{ return Position{p.level-1, p.file, p.rank}; }
+    static Position right(const Position& p) 	{ return Position{p.level, p.file+1, p.rank}; }
+    static Position left(const Position& p) 	{ return Position{p.level, p.file-1, p.rank}; }
+    static Position farther(const Position& p) 	{ return Position{p.level, p.file, p.rank+1}; }
+    static Position closer(const Position& p) 	{ return Position{p.level, p.file, p.rank-1}; }
     
     std::string getNotation() const;
 };
