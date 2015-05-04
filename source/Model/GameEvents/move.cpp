@@ -8,6 +8,9 @@ namespace Model
     
 bool Move::execute()
 {
+    setPlayerBasedOnPreviousGameEvent();
+    updateMoveNumber();
+    
     if (!board) throw std::runtime_error("Board not set when executing a Move GameEvent");
     bool success = false;
     pieceAtSource = board->getPiece(source);
@@ -44,10 +47,23 @@ bool Move::revert()
     return success;
 }
 
+void Move::updateMoveNumber()
+{
+    if (player == Player::White)
+    {
+	++moveNumber;
+    }
+}
+
 std::string Move::getNotation()
 {
     // valid only after execution...
     std::stringstream notation;
+    notation << moveNumber << " ";
+    if (player == Player::Black) 
+    {
+	notation << "... ";
+    }
     notation << source
 	<< (pieceTaken ? "x" : " ")
 	<< destination;

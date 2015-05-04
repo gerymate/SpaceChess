@@ -17,8 +17,17 @@ PointerToPositionList Judge::getPossibleMovesFrom(Position& from)
     
     PointerToPositionList basicPossibleMoves = board->getPiece(from)->getPossibleMoves();
     
-    return basicPossibleMoves;
-    
+    return basicPossibleMoves;   
+}
+
+PointerToPositionList Judge::getCurrentlyPossibleMovesFrom(Position& from)
+{
+    if (!board->isOccupied(from) || board->getPiece(from)->getPlayer() != history->getNextPlayer())
+    {
+	return nullptr;
+    } else {
+	return getPossibleMovesFrom(from);
+    }
 }
 
 bool Judge::isValidMove(Position& from, Position& to)

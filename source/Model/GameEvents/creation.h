@@ -13,7 +13,7 @@ class Creation : public GameEvent
     Board* board;
     History* history;
 public:
-    Creation(Board* theBoard, History* theHistory) : board(theBoard), history(theHistory) {}
+    Creation(Board* theBoard, History* theHistory);
     bool execute() override;
     bool revert() override;
     std::string getNotation() override;

@@ -19,6 +19,7 @@ class Judge
 public:
     Judge(Board* theBoard, History* theHistory);
     PointerToPositionList getPossibleMovesFrom(Position& from);
+    PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
     bool isValidMove(Position& from, Position& to);
 //    Player getNextPlayer() const { return nextPlayer; }
     

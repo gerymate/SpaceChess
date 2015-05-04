@@ -14,17 +14,19 @@ GameEvent::~GameEvent()
 
 }
 
-void GameEvent::switchNextPlayer()
+void GameEvent::setPlayerBasedOnPreviousGameEvent()
 {
-    if (Player::White == nextPlayer)
+    Model::Player previousPlayer = history->getPlayerForLastEvent();
+    if (Player::White == previousPlayer)
     {
-	nextPlayer = Player::Black;
-    } else if (Player::Black == nextPlayer)
+	player = Player::Black;
+    } else if (Player::Black == previousPlayer)
     {
-	nextPlayer = Player::White;
+	player = Player::White;
+    } else {
+	player = Player::Nobody;
     }
 }
-
 
 Board* GameEvent::board = nullptr;
 History* GameEvent::history = nullptr;

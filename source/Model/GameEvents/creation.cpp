@@ -3,6 +3,13 @@
 namespace Model
 {
     
+Creation::Creation(Board* theBoard, History* theHistory) 
+    : board{theBoard}, history{theHistory}
+{
+    player = Player::Black;
+    moveNumber = 1;
+}
+
 bool Creation::execute()
 {
     setBoard(board);

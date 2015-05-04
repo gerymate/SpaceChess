@@ -13,6 +13,8 @@ class Move : public GameEvent
 {
     Position source, destination;
     PointerToPiece pieceAfterPromotion, pieceTaken{nullptr}, pieceAtSource{nullptr};
+
+    void updateMoveNumber();
 public:
     Move(const Position& theSource, const Position& theDestination, 
 	 PointerToPiece thePieceAfterPromotion = nullptr) 

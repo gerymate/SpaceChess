@@ -3,10 +3,10 @@
 
 #include <string>
 #include <memory>
+#include "common.h"
 #include "board.h"
-#include "history.h"
 #include "player.h"
-
+#include "history.h"
 
 namespace Model
 {
@@ -17,7 +17,7 @@ public:
     virtual bool execute() = 0;
     virtual bool revert() = 0;
     virtual std::string getNotation() = 0;
-    Player getNextPlayer() const { return nextPlayer; }
+    Player getPlayer() const { return player; }
     int getMoveNumber() const { return moveNumber; }
     static void setBoard(Board* theBoard) { board = theBoard; }
     static void setHistory(History* theHistory);
@@ -26,10 +26,10 @@ protected:
     static Board* board;
     static History* history;
 
-    Player nextPlayer { Player::Nobody };
+    Player player { Player::Nobody };
     int moveNumber { 0 };
 
-    void switchNextPlayer();
+    void setPlayerBasedOnPreviousGameEvent();
     
 };
 

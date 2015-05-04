@@ -5,6 +5,7 @@
 #include <memory>
 #include "player.h"
 #include "board.h"
+#include "gameevent.h"
 #include "common.h"
 
 namespace Model
@@ -15,17 +16,17 @@ class History
     Board* board;
     std::vector<PointerToGameEvent> eventLog;
     size_t indexOfNextEvent {0};
-    Player nextPlayer { Player::Nobody };
 public:
     History(Board* theBoard);
-    void addEvent(PointerToGameEvent& event) { eventLog.push_back(event); }
-    PointerToGameEvent getCurrentEvent() const { return eventLog.at(indexOfNextEvent - 1); }
-    void reset() { indexOfNextEvent = 1; }
+    void addEvent(PointerToGameEvent& event);
+    PointerToGameEvent getCurrentEvent() const;
+    void reset();
     bool actualize();
     void clearFuture();
     bool stepForward();
     bool stepBack();
-    Player getNextPlayer() const { return nextPlayer; }
+    Player getPlayerForLastEvent() const;
+    Player getNextPlayer() const;
     
     friend std::ostream& operator<<(std::ostream& outputStream, const Model::History& history);
     friend std::istream& operator>>(std::istream& inputStream, Model::History& history);

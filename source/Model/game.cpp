@@ -30,6 +30,11 @@ GameState Game::getGameState()
     return currentState;
 }
 
+PointerToPositionList Game::getCurrentlyPossibleMovesFrom(Position& from)
+{
+    return judge.getCurrentlyPossibleMovesFrom(from);
+}
+
 PointerToPositionList Game::getPossibleMovesFrom(Position& from)
 {
     return judge.getPossibleMovesFrom(from);
@@ -41,12 +46,11 @@ std::string Game::move(Position& from, Position& to, Figure promoteTo)
     
     if (judge.isValidMove(from, to))
     {
-    
-    PointerToGameEvent aMove { new Move { from, to } };
-    history.addEvent(aMove);
-    history.actualize();
-    
-    result = aMove->getNotation();
+	PointerToGameEvent aMove { new Move { from, to } };
+	history.addEvent(aMove);
+	history.actualize();
+	
+	result = aMove->getNotation();
     }
     
     return result;

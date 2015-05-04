@@ -24,7 +24,7 @@ void PlayerController::handleSelection(PointerToEvent event)
 
 void PlayerController::handleFirstSelection(Model::Position theClickPosition)
 {
-    auto possibleMoves = game->getPossibleMovesFrom(theClickPosition);
+    auto possibleMoves = game->getCurrentlyPossibleMovesFrom(theClickPosition);
     
     if ( possibleMoves != nullptr ) // if there is a figure on that field
     {

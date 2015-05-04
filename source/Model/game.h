@@ -25,10 +25,9 @@ class Game
 
 public:
 	Game();
-//	Game(const GameState& gs);
-//	void setGameState(const GameState& gs);
 	GameState getGameState();
-	PointerToPositionList getPossibleMovesFrom(Position& from);
+	PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
+	PointerToPositionList getPossibleMovesFrom(Position& from); // unused?
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
 };
