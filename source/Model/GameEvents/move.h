@@ -21,7 +21,7 @@ public:
 	: source{theSource}, destination{theDestination}, pieceAfterPromotion{thePieceAfterPromotion} {}
     bool execute() override;
     bool revert() override;
-    std::string getNotation() override;
+    std::string getNotation() const override;
 };
 
 }

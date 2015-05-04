@@ -26,7 +26,7 @@ public:
 	: position(thePosition), piece(thePiece) {};
     bool execute() override;
     bool revert() override;
-    std::string getNotation() override;
+    std::string getNotation() const override;
 };
 
 }

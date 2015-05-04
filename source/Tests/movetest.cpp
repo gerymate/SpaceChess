@@ -17,7 +17,7 @@ SCENARIO("A King moves on the board", "[gameevents]")
 	Position dest {3, 3, 4};
 	PointerToPiece aKing {new King};
 	board.addPiece(src, aKing);
-	
+		
 	PointerToGameEvent aGameEvent {new Move {src, dest} };
 	aGameEvent->setBoard(&board);
 

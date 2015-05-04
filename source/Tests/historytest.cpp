@@ -18,7 +18,7 @@ struct MockGameEvent : public GameEvent
     virtual ~MockGameEvent() { --numberOfMockGameEvents; }
     bool execute() { ++executed; return true; }
     bool revert() { --executed; return true; }
-    std::string getNotation() 
+    std::string getNotation() const
     {
 	std::stringstream notation;
 	notation << "MockGameEvent #" << id;

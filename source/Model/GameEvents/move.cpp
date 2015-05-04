@@ -55,7 +55,7 @@ void Move::updateMoveNumber()
     }
 }
 
-std::string Move::getNotation()
+std::string Move::getNotation() const
 {
     // valid only after execution...
     std::stringstream notation;

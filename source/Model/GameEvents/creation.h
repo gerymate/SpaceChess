@@ -16,7 +16,7 @@ public:
     Creation(Board* theBoard, History* theHistory);
     bool execute() override;
     bool revert() override;
-    std::string getNotation() override;
+    std::string getNotation() const override;
 };
 
 }

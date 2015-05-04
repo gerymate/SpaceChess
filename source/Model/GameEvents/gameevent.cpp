@@ -3,6 +3,9 @@
 namespace Model
 {
 
+Board* GameEvent::board = nullptr;
+History* GameEvent::history = nullptr;
+    
 void GameEvent::setHistory(History* theHistory)
 {
     history = theHistory;
@@ -28,7 +31,11 @@ void GameEvent::setPlayerBasedOnPreviousGameEvent()
     }
 }
 
-Board* GameEvent::board = nullptr;
-History* GameEvent::history = nullptr;
+std::ostream& operator<<(std::ostream& outputStream, const Model::GameEvent& gameEvent)
+{
+    outputStream << gameEvent.getNotation();
+    return outputStream;
+}
+
 
 }

@@ -22,7 +22,7 @@ bool Creation::revert()
     return false;
 }
 
-std::string Creation::getNotation()
+std::string Creation::getNotation() const
 {
     return "Game created.";
 }

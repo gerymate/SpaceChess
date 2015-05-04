@@ -16,7 +16,7 @@ bool AddPiece::revert()
     return board->removePiece(position);
 }
 
-std::string AddPiece::getNotation()
+std::string AddPiece::getNotation() const
 {
     return "Add piece";
 }

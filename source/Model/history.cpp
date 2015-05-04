@@ -83,14 +83,19 @@ Player History::getNextPlayer() const
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::History& history)
 {
-    outputStream << history.board;
-    return outputStream;
-    
+    for (size_t i = 0; i != history.eventLog.size(); ++i)
+    {
+	outputStream << history.eventLog.at(i) << "\n";
+    }
+    return outputStream;    
 }
 
 std::istream& operator>>(std::istream& inputStream, Model::History& history)
 {
-    inputStream >> *(history.board);
+    // placeholder for hard work that comes:
+    
+    // -> here <-
+    
     return inputStream;   
 }
 
