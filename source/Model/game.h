@@ -5,14 +5,14 @@
 #include "gamestate.h"
 
 // new
+#include "common.h"
 #include "board.h"
 #include "history.h"
 #include "judge.h"
 #include <string>
 #include <list>
-#include "common.h"
 #include "figure.h"
-#include "move.h"
+
 
 namespace Model {
 //	A Game is a full abstraction of a single SpaceChess game
@@ -20,16 +20,23 @@ namespace Model {
 class Game
 {
     Board board;
-    History history;
-    Judge judge;
+    History* history;
+    Judge* judge;
 
 public:
 	Game();
+	~Game();
 	GameState getGameState();
 	PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
 	PointerToPositionList getPossibleMovesFrom(Position& from); // unused?
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
+	
+	Board* getBoard();
+	History* getHistory();
+	Judge* getJudge();
+
+    	friend std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game);	
 };
 
 }

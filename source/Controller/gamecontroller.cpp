@@ -31,6 +31,7 @@ void GameController::mainLoop()
 	handleGameEvents();
 	renderer.update();
     }
+    saveGame();
 }
 
 void GameController::handleGameEvents()
@@ -91,6 +92,18 @@ Model::GameState GameController::loadBoardFromFile()
     boardFile.close();
 
     return board;
+}
+
+void GameController::saveGame(string fileName)
+{
+    try 
+    {
+	ofstream outputStream {fileName};
+	outputStream << game;
+	outputStream.close();
+    } catch (...) {
+	std::cerr << "Error while saving the game to the file " << fileName << " !\n";
+    }
 }
 
 }

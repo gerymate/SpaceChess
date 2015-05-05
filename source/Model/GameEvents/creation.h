@@ -10,10 +10,8 @@ class History;
     
 class Creation : public GameEvent
 {
-    Board* board;
-    History* history;
 public:
-    Creation(Board* theBoard, History* theHistory);
+    Creation(Game* theGame);
     bool execute() override;
     bool revert() override;
     std::string getNotation() const override;

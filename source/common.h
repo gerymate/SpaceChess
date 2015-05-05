@@ -13,13 +13,17 @@ namespace Model
     using PositionList = std::list<Position>;
     using PointerToPositionList = std::shared_ptr<PositionList>;
 
+    class Game;
+    class History;
+    class Judge;
+
     class GameEvent;
+    class Move;
     using PointerToGameEvent = std::shared_ptr<GameEvent>;
     class Piece;
     using PointerToPiece = std::shared_ptr<Piece>;
     class Board;
     using PointerToBoard = std::shared_ptr<Board>;    
-    class History;
 }
 
 class Event;

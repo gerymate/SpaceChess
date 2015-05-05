@@ -22,8 +22,7 @@ class AddPiece : public GameEvent
     Position position;
     PointerToPiece piece;
 public:
-    AddPiece(const Position& thePosition, PointerToPiece thePiece) 
-	: position(thePosition), piece(thePiece) {};
+    AddPiece(const Position& thePosition, PointerToPiece thePiece);
     bool execute() override;
     bool revert() override;
     std::string getNotation() const override;

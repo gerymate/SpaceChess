@@ -5,14 +5,25 @@
 
 namespace Model
 {
+
+Move::Move(Game* theGame, const Position& theSource, const Position& theDestination, 
+	 PointerToPiece thePieceAfterPromotion)
+	: GameEvent{theGame}
+	, source{theSource}, destination{theDestination}
+	, pieceAfterPromotion{thePieceAfterPromotion} 
+{
     
+    
+}
+    
+
 bool Move::execute()
 {
-    setPlayerBasedOnPreviousGameEvent();
-    updateMoveNumber();
+    setPlayerAndMoveNumberBasedOnPreviousGameEvent();
     
-    if (!board) throw std::runtime_error("Board not set when executing a Move GameEvent");
+    if (!game) throw std::runtime_error("Game not set when executing a Move GameEvent");
     bool success = false;
+    Board* board = game->getBoard();
     pieceAtSource = board->getPiece(source);
     if (pieceAtSource) 
     {	
@@ -36,6 +47,7 @@ bool Move::execute()
 bool Move::revert()
 {
     bool success = false;
+    Board* board = game->getBoard();
     if (pieceAtSource && !board->isOccupied(source))
     {
 	success = board->removePiece(destination) && board->addPiece(source, pieceAtSource);
@@ -47,31 +59,11 @@ bool Move::revert()
     return success;
 }
 
-void Move::updateMoveNumber()
-{
-    if (player == Player::White)
-    {
-	++moveNumber;
-    }
-}
-
 std::string Move::getNotation() const
 {
-    // valid only after execution...
     std::stringstream notation;
-    notation << moveNumber << " ";
-    if (player == Player::Black) 
-    {
-	notation << "... ";
-    }
-    notation << source
-	<< (pieceTaken ? "x" : " ")
-	<< destination;
-    if (pieceAfterPromotion)
-    {
-//	notation << "=" << pieceAfterPromotion->getFigure();
-    }
-  return notation.str();
+    notation << source << " " << destination;
+    return notation.str();
 }
 
 }

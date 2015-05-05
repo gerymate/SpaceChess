@@ -3,17 +3,14 @@
 namespace Model
 {
     
-Creation::Creation(Board* theBoard, History* theHistory) 
-    : board{theBoard}, history{theHistory}
+Creation::Creation(Game* theGame) : GameEvent{theGame}
 {
     player = Player::Black;
-    moveNumber = 1;
+    moveNumber = 0;
 }
 
 bool Creation::execute()
 {
-    setBoard(board);
-    setHistory(history);
     return true;
 }
 

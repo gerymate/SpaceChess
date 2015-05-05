@@ -1,23 +1,26 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
+#include "common.h"
 #include <vector>
 #include <memory>
 #include "player.h"
 #include "board.h"
 #include "gameevent.h"
-#include "common.h"
+#include "game.h"
+#include "judge.h"
 
 namespace Model
 {
 
 class History
 {
+    Game* game;
     Board* board;
     std::vector<PointerToGameEvent> eventLog;
     size_t indexOfNextEvent {0};
 public:
-    History(Board* theBoard);
+    History(Game* theGame);
     void addEvent(PointerToGameEvent& event);
     PointerToGameEvent getCurrentEvent() const;
     void reset();
@@ -26,6 +29,7 @@ public:
     bool stepForward();
     bool stepBack();
     Player getPlayerForLastEvent() const;
+    int getMoveNumberForLastEvent() const;
     Player getNextPlayer() const;
     
     friend std::ostream& operator<<(std::ostream& outputStream, const Model::History& history);

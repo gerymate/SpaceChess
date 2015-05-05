@@ -5,9 +5,9 @@
 namespace Model 
 {
 
-History::History(Board* theBoard) : board(theBoard)
+History::History(Game* theGame) : game{theGame}, board{theGame->getBoard()}
 {
-    eventLog.emplace_back(PointerToGameEvent {new Creation(board, this)});
+    eventLog.emplace_back(PointerToGameEvent {new Creation(game)});
     actualize();
 }
 
@@ -68,6 +68,11 @@ Player History::getPlayerForLastEvent() const
     return getCurrentEvent()->getPlayer(); 
 }
 
+int History::getMoveNumberForLastEvent() const
+{
+    return getCurrentEvent()->getMoveNumber();
+}
+
 Player History::getNextPlayer() const
 {
     Player lastPlayer = getCurrentEvent()->getPlayer();
@@ -85,7 +90,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::History& histo
 {
     for (size_t i = 0; i != history.eventLog.size(); ++i)
     {
-	outputStream << history.eventLog.at(i) << "\n";
+	outputStream << *history.eventLog.at(i) << "\n";
     }
     return outputStream;    
 }

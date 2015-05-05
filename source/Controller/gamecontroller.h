@@ -28,6 +28,7 @@ class GameController
     Model::GameState loadBoardFromFile();
     void handleSystemEvents();
     void handleGameEvents();
+    void saveGame(std::string fileName = "lastspacechessgame.txt");
     
 public:
     GameController(sf::RenderWindow* theWindow);

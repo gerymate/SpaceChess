@@ -4,7 +4,7 @@ namespace Model
 {
 
     
-Judge::Judge(Board* theBoard, History* theHistory) : board{theBoard}, history{theHistory}
+Judge::Judge(Game* theGame) : game{theGame}, board{theGame->getBoard()}, history{theGame->getHistory()}
 {
 }
 

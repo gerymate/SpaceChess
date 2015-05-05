@@ -5,6 +5,9 @@
 #include "position.h"
 #include "piece.h"
 #include "common.h"
+#include "game.h"
+#include "history.h"
+#include "judge.h"
 
 namespace Model
 {
@@ -13,12 +16,9 @@ class Move : public GameEvent
 {
     Position source, destination;
     PointerToPiece pieceAfterPromotion, pieceTaken{nullptr}, pieceAtSource{nullptr};
-
-    void updateMoveNumber();
 public:
-    Move(const Position& theSource, const Position& theDestination, 
-	 PointerToPiece thePieceAfterPromotion = nullptr) 
-	: source{theSource}, destination{theDestination}, pieceAfterPromotion{thePieceAfterPromotion} {}
+    Move(Game* theGame, const Position& theSource, const Position& theDestination, 
+	 PointerToPiece thePieceAfterPromotion = nullptr);
     bool execute() override;
     bool revert() override;
     std::string getNotation() const override;

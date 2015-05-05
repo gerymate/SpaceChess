@@ -4,16 +4,21 @@
 
 namespace Model
 {
-    
+
+AddPiece::AddPiece(const Position& thePosition, PointerToPiece thePiece): GameEvent(nullptr), position(thePosition), piece(thePiece)
+{
+
+}
+
 bool AddPiece::execute()
 {
-    if (!board) throw std::runtime_error("Board not set when executing an AddPiece GameEvent");
-    return board->addPiece(position, piece);
+    if (!game) throw std::runtime_error("Game not set when executing an AddPiece GameEvent");
+    return game->getBoard()->addPiece(position, piece);
 }
 
 bool AddPiece::revert()
 {
-    return board->removePiece(position);
+    return game->getBoard()->removePiece(position);
 }
 
 std::string AddPiece::getNotation() const

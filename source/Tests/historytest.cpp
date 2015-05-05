@@ -33,10 +33,10 @@ SCENARIO("We test a new game history", "[history]")
     using namespace Model;
     GIVEN("a new history")
     {
-	Board board;
-	History history { &board };
+	Game game;
+	History history { &game };
 	
-	REQUIRE ( history.getNextPlayer() == Player::Nobody );
+	REQUIRE ( history.getNextPlayer() == Player::White );
 	
 	WHEN("we try to step back beyond creation")
 	{
