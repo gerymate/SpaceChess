@@ -5,7 +5,6 @@
 #include "king.h"
 #include "queen.h"
 #include "pawn.h"
-#include "addpiece.h"
 #include "move.h"
 
 SCENARIO("A King moves on the board", "[gameevents]")

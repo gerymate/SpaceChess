@@ -105,7 +105,7 @@ void BoardPainter::highlightPossibleMoves()
 void BoardPainter::drawPlaneDecoration(sf::Vector2f thePosition)
 {
     // draw notation to the upper left corner
-    sf::Text notation(style->YNotation[currentPlane], style->font, 0.5f * style->MARGINSIZE);
+    sf::Text notation(style->ZNotation[currentPlane], style->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Yellow);
     notation.setStyle(sf::Text::Bold);
     notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));
@@ -133,7 +133,7 @@ void BoardPainter::drawPlaneDecoration(sf::Vector2f thePosition)
 void BoardPainter::drawRowDecoration(sf::Vector2f thePosition)
 {
     // draw notation beside the plane
-    sf::Text notation(style->ZNotation[4 - currentRow], style->font, 0.5f * style->MARGINSIZE);
+    sf::Text notation(style->YNotation[4 - currentRow], style->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Red);
     notation.setPosition(thePosition + sf::Vector2f(-0.5f * style->MARGINSIZE, 1.f * (style->FIELDSIZE - style->MARGINSIZE)));
     canvas->draw(notation);
@@ -155,8 +155,8 @@ void BoardPainter::buildRow(sf::Vector2f thePosition)
     {
 	currentColumn = k;
 	sf::Vector2f position(thePosition + sf::Vector2f(k * style->FIELDSIZE, 0.f));
-	const Model::Field content {board->space[currentPlane][currentColumn][4 - currentRow]};
-	drawableFields.emplace_back(position, style, board->space[currentPlane][currentColumn][4 - currentRow]);
+	const Model::Field content {board->space[4 - currentRow][currentColumn][currentPlane]};
+	drawableFields.emplace_back(position, style, content);
     }
 }
 
