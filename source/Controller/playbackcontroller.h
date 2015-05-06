@@ -18,12 +18,13 @@ class PlaybackController : public GameController
 {
     void handleSystemEvents();
     void handleGameEvents();
-    void loadGame(std::string fileName = "lastspacechessgame.txt");
+    void loadGame(const std::string& fileName);
     void emitStepForwardEvent();
     void emitStepBackwardEvent();
     
 public:
-    PlaybackController(sf::RenderWindow* theWindow);
+    PlaybackController(sf::RenderWindow* theWindow, 
+		       const std::string& fileName);
     virtual ~PlaybackController();
     void mainLoop();
 };

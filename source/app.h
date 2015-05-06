@@ -8,15 +8,16 @@
 
 class App
 {
-    std::string mode;
+    std::string mode, params;
     std::unique_ptr<Controller::GameController> gameController;
     sf::RenderWindow window;
     void setUpWindow();
     void setUpAGameController();
 public:
-    App();
-    App(std::string theMode, std::string param = "");
+    App(std::string theMode = "", std::string theParams = "");
     int run();
+    
+    static void showUsage(std::string executable);
 };
 
 #endif // APP_H

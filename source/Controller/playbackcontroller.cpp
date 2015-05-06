@@ -7,11 +7,13 @@ using namespace std;
 namespace Controller
 {
 
-PlaybackController::PlaybackController(sf::RenderWindow* theWindow): GameController(theWindow)
+PlaybackController::PlaybackController(sf::RenderWindow* theWindow, const std::string& fileName)
+    : GameController(theWindow)
 {
     renderer.setLocalPlayers(Model::Player::Nobody);
     std::string textToDisplay {"Playback mode: left click for previous move, right click for next."};
     renderer.setMessage(textToDisplay);
+    loadGame(fileName);
 }
 
 PlaybackController::~PlaybackController()
@@ -20,7 +22,6 @@ PlaybackController::~PlaybackController()
 
 void PlaybackController::mainLoop()
 {
-    loadGame();
     while (window->isOpen())
     {    
 	handleSystemEvents();
@@ -29,14 +30,19 @@ void PlaybackController::mainLoop()
     }
 }
 
-void PlaybackController::loadGame(string fileName)
+void PlaybackController::loadGame(const std::string& fileName)
 {
     try {
 	std::ifstream inputFile {fileName};
+	if (! inputFile.is_open())
+	{
+	    std::cerr << "Error during opening file " << fileName << " !\nMaybe in a wrong directory?\n";
+	    exit(1);	    
+	}
 	inputFile >> game;
 	inputFile.close();
-    } catch (...) {
-	std::cerr << "Error during opening file " << fileName << " !\nMaybe in a wrong directory?\n";
+    } catch (std::exception& e) {
+	std::cerr << e.what() << "\n";
 	exit(1);
     }
 }

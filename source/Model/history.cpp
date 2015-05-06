@@ -103,7 +103,7 @@ std::istream& operator>>(std::istream& inputStream, Model::History& history)
     inputStream >> first >> second;
     if (first != "Game")
     {
-	throw std::logic_error{"Bad file format for game History"};
+	throw std::logic_error{"This is not a valid SpaceChess game history file."};
     }
 
     while (inputStream >> first >> second)
