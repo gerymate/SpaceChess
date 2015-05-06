@@ -13,7 +13,7 @@ LocalGameController::LocalGameController(sf::RenderWindow* theWindow)
 }
 
 LocalGameController::~LocalGameController()
-{
+{    
 }
 
 void LocalGameController::mainLoop()
