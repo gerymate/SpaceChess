@@ -97,9 +97,21 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::History& histo
 
 std::istream& operator>>(std::istream& inputStream, Model::History& history)
 {
-    // placeholder for hard work that comes:
-    
-    // -> here <-
+    std::string first, second;
+    std::string moveDesc;
+   
+    inputStream >> first >> second;
+    if (first != "Game")
+    {
+	throw std::logic_error{"Bad file format for game History"};
+    }
+
+    while (inputStream >> first >> second)
+    {
+	moveDesc = first.append(" ").append(second);
+	PointerToGameEvent move = GameEvent::generateMove(moveDesc, history.game);
+	history.addEvent(move);
+    }
     
     return inputStream;   
 }

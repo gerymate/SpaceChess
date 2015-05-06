@@ -4,7 +4,9 @@ namespace View {
 
 Render2D::Render2D(sf::RenderWindow* theWindow, 
 	Model::Game* theGame, EventQueue* theEventQueue) 
-	: game{theGame}, eventQueue {theEventQueue}, window(theWindow), boardPainter(theWindow, &style, theGame, theEventQueue), panelPainter(theWindow, &style)
+	: game{theGame}, eventQueue {theEventQueue}, window(theWindow)
+	, boardPainter(theWindow, &style, theGame, theEventQueue)
+	, panelPainter(theWindow, &style)
 {
     window->setVerticalSyncEnabled(true);
     panelPainter.setTopLeft(sf::Vector2f{20, 300});    
@@ -27,6 +29,16 @@ void Render2D::update()
     window->display();        
 }
 
+void Render2D::setLocalPlayers(Model::Player theLocalPlayers)
+{
+    boardPainter.setLocalPlayers(theLocalPlayers);
+}
+
+void Render2D::setMessage(const std::string& theMessage)
+{
+    panelPainter.setMessage(theMessage);
+}
+
 void Render2D::handleClick(sf::Vector2f& mousePosition)
 {
     if (boardPainter.getRect().contains(mousePosition))
@@ -39,15 +51,10 @@ void Render2D::handleClick(sf::Vector2f& mousePosition)
     }
 }
 
-void Render2D::shutdown()
-{
-}    
-
 Model::Position Render2D::setAndGetBoardCursorFromScreenPosition(sf::Vector2f position)
 {
     return cursor = boardPainter.setAndGetBoardCursorFromScreenPosition(position);
 }
-
 
 Render2D::~Render2D()
 {

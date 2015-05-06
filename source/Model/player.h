@@ -5,7 +5,7 @@ namespace Model {
 
 enum Player 
 {
-    Nobody = 0, White = 1, Black = 2
+    Nobody = 0, White = 1, Black = 2, Both = 3
 };
 
 }

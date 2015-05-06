@@ -15,24 +15,18 @@ namespace Controller
     
 class GameController
 {
+protected:
     sf::RenderWindow* window;
     Model::Game game;
     EventQueue eventQueue;
     View::Render2D renderer;
-    PlayerController playerController;
 
-    Model::Position cursor {Model::Position::Invalid};
-
-    void initLocalGame();
-    void setCursor(sf::Event event);
-    void handleSystemEvents();
-    void handleGameEvents();
-    void saveGame(std::string fileName = "lastspacechessgame.txt");
-    
+    virtual void handleSystemEvents() = 0;
+    virtual void handleGameEvents() = 0;    
 public:
     GameController(sf::RenderWindow* theWindow);
     virtual ~GameController();
-    void mainLoop();
+    virtual void mainLoop();
 };
 
 }

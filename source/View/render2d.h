@@ -20,11 +20,13 @@ class Render2D
     BoardPainter boardPainter;
     PanelPainter panelPainter;
     Model::Position cursor;
+    std::string message {""};
 public:
-    Render2D(sf::RenderWindow* theWindow, Model::Game* theGame, EventQueue* theEventQueue);
+    Render2D(sf::RenderWindow* theWindow, Model::Game* theGame, 
+	     EventQueue* theEventQueue);
     ~Render2D();
-    void update();  
-    void shutdown();
+    void update();
+    void setLocalPlayers(Model::Player theLocalPlayers);
     void handleClick(sf::Vector2f &mousePosition);
     Model::Position setAndGetBoardCursorFromScreenPosition(sf::Vector2f position);
     void setSelectedField(Model::Position theSelectedField) 
@@ -33,7 +35,7 @@ public:
     void setHighlightedFields(Model::PointerToPositionList thePositions)
 	    { boardPainter.setHighlightedFields(thePositions); }
     void clearHighlightedFields() { setHighlightedFields(nullptr); }
-
+    void setMessage(const std::string& theMessage);
 };
 
 }

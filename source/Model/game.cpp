@@ -88,6 +88,15 @@ Judge* Game::getJudge()
     return judge;
 }
 
+std::string Game::stepBackward()
+{
+    return history->stepBack() ? "OK" : "There are no previous moves."; 
+}
+
+std::string Game::stepForward()
+{
+    return history->stepForward() ? "OK" : "There are no more moves."; 
+}
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game)
 {
@@ -95,5 +104,11 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game)
     return outputStream;
 }
 
-   
+std::istream& operator>>(std::istream& inputStream, Model::Game& game)
+{
+    inputStream >> *(game.history);
+    return inputStream;
+}
+
+
 }

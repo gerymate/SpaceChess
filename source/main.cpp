@@ -21,10 +21,11 @@ int main(int argc, char** argv)
 	{
 		if (params[1] == "-s")
 		{
-			std::cout << "Networked game - we are the server\n";
-		}
-		else
-		{
+		    std::cout << "Networked game - we are the server\n";
+		} else if (params[1] == "-r") {
+		    App app {"playback"};
+		    return app.run();
+		} else {
 			showUsage(params[0]);
 		}
 	}

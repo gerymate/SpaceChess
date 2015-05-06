@@ -1,12 +1,17 @@
 #include "app.h"
 #include <iostream>
 #include <fstream>
-#include "Controller/gamecontroller.h"
+#include "Controller/localgamecontroller.h"
+#include "Controller/playbackcontroller.h"
 using namespace std;
 using namespace Controller;
 
 App::App()
 {    
+}
+
+App::App(string theMode, string theParam) : mode{theMode}
+{
 }
 
 int App::run()
@@ -27,5 +32,10 @@ void App::setUpWindow()
 
 void App::setUpAGameController()
 {
-    gameController.reset(new GameController(&window));
+    if (mode == "playback")
+    {
+	gameController.reset(new PlaybackController(&window));
+    } else {
+	gameController.reset(new LocalGameController(&window));
+    }
 }

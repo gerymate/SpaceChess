@@ -6,7 +6,8 @@ namespace View {
 
 BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
 			   Model::Game* theGame, EventQueue* theEventQueue)
-    : canvas(theCanvas), style(theStyleSheet), game(theGame), eventQueue(theEventQueue)
+    : canvas{theCanvas}, style{theStyleSheet}, game{theGame}
+    , eventQueue{theEventQueue}
 {
     highlightedFields = nullptr;
 }
@@ -15,6 +16,11 @@ void BoardPainter::setGameState(const Model::GameState* theGameState)
 {
     gameState = theGameState;
     board = &(gameState->board);
+}
+
+void BoardPainter::setLocalPlayers(Model::Player theLocalPlayers)
+{
+    localPlayers = theLocalPlayers;
 }
 
 void BoardPainter::handleClick(sf::Vector2f& mousePosition)
@@ -46,9 +52,12 @@ void BoardPainter::draw()
 	drawPlaneDecoration(position);
     }
     
-    highlightFieldUnderCursor();
-    highlightTouchedField();
-    highlightPossibleMoves();
+    if (localPlayers == Model::Player::Both || localPlayers == gameState->nextPlayer)
+    {
+	highlightFieldUnderCursor();
+	highlightTouchedField();
+	highlightPossibleMoves();
+    }
     
     for (auto& field : drawableFields)
     {

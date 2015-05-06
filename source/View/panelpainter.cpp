@@ -1,5 +1,10 @@
 #include "panelpainter.h"
 
+#include "View/cursorinfo.h"
+#include "View/nextplayerinfo.h"
+#include "View/messagewidget.h"
+
+
 namespace View {
 
 PanelPainter::PanelPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet)
@@ -15,6 +20,11 @@ void PanelPainter::setGameState(const Model::GameState* theGameState)
 void PanelPainter::setCursorInfo(const Model::Position* theCursor)
 {
     cursor = theCursor;
+}
+
+void PanelPainter::setMessage(std::string theMessage)
+{
+    message = theMessage;
 }
 
 void PanelPainter::draw()
@@ -58,6 +68,10 @@ void PanelPainter::buildPanel(sf::Vector2f thePosition)
     position += sf::Vector2f(200, 0);
     std::shared_ptr<Widget> cursorInfoWidget (new CursorInfo (position, style, *cursor) );
     panel.push_back(cursorInfoWidget);
+
+    position += sf::Vector2f(-200, 2 * style->FONTSIZE);
+    std::shared_ptr<Widget> messageWidget (new MessageWidget (position, style, message) );
+    panel.push_back(messageWidget);
 
 }
 

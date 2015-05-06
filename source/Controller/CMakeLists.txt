@@ -3,7 +3,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create a variable called helloworld_SOURCES containing all .cpp files:
 set(SOURCES 
-    gamecontroller.cpp playercontroller.cpp)
+    gamecontroller.cpp localgamecontroller.cpp playercontroller.cpp playbackcontroller.cpp)
 
 # For a large number of source files you can create it in a simpler way
 # using file() function:

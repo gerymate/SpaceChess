@@ -31,12 +31,15 @@ public:
 	PointerToPositionList getPossibleMovesFrom(Position& from); // unused?
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
+	std::string stepForward();
+	std::string stepBackward();
 	
 	Board* getBoard();
 	History* getHistory();
 	Judge* getJudge();
 
-    	friend std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game);	
+    	friend std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game);
+    	friend std::istream& operator>>(std::istream& inputStream, Model::Game& game);
 };
 
 }

@@ -7,8 +7,6 @@
 #include "View/stylesheet.h"
 #include "Model/gamestate.h"
 #include "View/widget.h"
-#include "View/cursorinfo.h"
-#include "View/nextplayerinfo.h"
 
 namespace View {
 
@@ -18,6 +16,7 @@ class PanelPainter
     StyleSheet* style;
     const Model::GameState* gameState;
     const Model::Position* cursor;
+    std::string message;
     std::vector< std::shared_ptr<Widget> > panel;
     sf::Vector2f topLeft {0, 0};
 public:
@@ -26,6 +25,7 @@ public:
     void draw();
     void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
     void setCursorInfo(const Model::Position* theCursor);
+    void setMessage(std::string theMessage);
     sf::FloatRect getRect() const;
     void handleClick(sf::Vector2f &mousePosition) {}
 

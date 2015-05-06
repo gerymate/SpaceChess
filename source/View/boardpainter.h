@@ -20,6 +20,7 @@ class BoardPainter
     StyleSheet* style;
     Model::Game* game;
     EventQueue* eventQueue;
+    Model::Player localPlayers {Model::Player::Both};
     const Model::FullBoard* board;
     const Model::GameState* gameState;
     int currentPlane;
@@ -35,6 +36,7 @@ public:
     BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
 		 Model::Game* theGame, EventQueue* theEventQueue);
     void setGameState(const Model::GameState* theGameState);
+    void setLocalPlayers(Model::Player theLocalPlayers);
     void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
     void draw();
     sf::FloatRect getRect() const;
