@@ -44,6 +44,11 @@ PointerToPositionList Game::getCurrentlyPossibleMovesFrom(Position& from)
     return judge->getCurrentlyPossibleMovesFrom(from);
 }
 
+Player Game::getNextPlayer()
+{
+    return history->getNextPlayer();
+}
+
 PointerToPositionList Game::getPossibleMovesFrom(Position& from)
 {
     return judge->getPossibleMovesFrom(from);

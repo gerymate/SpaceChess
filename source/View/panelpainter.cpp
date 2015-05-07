@@ -27,6 +27,11 @@ void PanelPainter::setMessage(std::string theMessage)
     message = theMessage;
 }
 
+void PanelPainter::setLocalPlayer(Model::Player thePlayer)
+{
+    localPlayer = thePlayer;
+}
+
 void PanelPainter::draw()
 {
     panel.clear();
@@ -62,7 +67,7 @@ sf::FloatRect PanelPainter::getRect() const
 void PanelPainter::buildPanel(sf::Vector2f thePosition)
 {
     sf::Vector2f position = thePosition;
-    std::shared_ptr<Widget> nextPlayerInfoWidget (new NextPlayerInfo (position, style, gameState->nextPlayer));
+    std::shared_ptr<Widget> nextPlayerInfoWidget (new NextPlayerInfo (position, style, gameState->nextPlayer, localPlayer));
     panel.push_back(nextPlayerInfoWidget);
     
     position += sf::Vector2f(200, 0);

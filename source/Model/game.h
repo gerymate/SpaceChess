@@ -29,6 +29,7 @@ public:
 	GameState getGameState();
 	PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
 	PointerToPositionList getPossibleMovesFrom(Position& from); // unused?
+	Player getNextPlayer();
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);
 	std::string stepForward();

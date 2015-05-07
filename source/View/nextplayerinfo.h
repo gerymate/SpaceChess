@@ -9,9 +9,11 @@ namespace View {
 class NextPlayerInfo : public Widget
 {
     Model::Player nextPlayer;
+    Model::Player localPlayer;
     const int MAXCHARS {15};
 public:
-    NextPlayerInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Model::Player theNextPlayer);
+    NextPlayerInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, 
+		   Model::Player theNextPlayer, Model::Player theLocalPlayer);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     sf::FloatRect getRect() const override;
 };

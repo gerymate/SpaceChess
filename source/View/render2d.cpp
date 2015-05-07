@@ -32,6 +32,7 @@ void Render2D::update()
 void Render2D::setLocalPlayers(Model::Player theLocalPlayers)
 {
     boardPainter.setLocalPlayers(theLocalPlayers);
+    panelPainter.setLocalPlayer(theLocalPlayers);
 }
 
 void Render2D::setMessage(const std::string& theMessage)

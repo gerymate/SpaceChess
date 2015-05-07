@@ -18,7 +18,7 @@ int App::run()
 	setUpAGameController();
 	gameController->mainLoop();
     } catch (std::exception& e) {
-	std::cerr << e.what() << "\n";
+	std::cerr << "Problem:\n" << e.what() << "\n";
 	return -1;
     }
     return 0;
@@ -38,19 +38,22 @@ void App::setUpAGameController()
 	if (params.empty()) params = "lastspacechessgame.txt";
 	gameController.reset(new PlaybackController(&window, params));
     } else if (mode == "-s") {
-	gameController.reset(new NetworkGameController(&window, true));
+	gameController.reset(new NetworkGameController(&window, true, params));
     } else if (mode == "-c") {
 	gameController.reset(new NetworkGameController(&window, false, params));	
-    } else {
+    } else if (mode.empty()) {
 	gameController.reset(new LocalGameController(&window));
+    } else {
+	showUsage("SpaceChess");
+	exit(0);
     }
 }
 
 void App::showUsage(std::string executable)
 {
-	std::cout << "Usage:\n\n SpaceChess [mode] [argument]\n\n";
-	std::cout << "Run without parameters for a local game.\n\n";
-	std::cout << "Run with '-r [FILENAME]' to watch a previously saved game.\n\n";
-	std::cout << "Run with '-s' to play a networked game accepting a remote connection\n\n";
-	std::cout << "Run with '-c IP_ADDRESS' to connect to a remote game.\n\n";
+	std::cout << "\nUsage:\n\n SpaceChess [mode] [argument]\n\n";
+	std::cout << "Run without any arguments for a local game.\n";
+	std::cout << "Run with '-r [FILENAME]' to watch a previously saved game.\n";
+	std::cout << "Run with '-s [PORTNUMBER]' for a networked game accepting a remote connection.\n";
+	std::cout << "Run with '-c IP_ADDRESS[:PORTNUMBER]' to connect to a remote game.\n\n";
 }

@@ -3,8 +3,9 @@
 namespace Controller 
 {
 
-PlayerController::PlayerController(Model::Game* theGame, View::Render2D* theRenderer)
-    : game {theGame}, renderer {theRenderer}
+PlayerController::PlayerController(Model::Game* theGame, 
+				   View::Render2D* theRenderer, EventQueue* theEventQueue)
+    : game {theGame}, renderer {theRenderer}, eventQueue{theEventQueue}
 {
 }
 
@@ -44,13 +45,17 @@ void PlayerController::handleSecondSelection(Model::Position theClickPosition)
 	return;
     }
     
-    std::string message = game->move(firstSelection, theClickPosition);
-    if (message == "Invalid move")
+    std::string moveResult = game->move(firstSelection, theClickPosition);
+    renderer->setMessage(moveResult);
+    
+    if (moveResult != "Invalid move")
     {
-	// tell the view the message...
-    }
-    else
-    {
+	std::string sender { "PlayerController" };
+	std::string message { "Move" };
+	std::string params { moveResult };
+	PointerToEvent event {new Event {sender, message, params} };
+	eventQueue->push(event);
+
 	firstSelection = Model::Position::Invalid;
 	renderer->clearSelectedField();
 	renderer->clearHighlightedFields();

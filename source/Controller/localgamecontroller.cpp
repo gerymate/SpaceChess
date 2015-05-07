@@ -8,7 +8,7 @@ namespace Controller
 {
 
 LocalGameController::LocalGameController(sf::RenderWindow* theWindow) 
-    : GameController{theWindow}, playerController{&game, &renderer}
+    : GameController{theWindow}, playerController{&game, &renderer, &eventQueue}
 {
 }
 

@@ -5,7 +5,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCES 
     gamecontroller.cpp 
     localgamecontroller.cpp playercontroller.cpp 
-    networkgamecontroller.cpp 
+    networkgamecontroller.cpp connectionbuilder.cpp
     playbackcontroller.cpp)
 
 # For a large number of source files you can create it in a simpler way

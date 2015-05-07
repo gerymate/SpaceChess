@@ -10,101 +10,12 @@ namespace Controller
 NetworkGameController::NetworkGameController(sf::RenderWindow* theWindow, 
 					     bool isServer, 
 					     const string& theParams)
-    : LocalGameController{theWindow}, thisIsAServer{isServer}, remoteAddress{theParams}
+    : LocalGameController{theWindow}
+    , connectionBuilder{&client, isServer, theParams}
 {
     client.setBlocking(false);
-}
-
-void NetworkGameController::handleConnections()
-{
-    switch (connectionStatus)
-    {
-	case Phase::Init:
-	    showConnectionMessage();
-	    if (thisIsAServer) startListening();
-	    connectionStatus = Phase::Connecting;
-	case Phase::Connecting:
-	    establishConnection();
-	    break;
-	case Phase::Established:
-	    renderer.setMessage("Connection established.");
-	    connectionStatus = Phase::Connected;
-	case Phase::Connected:
-	    // handle networking here..
-	    break;
-	case Phase::Disconnected:
-	    renderer.setMessage("Connection ended.");
-	default:
-	    break;
-    }
-}
-
-void NetworkGameController::showConnectionMessage()
-{
-    std::string helperMessage {""};
-    if (thisIsAServer)
-    {
-	helperMessage = "Waiting for an incoming connection request...";
-	renderer.setMessage(helperMessage);
-    } else {
-	helperMessage.append("Trying to connect to ").append(remoteAddress);
-	renderer.setMessage(helperMessage);
-    }
-}
-
-void NetworkGameController::establishConnection()
-{
-    if (thisIsAServer)
-    {
-	acceptConnection();
-    } else {
-	connectToServer();
-    }
-}
-
-void NetworkGameController::startListening()
-{
-    sf::Socket::Status status;
-    status = listener.listen(portNumber);
-    
-    if (status != sf::Socket::Done)
-    {
-	std::cerr 	<< "Network error: cannot listen on port " 
-			<< portNumber 
-			<< ".\nCheck firewall...\n";
-	exit(1);
-    }
-    listener.setBlocking(false);
-}
-
-void NetworkGameController::acceptConnection()
-{
-    sf::Socket::Status status;
-    status = listener.accept(client);
-    if (status == sf::Socket::Error)
-    {
-	std::cerr << "Network error: connection failed.\n";
-	exit(1);	
-    } else if (status == sf::Socket::Done) {
-	connectionStatus = Phase::Established;
-    }
-}
-
-void NetworkGameController::connectToServer()
-{
-    sf::Socket::Status status = client.connect(remoteAddress, portNumber);
-    if (status == sf::Socket::Done) 
-    {
-	connectionStatus = Phase::Established;
-    } else if (status == sf::Socket::Error) {   
- 	std::cerr << "Connection to server " << remoteAddress << " failed. Sorry.\n";
-	exit(1);
-    }
-}
-
-NetworkGameController::~NetworkGameController()
-{
-    client.disconnect();
+    localPlayer = isServer ? Model::Player::White : Model::Player::Black;
+    renderer.setLocalPlayers(localPlayer);
 }
 
 void NetworkGameController::mainLoop()
@@ -113,28 +24,10 @@ void NetworkGameController::mainLoop()
     {    
 	handleSystemEvents();
 	handleConnections();
-	if (connectionStatus == Phase::Connected)
-	{
-	    handleGameEvents();
-	}
+	handleGameEvents();
 	renderer.update();
     }
     saveGame();
-}
-
-void NetworkGameController::handleGameEvents()
-{
-    while (!eventQueue.empty())
-    {
-	PointerToEvent event = eventQueue.front();
-	eventQueue.pop();
-	std::string sender = event->getSender();
-	
-	if (sender == "Board")
-	{
-	    playerController.handleSelection(event);
-	}
-    }
 }
 
 void NetworkGameController::handleSystemEvents()
@@ -149,8 +42,11 @@ void NetworkGameController::handleSystemEvents()
 		break;
 	    case sf::Event::MouseButtonPressed:
 		{
-		    sf::Vector2f mousePosition { sf::Mouse::getPosition(*window) };
-		    renderer.handleClick(mousePosition);
+		    if (localPlayerIsNextPlayer() && connected)
+		    {
+			sf::Vector2f mousePosition { sf::Mouse::getPosition(*window) };
+			renderer.handleClick(mousePosition);
+		    }
 		}
 		break;
 	    default:
@@ -158,5 +54,111 @@ void NetworkGameController::handleSystemEvents()
 	}
     }
 }
+
+bool NetworkGameController::localPlayerIsNextPlayer()
+{
+    return localPlayer == game.getNextPlayer();
+}
+
+void NetworkGameController::handleConnections()
+{
+    switch (connectionStatus)
+    {
+	case NetworkPhase::Init:
+	    renderer.setMessage(connectionBuilder.getInfoMessage());
+	    connectionBuilder.startListening();
+	    connectionStatus = NetworkPhase::Connecting;
+	case NetworkPhase::Connecting:
+	    connectionBuilder.establishConnection();
+	    if (connectionBuilder.success()) connectionStatus = NetworkPhase::Established;
+	    break;
+	case NetworkPhase::Established:
+	    connected = true;
+	    renderer.setMessage("Connection established.");
+	    connectionStatus = NetworkPhase::Connected;
+	case NetworkPhase::Connected:
+	    handleCommunication();
+	    break;
+	case NetworkPhase::Disconnected:
+	    connected = false;
+	    renderer.setMessage("Connection ended.");
+	default:
+	    break;
+    }
+}
+
+void NetworkGameController::handleCommunication()
+{
+    try {
+	if (localPlayer != game.getHistory()->getNextPlayer())
+	{
+	    sf::Packet packet;
+	    sf::Socket::Status status = client.receive(packet);
+
+	    if (status == sf::Socket::Error) 
+	    {
+		throw std::runtime_error("Error receiving data over the network.");
+	    } else if (status == sf::Socket::Disconnected) {
+		connectionStatus = NetworkPhase::Disconnected;
+	    } else if (status == sf::Socket::Done) {
+		// unpack move
+		std::string moveDesc;
+		packet >> moveDesc;
+		std::cerr << moveDesc;
+		// make move
+		Model::Position from {moveDesc.substr(0,3)};
+		Model::Position to {moveDesc.substr(4, 3)};
+		std::string message = game.move(from, to);
+		renderer.setMessage(message);
+	    }
+	}
+    } catch (std::exception& e) {
+	renderer.setMessage("Network error. Sorry. Game will be saved on exit.");
+	std::cerr << e.what();
+    }
+}
+
+void NetworkGameController::handleGameEvents()
+{    
+    while (!eventQueue.empty())
+    {
+	PointerToEvent event = eventQueue.front();
+	eventQueue.pop();
+	std::string sender = event->getSender();
+	
+	if (sender == "Board")
+	{
+	    playerController.handleSelection(event);
+	} else if (sender == "PlayerController") {
+	    sendMove(event->getParameters());
+	}
+    }
+}
+
+void NetworkGameController::sendMove(const string& moveDesc)
+{
+    // make packet
+    sf::Packet packet;
+    packet << moveDesc;
+    
+    // send move
+    sf::Socket::Status status;
+    status = client.send(packet);
+    
+    // check for errors
+    if (status == sf::Socket::Disconnected)
+    {
+	connectionStatus = NetworkPhase::Disconnected;
+    } else if (status == sf::Socket::Error) {
+	connectionStatus = NetworkPhase::Disconnected;
+	renderer.setMessage("Network error. Sorry.");
+    }
+}
+
+NetworkGameController::~NetworkGameController()
+{
+    client.disconnect();
+}
+
 
 }
