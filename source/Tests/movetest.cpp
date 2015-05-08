@@ -6,6 +6,7 @@
 #include "queen.h"
 #include "pawn.h"
 #include "move.h"
+#include "piece.h"
 
 SCENARIO("A King moves on the board", "[gameevents]")
 {
@@ -58,25 +59,25 @@ SCENARIO("A King moves on the board", "[gameevents]")
 	Board* board {game.getBoard()};
 	Position src {5, 3, 4};
 	Position dest {5, 3, 5};
-	std::string moveDesc {src.getNotation().append(" ").append(dest.getNotation())};
 
-	PointerToPiece aPawn {new Pawn};
-	PointerToPiece aQueen {new Queen};
-
+	PointerToPiece aPawn { Piece::generatePiece("wPEc4", board) };
 	board->addPiece(src, aPawn);
-	
+	board->removePiece(dest);
+		
+	std::string moveDesc {src.getNotation().append(" ").append(dest.getNotation())};	
 	PointerToGameEvent aGameEvent { GameEvent::generateMove(moveDesc, &game) };
 	
 	WHEN("the promotion is executed")
 	{
-	    REQUIRE( board->getPiece(src) == aPawn ); 
+	    REQUIRE( board->getPiece(src)->getFigure() == Figure::Pawn ); 
+
 	    REQUIRE( board->isOccupied(dest) == false ); 
 	    
 	    REQUIRE( aGameEvent->execute() == true );
 	    
-	    REQUIRE( board->getPiece(dest) == aQueen ); 
+	    REQUIRE( board->getPiece(dest)->getFigure() == Figure::Queen ); 
 	    REQUIRE( board->isOccupied(src) == false );
-	    REQUIRE( aGameEvent->getNotation() == std::string("Ec4 Ec5=Q") );	    
+	    REQUIRE( aGameEvent->getNotation() == std::string("Ec4 Ec5") );	    
 
 	    THEN("the promotion is reverted")
 	    {

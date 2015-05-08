@@ -9,10 +9,7 @@
 #include "board.h"
 #include "history.h"
 #include "judge.h"
-#include <string>
-#include <list>
 #include "figure.h"
-
 
 namespace Model {
 //	A Game is a full abstraction of a single SpaceChess game
@@ -28,7 +25,6 @@ public:
 	~Game();
 	GameState getGameState();
 	PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
-	PointerToPositionList getPossibleMovesFrom(Position& from); // unused?
 	Player getNextPlayer();
 	std::string move(Position& from, Position& to);
 	std::string move(Position& from, Position& to, Figure promoteTo);

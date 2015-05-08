@@ -23,8 +23,8 @@ PointerToGameEvent GameEvent::generateMoveFromString(const std::string& moveDesc
     PointerToPiece promoteTo = nullptr;
     if (isPromotion(from, to, theGame))
     {
-	std::string pieceDesc =
-	    (theGame->getHistory()->getNextPlayer() == Player::White) ?
+	std::string pieceDesc = 
+	    (theGame->getNextPlayer() == Player::White) ?
 	    "wQ" : "bQ";
 	pieceDesc.append(toString);
 	promoteTo = Piece::generatePiece(pieceDesc, theGame->getBoard());
@@ -35,10 +35,20 @@ PointerToGameEvent GameEvent::generateMoveFromString(const std::string& moveDesc
 
 bool GameEvent::isPromotion(Position& from, Position& to, Game* theGame)
 {
-    // if it's a pawn
-    // at entering the last line
-    // return true
-    return false; // TODO
+    bool promotion = false;
+    PointerToPiece piece = theGame->getBoard()->getPiece(from);
+    if (piece && piece->getFigure() == Figure::Pawn)
+    {
+	int level = to.getLevel();
+	int rank = to.getRank();
+	if (piece->getPlayer() == Player::White)
+	{
+	    if (rank == 5 && (level == 4 || level == 5)) promotion = true;
+	} else if (piece->getPlayer() == Player::Black) {
+	    if (rank == 1 && (level == 1 || level == 2)) promotion = true;
+	}
+    }
+    return promotion;
 }
 
 

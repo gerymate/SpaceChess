@@ -49,11 +49,6 @@ Player Game::getNextPlayer()
     return history->getNextPlayer();
 }
 
-PointerToPositionList Game::getPossibleMovesFrom(Position& from)
-{
-    return judge->getPossibleMovesFrom(from);
-}
-
 std::string Game::move(Position& from, Position& to, Figure promoteTo)
 {
     std::string result {"Invalid move"};

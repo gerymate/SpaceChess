@@ -18,11 +18,11 @@ class NetworkGameController : public LocalGameController
     {
 	Init, Connecting, Established, Connected, Disconnected
     } connectionStatus { NetworkPhase::Init };
-
     Model::Player localPlayer;
     
     void handleSystemEvents() override;
     void handleGameEvents() override;
+    
     void handleConnections();
     void handleCommunication();
     void sendMove(const std::string& moveDesc);

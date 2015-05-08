@@ -111,7 +111,10 @@ std::istream& operator>>(std::istream& inputStream, Model::History& history)
 	moveDesc = first.append(" ").append(second);
 	PointerToGameEvent move = GameEvent::generateMove(moveDesc, history.game);
 	history.addEvent(move);
+	history.actualize();
     }
+    
+    while (history.stepBack());
     
     return inputStream;   
 }

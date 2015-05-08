@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "gamecontroller.h"
+#include "playercontroller.h"
 
 namespace Controller
 {

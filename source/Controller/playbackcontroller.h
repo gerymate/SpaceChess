@@ -1,15 +1,9 @@
 #ifndef PLAYBACKCONTROLLER_H
 #define PLAYBACKCONTROLLER_H
 
+#include <SFML/Window.hpp>
 #include "common.h"
 #include "gamecontroller.h"
-#include <SFML/Graphics.hpp>
-#include "Model/game.h"
-#include "Model/gamestate.h"
-#include "View/render2d.h"
-#include "event.h"
-#include "Controller/playercontroller.h"
-#include "Model/position.h"
 
 namespace Controller
 {

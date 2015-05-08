@@ -104,7 +104,6 @@ void NetworkGameController::handleCommunication()
 		// unpack move
 		std::string moveDesc;
 		packet >> moveDesc;
-		std::cerr << moveDesc;
 		// make move
 		Model::Position from {moveDesc.substr(0,3)};
 		Model::Position to {moveDesc.substr(4, 3)};

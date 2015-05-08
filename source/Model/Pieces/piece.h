@@ -1,15 +1,12 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <functional>
 #include "common.h"
 #include "player.h"
 #include "figure.h"
 #include "position.h"
 #include "board.h"
-
-#include <string>
-#include <functional>
-#include <list>
 
 namespace Model {
 

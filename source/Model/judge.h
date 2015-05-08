@@ -22,9 +22,7 @@ public:
     Judge(Game* theGame);
     PointerToPositionList getPossibleMovesFrom(Position& from);
     PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
-    bool isValidMove(Position& from, Position& to);
-//    Player getNextPlayer() const { return nextPlayer; }
-    
+    bool isValidMove(Position& from, Position& to);    
 
 };
 

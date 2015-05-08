@@ -1,14 +1,11 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
+#include <SFML/Window.hpp>
 #include "common.h"
-#include <SFML/Graphics.hpp>
 #include "Model/game.h"
-#include "Model/gamestate.h"
 #include "View/render2d.h"
 #include "event.h"
-#include "Controller/playercontroller.h"
-#include "Model/position.h"
 
 namespace Controller
 {

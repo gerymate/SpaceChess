@@ -6,6 +6,7 @@
 #include <list>
 #include <stdexcept>
 #include <queue>
+#include <string>
 
 namespace Model
 {
