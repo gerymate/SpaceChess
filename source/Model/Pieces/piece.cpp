@@ -68,6 +68,27 @@ PointerToPositionList Piece::getPossibleMoves()
     return basicPossibilities;
 }
 
+PointerToPositionList Piece::getPossibleTakes()
+{
+    // except for the Pawn, if a piece can move to a position, it can take the figure there
+    return getPossibleMoves();
+}
+
+void Piece::filterForOnBoard(PointerToPositionList targets)
+{
+    auto current = targets->begin();
+    auto last = targets->end();
+    while (current != last)
+    {
+	if ( !(*current).isValid() )
+	{
+	    current = targets->erase(current);
+	} else {
+	    ++current;
+	}
+    }    
+}
+
 void Piece::filterForMove(PointerToPositionList targets)
 {
     auto current = targets->begin();

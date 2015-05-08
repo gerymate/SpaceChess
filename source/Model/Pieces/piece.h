@@ -18,6 +18,7 @@ public:
     const Player getPlayer() const { return player; };
     virtual const Figure getFigure() const = 0;
     virtual PointerToPositionList getPossibleMoves() = 0;
+    virtual PointerToPositionList getPossibleTakes();
     const Position& getPosition() const { return position; };
     void setPosition(const Position& thePosition) { position = thePosition; }
 protected:
@@ -27,6 +28,7 @@ protected:
     bool canMoveTo(const Position& position);
     bool canTakeAt(const Position& position);
     bool canMoveToOrTakeAt(const Position& position);
+    void filterForOnBoard(PointerToPositionList targets);
     void filterForMove(PointerToPositionList targets);
     void filterForTake(PointerToPositionList targets);
     void filterForMoveOrTake(PointerToPositionList targets);

@@ -9,9 +9,13 @@ namespace Model
 class Pawn : public Piece
 {
     const Figure figure { Figure::Pawn };
+    
+    PointerToPositionList getMovePossibilities();
+    PointerToPositionList getTakePossibilities();
 public:
     const Figure getFigure() const override { return figure; }
-    PointerToPositionList getPossibleMoves() override;    
+    PointerToPositionList getPossibleMoves() override;
+    PointerToPositionList getPossibleTakes() override;
 };
 
 }

@@ -7,7 +7,6 @@ PointerToPositionList Bishop::getPossibleMoves()
 {
     return Piece::moveOrTakePlaneDiagonallyFrom(position);
 }
-
     
     
 }

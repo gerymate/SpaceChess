@@ -33,8 +33,6 @@ protected:
 
     Player player { Player::Nobody };
     int moveNumber { 0 };
-    bool check { false };
-    bool checkMate { false };
 
     void setPlayerAndMoveNumberBasedOnPreviousGameEvent();
     

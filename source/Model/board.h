@@ -20,6 +20,8 @@ public:
     PointerToPiece getPiece(const Position& atField);
     bool isOccupied(const Position& atField);
     FullBoard getFullBoard();
+    Position find(Player player, Figure figure);
+    PointerToPointerToPieceList getAllPiecesFor(Player player);
 
     friend std::ostream& operator<<(std::ostream& outputStream, const Model::Board& board);
     friend std::istream& operator>>(std::istream& inputStream, Model::Board& board);

@@ -63,6 +63,11 @@ std::string Game::move(Position& from, Position& to, Figure promoteTo)
 	history->actualize();
 	
 	result = aMove->getNotation();
+	
+	if (judge->isInCheck(getNextPlayer()))
+	{
+	    result.append("   * Check *");
+	}
     }
     
     return result;

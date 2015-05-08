@@ -21,8 +21,12 @@ namespace Model
     class GameEvent;
     class Move;
     using PointerToGameEvent = std::shared_ptr<GameEvent>;
+
     class Piece;
     using PointerToPiece = std::shared_ptr<Piece>;
+    using PointerToPieceList = std::list<PointerToPiece>;
+    using PointerToPointerToPieceList = std::shared_ptr<PointerToPieceList>;
+    
     class Board;
     using PointerToBoard = std::shared_ptr<Board>;    
 }

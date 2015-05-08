@@ -18,11 +18,14 @@ class Judge
     Game* game;
     Board* board;
     History* history;
+    PointerToPositionList getPossibleMovesFrom(Position& from);
+    void filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets);
+
 public:
     Judge(Game* theGame);
-    PointerToPositionList getPossibleMovesFrom(Position& from);
     PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from);
-    bool isValidMove(Position& from, Position& to);    
+    bool isValidMove(Position& from, Position& to);
+    bool isInCheck(Player player);
 
 };
 

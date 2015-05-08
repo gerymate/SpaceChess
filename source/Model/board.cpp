@@ -70,6 +70,36 @@ FullBoard Board::getFullBoard()
     return fb;
 }
 
+Position Board::find(Player player, Figure figure)
+{
+    Position place {Position::Invalid};
+    for (auto pp : piecesOnBoard)
+    {
+	PointerToPiece piece = pp.second;
+	if ( piece->getPlayer() == player && piece->getFigure() == figure )
+	{
+	    place = pp.first;
+	    break;
+	}
+    }
+    return place;
+}
+
+PointerToPointerToPieceList Board::getAllPiecesFor(Player player)
+{
+    PointerToPointerToPieceList allPiecesForPlayer = std::make_shared<PointerToPieceList>();
+    for (auto pp : piecesOnBoard)
+    {
+	PointerToPiece piece {pp.second}; 
+	if (piece->getPlayer() == player)
+	{
+	    allPiecesForPlayer->push_back(piece);
+	}
+    }
+    return allPiecesForPlayer;
+}
+
+
 std::ostream& operator<<(std::ostream& outputStream, const Model::Board& board)
 {
     for (auto piece : board.piecesOnBoard)
