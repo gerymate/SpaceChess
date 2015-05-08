@@ -14,9 +14,10 @@ namespace Model
 class GameEvent
 {
     static PointerToGameEvent generateMoveFromString(const std::string& moveDesc, Game* theGame);
-    static bool isPromotion(Position& from, Position& to, Game* theGame);
+    static bool isPromotion(const Position& from, const Position& to, Game* theGame);
 public:
     static PointerToGameEvent generateMove(const std::string& moveDesc, Game* theGame);
+    static PointerToGameEvent generateMove(const Position& from, const Position& to, Game* theGame);
 
     GameEvent(Game* theGame = nullptr);
     void setGame(Game* theGame);

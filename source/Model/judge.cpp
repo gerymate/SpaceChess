@@ -1,4 +1,5 @@
 #include "judge.h"
+#include "gameevent.h"
 
 namespace Model 
 {
@@ -35,21 +36,42 @@ PointerToPositionList Judge::getPossibleMovesFrom(Position& from)
 	return nullptr;
     }
     
-    PointerToPositionList basicPossibleMoves = board->getPiece(from)->getPossibleMoves();
+    PointerToPositionList basicPossibleMoves { board->getPiece(from)->getPossibleMoves() };
     
-    filterTargetsForNotInCheckAfter(from, basicPossibleMoves);
+    PointerToPositionList possibleMoves { filterTargetsForNotInCheckAfter(from, basicPossibleMoves) };
     
-    return basicPossibleMoves;   
+    return possibleMoves;   
 }
 
-void Judge::filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets)
+PointerToPositionList Judge::filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets)
 {
-    // generate a list of moves for all targets
+    Player player {board->getPiece(from)->getPlayer()};
+    PointerToPositionList goodTargets = std::make_shared<PositionList>();
+    
+    // generate a map of target - move event pairs
+    std::map<Position, PointerToGameEvent> possibleMoves;
+    for (const Position& dest : *targets)
+    {
+	possibleMoves.insert(std::make_pair(dest, GameEvent::generateMove(from, dest, game)));
+    }
     // for each move:
+    for (auto aMove : possibleMoves)
+    {
+    // add to the history
+	history->addEvent(aMove.second);
     // execute it
+	history->stepForward();
     // check if the king is in check and remove the corresponding targets
+	if (!isInCheck(player))
+	{
+	    goodTargets->push_back(aMove.first);
+	}
     // revert the move
-
+	history->stepBack();
+    // remove it from the history
+	history->clearFuture();
+    }
+    return goodTargets;
 }
 
 bool Judge::isInCheck(Player player)

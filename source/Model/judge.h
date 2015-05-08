@@ -19,7 +19,7 @@ class Judge
     Board* board;
     History* history;
     PointerToPositionList getPossibleMovesFrom(Position& from);
-    void filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets);
+    PointerToPositionList filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets);
 
 public:
     Judge(Game* theGame);

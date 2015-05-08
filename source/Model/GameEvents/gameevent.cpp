@@ -14,33 +14,38 @@ PointerToGameEvent GameEvent::generateMove(const std::string& moveDesc, Game* th
     }
 }
 
-PointerToGameEvent GameEvent::generateMoveFromString(const std::string& moveDesc, Game* theGame)
+PointerToGameEvent GameEvent::generateMove(const Position& from, const Position& to, Game* theGame)
 {
-    std::string fromString { moveDesc.substr(0, 3) };
-    std::string toString { moveDesc.substr(4, 3) };
-    Position from {fromString};
-    Position to {toString};
     PointerToPiece promoteTo = nullptr;
     if (isPromotion(from, to, theGame))
     {
 	std::string pieceDesc = 
 	    (theGame->getNextPlayer() == Player::White) ?
 	    "wQ" : "bQ";
-	pieceDesc.append(toString);
+	pieceDesc.append(to.getNotation());
 	promoteTo = Piece::generatePiece(pieceDesc, theGame->getBoard());
     }
     PointerToGameEvent theMove { new Move {theGame, from, to, promoteTo} };
     return theMove;
 }
 
-bool GameEvent::isPromotion(Position& from, Position& to, Game* theGame)
+PointerToGameEvent GameEvent::generateMoveFromString(const std::string& moveDesc, Game* theGame)
+{
+    const std::string fromString { moveDesc.substr(0, 3) };
+    const std::string toString { moveDesc.substr(4, 3) };
+    const Position from {fromString};
+    const Position to {toString};
+    return generateMove(from, to, theGame);
+}
+
+bool GameEvent::isPromotion(const Position& from, const Position& to, Game* theGame)
 {
     bool promotion = false;
     PointerToPiece piece = theGame->getBoard()->getPiece(from);
     if (piece && piece->getFigure() == Figure::Pawn)
     {
-	int level = to.getLevel();
-	int rank = to.getRank();
+	const int level = to.getLevel();
+	const int rank = to.getRank();
 	if (piece->getPlayer() == Player::White)
 	{
 	    if (rank == 5 && (level == 4 || level == 5)) promotion = true;
