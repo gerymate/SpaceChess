@@ -46,7 +46,7 @@ PointerToPositionList Game::getCurrentlyPossibleMovesFrom(Position& from)
 
 Player Game::getNextPlayer()
 {
-    return history->getNextPlayer();
+    return ended ? (Player::Nobody) : (history->getNextPlayer());
 }
 
 std::string Game::move(Position& from, Position& to, Figure promoteTo)
@@ -64,10 +64,22 @@ std::string Game::move(Position& from, Position& to, Figure promoteTo)
 	
 	result = aMove->getNotation();
 	
-	if (judge->isInCheck(getNextPlayer()))
+	const Player nextPlayer {getNextPlayer()};
+	const bool isInCheck {judge->isInCheck(nextPlayer)};
+	const bool canMove {judge->canMove(nextPlayer)};
+	
+	if (!canMove)
 	{
-	    result.append("   * Check *");
-	}
+	    ended = true;
+	    if (isInCheck)
+	    {
+		result.append("   * Checkmate *");
+	    } else {
+		result.append("   * Draw *");
+	    };
+	} else if (isInCheck) {
+	    result.append("   * Check *");	    
+	}	
     }
     
     return result;

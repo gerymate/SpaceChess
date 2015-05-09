@@ -29,7 +29,7 @@ bool Judge::isValidMove(Position& from, Position& to)
     return validMove;
 }
 
-PointerToPositionList Judge::getPossibleMovesFrom(Position& from)
+PointerToPositionList Judge::getPossibleMovesFrom(const Position& from)
 {
     if (!board->isOccupied(from))
     {
@@ -43,7 +43,7 @@ PointerToPositionList Judge::getPossibleMovesFrom(Position& from)
     return possibleMoves;   
 }
 
-PointerToPositionList Judge::filterTargetsForNotInCheckAfter(Position& from, PointerToPositionList targets)
+PointerToPositionList Judge::filterTargetsForNotInCheckAfter(const Position& from, PointerToPositionList targets)
 {
     Player player {board->getPiece(from)->getPlayer()};
     PointerToPositionList goodTargets = std::make_shared<PositionList>();
@@ -91,6 +91,25 @@ bool Judge::isInCheck(Player player)
 	{
 	    if (pos == theKingsPosition) return true;
 	}
+    }
+    return false;
+}
+
+bool Judge::canMove(Player player)
+{
+    // make a list of positions for all pieces for the player
+    PointerToPointerToPieceList ownPieces { board->getAllPiecesFor(player) };
+    PointerToPositionList placeOfOwnPieces = std::make_shared<PositionList>();
+    for (const PointerToPiece& ownPiece : *ownPieces)
+    {
+	placeOfOwnPieces->push_back(ownPiece->getPosition());
+    }
+    
+    // check if there are any possible moves from those places
+    for (const Position& position : *placeOfOwnPieces)
+    {
+	PointerToPositionList possibleMoves { getPossibleMovesFrom(position) };
+	if (possibleMoves && !possibleMoves->empty()) return true;
     }
     return false;
 }

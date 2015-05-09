@@ -19,6 +19,7 @@ class Game
     Board board;
     History* history;
     Judge* judge;
+    bool ended{false};
 
 public:
 	Game();

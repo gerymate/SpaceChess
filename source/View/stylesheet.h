@@ -23,11 +23,11 @@ struct StyleSheet
     const int FONTSIZE = 0.5f * MARGINSIZE;
     const int BOARDHEIGHT = 300; // warning! estimation!
 
-    const sf::Color WhiteFieldColor {230, 230, 230};
-    const sf::Color BlackFieldColor {100, 100, 100};
+    const sf::Color WhiteFieldColor {255, 255, 255};
+    const sf::Color BlackFieldColor {150, 150, 150};
     const sf::Color CursorHighlightColor {128, 255, 128};
-    const sf::Color TouchHighlightColor {128, 128, 255};
-    const sf::Color HighlightColor {255, 128, 128};
+    const sf::Color TouchHighlightColor {0, 128, 255};
+    const sf::Color HighlightColor {255, 128, 200};
 public:
     StyleSheet();
     ~StyleSheet();
