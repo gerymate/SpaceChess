@@ -11,8 +11,7 @@ PlaybackController::PlaybackController(sf::RenderWindow* theWindow, const std::s
     : GameController(theWindow)
 {
     renderer.setLocalPlayers(Model::Player::Nobody);
-    std::string textToDisplay {"Playback mode: left click for previous move, right click for next."};
-    renderer.setMessage(textToDisplay);
+    renderer.setMessage(helpText);
     loadGame(fileName);
 }
 
@@ -101,16 +100,18 @@ void PlaybackController::handleGameEvents()
 	eventQueue.pop();
 	std::string sender = event->getSender();
 	std::string message = event->getMessage();
-		
+	
+	std::string helpMessage;
 	if (sender == "Controller")
 	{
 	    if (message == "Forward")
 	    {
-		game.stepForward();
+		helpMessage = game.stepForward();
 	    } else if (message == "Backward") {
-		game.stepBackward();
+		helpMessage = game.stepBackward();
 	    }
 	}
+	renderer.setMessage(helpMessage.empty() ? helpText : helpMessage);
     }
 }
 

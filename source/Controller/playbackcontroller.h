@@ -10,6 +10,9 @@ namespace Controller
     
 class PlaybackController : public GameController
 {
+    const std::string helpText {"Playback mode: left click for previous move, right click for next."};
+
+    
     void handleSystemEvents();
     void handleGameEvents();
     void loadGame(const std::string& fileName);

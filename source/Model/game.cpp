@@ -35,7 +35,7 @@ GameState Game::getGameState()
 {
     GameState currentState;
     currentState.board = board.getFullBoard();
-    currentState.nextPlayer = history->getNextPlayer();
+    currentState.nextPlayer = getNextPlayer();
     return currentState;
 }
 
@@ -107,12 +107,12 @@ Judge* Game::getJudge()
 
 std::string Game::stepBackward()
 {
-    return history->stepBack() ? "OK" : "There are no previous moves."; 
+    return history->stepBack() ? "" : "There are no previous moves."; 
 }
 
 std::string Game::stepForward()
 {
-    return history->stepForward() ? "OK" : "There are no more moves."; 
+    return history->stepForward() ? "" : "There are no more moves."; 
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game)
