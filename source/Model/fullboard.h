@@ -1,8 +1,10 @@
 #ifndef FULLBOARD_H
 #define FULLBOARD_H
 
-#include<vector>
+#include <vector>
+#include <iostream>
 #include "field.h"
+#include "position.h"
 
 namespace Model {
     

@@ -1,5 +1,6 @@
 #include "history.h"
 
+#include "game.h"
 #include "creation.h"
 
 namespace Model 

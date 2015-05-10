@@ -1,5 +1,8 @@
 #include "judge.h"
+
+#include <algorithm>
 #include "gameevent.h"
+#include "game.h"
 
 namespace Model 
 {

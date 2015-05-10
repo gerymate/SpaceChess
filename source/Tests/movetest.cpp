@@ -59,10 +59,11 @@ SCENARIO("A King moves on the board", "[gameevents]")
 	Board* board {game.getBoard()};
 	Position src {5, 3, 4};
 	Position dest {5, 3, 5};
-
+	board->removePiece(src);
+	board->removePiece(dest);
+	
 	PointerToPiece aPawn { Piece::generatePiece("wPEc4", board) };
 	board->addPiece(src, aPawn);
-	board->removePiece(dest);
 		
 	std::string moveDesc {src.getNotation().append(" ").append(dest.getNotation())};	
 	PointerToGameEvent aGameEvent { GameEvent::generateMove(moveDesc, &game) };

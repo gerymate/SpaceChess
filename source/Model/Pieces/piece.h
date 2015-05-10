@@ -6,7 +6,6 @@
 #include "player.h"
 #include "figure.h"
 #include "position.h"
-#include "board.h"
 
 namespace Model {
 

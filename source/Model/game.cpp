@@ -18,7 +18,7 @@ const std::string defaultBoard =
     " wPAa2 wPAb2 wPAc2 wPAd2 wPAe2"
     " wRAa1 wNAb1 wKAc1 wNAd1 wRAe1";
     
-Game::Game() : board{ defaultBoard }
+Game::Game() : board{ new Board{ defaultBoard } }
 {
     history = new History {this};
     judge = new Judge {this};
@@ -28,25 +28,12 @@ Game::~Game()
 {
     delete judge;
     delete history;
+    delete board;
 }
 
-
-GameState Game::getGameState()
+std::string Game::move(Position& from, Position& to)
 {
-    GameState currentState;
-    currentState.board = board.getFullBoard();
-    currentState.nextPlayer = getNextPlayer();
-    return currentState;
-}
-
-PointerToPositionList Game::getCurrentlyPossibleMovesFrom(Position& from)
-{
-    return judge->getCurrentlyPossibleMovesFrom(from);
-}
-
-Player Game::getNextPlayer()
-{
-    return ended ? (Player::Nobody) : (history->getNextPlayer());
+    return move(from, to, Figure::Queen);
 }
 
 std::string Game::move(Position& from, Position& to, Figure promoteTo)
@@ -85,26 +72,6 @@ std::string Game::move(Position& from, Position& to, Figure promoteTo)
     return result;
 }
 
-std::string Game::move(Position& from, Position& to)
-{
-    return move(from, to, Figure::Queen);
-}
-
-Board* Game::getBoard()
-{
-    return &board;
-}
-
-History* Game::getHistory()
-{
-    return history;
-}
-
-Judge* Game::getJudge()
-{
-    return judge;
-}
-
 std::string Game::stepBackward()
 {
     return history->stepBack() ? "" : "There are no previous moves."; 
@@ -113,6 +80,39 @@ std::string Game::stepBackward()
 std::string Game::stepForward()
 {
     return history->stepForward() ? "" : "There are no more moves."; 
+}
+
+GameState Game::getGameState() const
+{
+    GameState currentState;
+    currentState.board = board->getFullBoard();
+    currentState.nextPlayer = getNextPlayer();
+    return currentState;
+}
+
+PointerToPositionList Game::getCurrentlyPossibleMovesFrom(Position& from) const
+{
+    return judge->getCurrentlyPossibleMovesFrom(from);
+}
+
+Player Game::getNextPlayer() const
+{
+    return ended ? (Player::Nobody) : (history->getNextPlayer());
+}
+
+Board* Game::getBoard() const
+{
+    return board;
+}
+
+History* Game::getHistory() const
+{
+    return history;
+}
+
+Judge* Game::getJudge() const
+{
+    return judge;
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Game& game)

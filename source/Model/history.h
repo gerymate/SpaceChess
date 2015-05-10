@@ -1,14 +1,9 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
-#include "common.h"
 #include <vector>
-#include <memory>
+#include "common.h"
 #include "player.h"
-#include "board.h"
-#include "gameevent.h"
-#include "game.h"
-#include "judge.h"
 
 namespace Model
 {

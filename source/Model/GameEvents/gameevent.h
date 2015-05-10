@@ -1,12 +1,8 @@
 #ifndef GAMEEVENT_H
 #define GAMEEVENT_H
 
-#include <string>
 #include "common.h"
 #include "player.h"
-#include "game.h"
-#include "history.h"
-#include "judge.h"
 
 namespace Model
 {

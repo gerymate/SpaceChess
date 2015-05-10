@@ -2,13 +2,8 @@
 #define JUDGE_H
 
 #include <vector>
-#include <memory>
-#include <algorithm>
 #include "common.h"
 #include "player.h"
-#include "board.h"
-#include "history.h"
-#include "game.h"
 
 namespace Model
 {

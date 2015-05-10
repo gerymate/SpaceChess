@@ -1,6 +1,7 @@
 #include "piece.h"
 
 #include "common.h"
+#include "board.h"
 #include "king.h"
 #include "queen.h"
 #include "bishop.h"

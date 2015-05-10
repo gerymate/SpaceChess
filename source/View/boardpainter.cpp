@@ -5,7 +5,7 @@
 namespace View {
 
 BoardPainter::BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
-			   Model::Game* theGame, EventQueue* theEventQueue)
+			   Model::IGameInfo* theGame, EventQueue* theEventQueue)
     : canvas{theCanvas}, style{theStyleSheet}, game{theGame}
     , eventQueue{theEventQueue}
 {

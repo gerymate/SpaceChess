@@ -35,7 +35,7 @@ bool Board::removePiece(const Position& atField)
     return success;    
 }
 
-PointerToPiece Board::getPiece(const Position& atField)
+PointerToPiece Board::getPiece(const Position& atField) const
 {
     PointerToPiece piece = nullptr;
     auto pi = piecesOnBoard.find(atField);
@@ -51,7 +51,7 @@ bool Board::isOccupied(const Position& atField)
     return !(nullptr == getPiece(atField));
 }
 
-FullBoard Board::getFullBoard()
+FullBoard Board::getFullBoard() const
 {
     FullBoard fb;
     for(int y = 0; y != 5; ++y) 
@@ -62,7 +62,7 @@ FullBoard Board::getFullBoard()
 	    {
 		if(auto piece = getPiece({y + 1, x + 1, z + 1}))
 		{
-		    fb.space.at(y).at(x).at(z) = Field(piece->getPlayer(), piece->getFigure(), Position(y+1, x+1, z+1));
+		    fb.space.at(y).at(x).at(z) = Field{piece->getPlayer(), piece->getFigure(), Position(y+1, x+1, z+1)};
 		}
 	    }
 	}

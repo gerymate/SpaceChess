@@ -3,7 +3,7 @@
 namespace View {
 
 Render2D::Render2D(sf::RenderWindow* theWindow, 
-	Model::Game* theGame, EventQueue* theEventQueue) 
+	Model::IGameInfo* theGame, EventQueue* theEventQueue) 
 	: game{theGame}, eventQueue {theEventQueue}, window(theWindow)
 	, boardPainter(theWindow, &style, theGame, theEventQueue)
 	, panelPainter(theWindow, &style)

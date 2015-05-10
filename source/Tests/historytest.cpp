@@ -1,11 +1,12 @@
 #include "catch.hpp"
 
+#include <string>
+#include <sstream>
+#include "game.h"
 #include "history.h"
 #include "gameevent.h"
 #include "king.h"
 #include "queen.h"
-#include <string>
-#include <sstream>
 
 namespace Model {
 struct MockGameEvent : public GameEvent

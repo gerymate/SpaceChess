@@ -1,14 +1,11 @@
 #ifndef BOARDPAINTER_H
 #define BOARDPAINTER_H
 
-#include <vector>
-#include <string>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "common.h"
 #include "event.h"
-#include "Model/game.h"
-#include "Model/gamestate.h"
-#include "Model/fullboard.h"
+#include "Model/igameinfo.h"
 #include "View/stylesheet.h"
 #include "View/field.h"
 
@@ -18,7 +15,7 @@ class BoardPainter
 {
     sf::RenderTarget* canvas;
     StyleSheet* style;
-    Model::Game* game;
+    Model::IGameInfo* game;
     EventQueue* eventQueue;
     Model::Player localPlayers {Model::Player::Both};
     const Model::FullBoard* board;
@@ -34,7 +31,7 @@ class BoardPainter
 
 public:
     BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
-		 Model::Game* theGame, EventQueue* theEventQueue);
+		 Model::IGameInfo* theGame, EventQueue* theEventQueue);
     void setGameState(const Model::GameState* theGameState);
     void setLocalPlayers(Model::Player theLocalPlayers);
     void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }

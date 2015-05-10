@@ -2,7 +2,6 @@
 #define POSITION_H
 
 #include <iostream>
-#include <string>
 #include "common.h"
 
 namespace Model {

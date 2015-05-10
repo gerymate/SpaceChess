@@ -1,11 +1,10 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include "common.h"
 #include <map>
-#include <string>
 #include "position.h"
 #include "fullboard.h"
-#include "common.h"
 #include "piece.h"
 
 namespace Model{
@@ -17,9 +16,9 @@ public:
     Board(std::string boardDesc = "");
     bool addPiece(const Position& atField, PointerToPiece piece);
     bool removePiece(const Position& atField);
-    PointerToPiece getPiece(const Position& atField);
+    PointerToPiece getPiece(const Position& atField) const;
     bool isOccupied(const Position& atField);
-    FullBoard getFullBoard();
+    FullBoard getFullBoard() const;
     Position find(Player player, Figure figure);
     PointerToPointerToPieceList getAllPiecesFor(Player player);
 

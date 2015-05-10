@@ -3,9 +3,7 @@
 
 #include "common.h"
 #include <SFML/Graphics.hpp>
-#include "Model/game.h"
-#include "Model/gamestate.h"
-#include "Model/position.h"
+#include "Model/igameinfo.h"
 #include "boardpainter.h"
 #include "panelpainter.h"
 
@@ -13,7 +11,7 @@ namespace View {
 
 class Render2D
 {
-    Model::Game* game;
+    Model::IGameInfo* game;
     EventQueue* eventQueue;
     sf::RenderWindow* window;
     StyleSheet style;
@@ -22,7 +20,7 @@ class Render2D
     Model::Position cursor;
     std::string message {""};
 public:
-    Render2D(sf::RenderWindow* theWindow, Model::Game* theGame, 
+    Render2D(sf::RenderWindow* theWindow, Model::IGameInfo* theGame, 
 	     EventQueue* theEventQueue);
     ~Render2D();
     void update();
