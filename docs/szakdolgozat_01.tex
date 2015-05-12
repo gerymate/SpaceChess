@@ -1,12 +1,15 @@
 % !TeX spellcheck = hu_HU
-\documentclass[12pt]{report}
+\documentclass[12pt, twoside]{report}
 \usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[inner=3.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\linespread{1.5}
 
 
 % Title Page
 \title{Térsakk}
 \author{Máté Gergely}
-\date{2015 május 12.}
+
 
 \begin{document}
 \maketitle
@@ -14,18 +17,22 @@
 
 \chapter{Bevezető}
 
-A Bevezetés a témaválasztás indoklását és a megoldandó feladat rövid, közérthető leírását tartalmazza.
+A Térsakk olyan sakkvariáns, amelyben a játéktábla két dimenziója kiegészül egy harmadikkal. Jómagam gyerekkorom óta szeretek sakkozni, felnőttkoromra ez egyik kedvenc hobbimmá, szenvedélyemmé vált. A Térsakkban a bábuk kilépnek a síkból, és nagyon izgalmas térbeli mozgáslehetőségek, különleges kombinációk jelennek meg. 
+
+Gyerekkorom másik szenvedélye a számítógépes játékok játszása volt, ebből eredően tizenéves korom óta magamban hordozom az igényt, hogy magam is készítsek számítógépes játékot. A Térsakk a tábla szerkezetéből adódóan igen nehezen játszható valódi sakk-készlettel; még ha ügyes barkácsember el is készítheti az emeletes sakktáblát, a lépések kivitelezése, szabályosságának biztosítása nehéz feladat. A számítógép erre a feladatra különösen alkalmas, ezért döntöttem úgy, hogy ezt a játékot valósítom meg szakdolgozati témám gyanánt.
+
+Célomul azt tűztem ki, hogy elkészítem a Térsakk játék számítógépen játszható változatát. 
 
 \chapter {A Térsakkról}
 
 \section{A Térsakk rövid története}
-A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack találta fel 1907-ben. Maack a nyugati világban addigra széles körben elterjedt hagyományos sakkjátékot szerette volna kiterjeszteni három dimenzióra. Eleinte 8x8x8-as táblával kísérletezett, egy erre a célra kialakított polcon egymás fölé helyezett nyolc hagyományos sakktáblát. Ekkor azonban 512 mezőből áll a tábla, és mivel játékosonként csak 32 bábu van, a bábuk aránya a mezők számához viszonyítva mindössze 1:8 - szemben a hagyományos sakk 1:2 arányával. Mivel ez nagyon lassú játékhoz vezet, Maack később arra jutott, hogy az 5x5x5-ös táblaméret kellemesebb játékot eredményez. Ekkor játékosonként 20 bábu van a táblán, és a bábuk aránya a mezők számához viszonyítva 1:3.125-höz. A második világháborúig bezárólag még Raumschach-klub is működött Hamburgban, azonban ezután a játék - feltehetően a nehézkes fizikai megvalósítás miatt - feledésbe merült.
+A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack találta fel 1907-ben. Maack a nyugati világban addigra széles körben elterjedt hagyományos sakkjátékot szerette volna kiterjeszteni három dimenzióra. Eleinte $ 8 \times 8 \times 8 $ mezőből álló táblával kísérletezett, egy erre a célra kialakított polcon egymás fölé helyezett nyolc hagyományos sakktáblát. Ekkor azonban 512 mezőből áll a tábla, és mivel játékosonként csak 32 bábu van, a bábuk aránya a mezők számához viszonyítva mindössze 1:8 - szemben a hagyományos sakk 1:2 arányával. Mivel ez nagyon lassú játékhoz vezet, Maack később arra jutott, hogy az $ 5 \times 5 \times 5 $-ös táblaméret kellemesebb játékot eredményez. Ekkor játékosonként 20 bábu van a táblán, és a bábuk aránya a mezők számához viszonyítva 1:3.125-höz. A második világháborúig bezárólag még Raumschach-klub is működött Hamburgban, azonban ezután a játék - feltehetően a nehézkes fizikai megvalósítás miatt - feledésbe merült.
 
 \section{A játék szabályai, menete}
 A Térsakk a hagyományos sakk kiterjesztése térbeli táblára. Dolgozatomban a hagyományos sakk szabályait ismertnek tekintem, mivel ezen a téren rengeteg kiváló irodalom áll rendelkezésre. A játékmenet a hagyományos sakkéval megegyezik, világos kezd, világos és sötét felváltva lépnek, és a játék célja az ellenfél királyának bemattolása. Ezért a Térsakk szabályainak ismertetése kapcsán a hagyományos sakktól való eltérésekre koncentrálok.
 
 \subsection{Tábla, jelölés}
-A Térsakk egy 5x5x5-ös kockában játszódik. Ezt úgy is elképzelhetjük, mintha készítenénk öt darab 5x5-ös sík sakktáblát, és egymás fölé helyeznénk azokat. A figurák egy adott mezőről nem csak az adott síkbeli mezőkre léphetnek, hanem például a mező fölötti, illetve alatti mezőkre is. A mezők jelölése hasonló a hagyományos sakkéhoz, azonban kiegészül a \textbf{szint} jelölésével: az egymás fölötti sakktáblákat lentről felfelé az A, B, C, D, E (nagy)betűkkel jelöljük. Az egyes szinteken belül a \textbf{vonal}at balról jobbra a, b, c, d, e (kis)betűk jelölik, a \textbf{sor}okat pedig a világos oldaltól távolodva az 1, 2, 3, 4, 5 számok. Így például kezdetben a világos bástyáit tartalmazó mezők az Aa1 és Ae1 mezők, míg sötét bástyái a kocka átellenes sarkaiban, az Ea5 és Ee5 mezőkön állnak.
+A Térsakk egy $ 5 \times 5 \times 5 $ "mezőből" álló kockában játszódik. Ezt úgy is elképzelhetjük, mintha készítenénk öt darab $ 5 \times 5 $-ös sík sakktáblát, és egymás fölé helyeznénk azokat. A figurák egy adott mezőről nem csak az adott síkbeli mezőkre léphetnek, hanem például a mező fölötti, illetve alatti mezőkre is. A mezők jelölése hasonló a hagyományos sakkéhoz, azonban kiegészül a \textbf{szint} jelölésével: az egymás fölötti sakktáblákat lentről felfelé az A, B, C, D, E (nagy)betűkkel jelöljük. Az egyes szinteken belül a \textbf{vonal}at balról jobbra a, b, c, d, e (kis)betűk jelölik, a \textbf{sor}okat pedig a világos oldaltól távolodva az 1, 2, 3, 4, 5 számok. Így például kezdetben a világos bástyáit tartalmazó mezők az Aa1 és Ae1 mezők, míg sötét bástyái a kocka átellenes sarkaiban, az Ea5 és Ee5 mezőkön állnak.
 
 \subsection{Kezdőállás}
 A játékban mindkét játékosnak 20-20 báb áll a rendelkezésére. Ezek az \textit{unikornis} kivételével a hagyományos sakkból ismert bábok. Világos bábui az alsó két szinten (A, B), az első két soron (1, 2) helyezkednek el. A második soron csak gyalogok állnak. Az A szint első sorában áll balról jobbra egy bástya, egy huszár, a király, a másik huszár, a másik bástya. A B szint első sorában asszimetrikusan helyezkednek el a bábok, hogy a futók különböző alapszínre (világos és sötét mezőre is) kerüljenek. Itt a világos mezőn álló futó, egy unikornis, a vezér, a sötét mezőn álló futó és még egy unikornis követik egymást.
@@ -37,34 +44,34 @@ Némileg meglepő lehet - a játéktér térbeli felépítéséből és a kezdő
 \subsection{Bábuk, lépések}
 
 \subsubsection{A király}
+
 A király az összes körülötte lévő mezőre léphet. Ez nem csak az adott szinten lévő szomszédos (oldallal vagy sarokkal érintkező) mezőket jelenti, hanem az egyel lejjebbi illetve feljebbi szinteken lévő szomszédos mezőket is. Ez a tábla belsejében szabadon álló király esetén 26 mezőt jelent (9 egy szinttel feljebb, 8 az adott szinten, 9 egy szinttel lejjebb). A király a hagyományos sakkhoz hasonlóan nem léphet sakkba. Sáncolni sem lehetséges.
 
 \subsubsection{A vezér}
+
 A vezér a Térsakk legerősebb bábja. A hagyományos sakkhoz hasonlóan tetszőleges számú mezőt haladhat egy adott irányba. Ez az irány lehet egyenes (mint a bástya), vagy egy sík mentén átlós (mint a futó), vagy akár a kocka átlójával párhuzamosan átlós (mint az unikornis).
 
 \subsubsection{A bástya}
+
 A bástya a tábla adta koordinátarendszer három tengelyével párhuzamos irányokba tetszőleges számú mezőt mehet előre. Ez a tábla belsejében szabadon álló bástya esetén hat irányt jelent, a hagyományos sakk irányai kiegészülnek a fel- illetve lefelé történő mozgással. Amennyiben egy mezőre kockaként tekintünk, a bástya mindig a kocka oldallapján halad keresztül.
 
 \subsubsection{Az unikornis}
+
 Az unikornis a kocka átlóival párhuzamos irányokba tetszőleges számú lépést tehet. Ez a tábla belsejében szabadon álló unikornis esetén nyolc irányt jelent. Amennyiben egy mezőre kockaként tekintünk, az unikornis mindig a kocka csúcsain halad át.
 
 \subsubsection{A futó}
+
 A futó a hagyományos sakkhoz hasonlóan, síkban átlósan mozog. Mivel egy mezőt három sík is tartalmaz (vízszintesen az egyes szintek, függőlegesen az egyes vonalak és az egyes sorok által meghatározott síkok), egy a tábla belsejében szabadon álló futó 12 irányba indulhat el. Amennyiben egy mezőre kockaként tekintünk, a futó azt a kocka összes élén keresztül hagyhatja el. 
 
 \subsubsection{A huszár}
+
 A huszár a hagyományos sakkhoz hasonlóan két lépést tesz egy adott irányba, majd egy lépést arra az irányra merőlegesen. Ez azonban a térbeli szerkezetből fakadóan hat kezdeti irányt, és a merőleges választásánál kezdeti irányonként négy további lehetőséget jelent. A huszár útja során a közben álló bábokat átugorja. 
 
 \subsubsection{A gyalog}
+
 A világos gyalogok a sötét alapvonalak felé, a sötét gyalogok a világos alapvonalak felé haladnak. Kezdeti kettős lépés a tábla kis mérete miatt nincs. Egy világos gyalog léphet előre (egyel nagyobb számú sorba), vagy felfelé (egy szinttel feljebb). Ütni üthet az adott szinten átlósan előre, egy szinttel feljebb átlósan felfelé, valamint azonos vonalon maradva átlósan előre felfelé is. Sötét gyalogjai hasonlóan viselkednek, azonban világos alapsorai felé haladnak, vagyis adott szinten kisebb számú sorba, vagy pedig lefelé történhet a lépés. A gyalogok az ellenfél tisztjeinek alapsorait elérve vezérré változnak át.
 
 \chapter{Felhasználói dokumentáció}
-
-A Felhasználói dokumentáció tartalmazza 
-\begin{itemize}
-\item a megoldott probléma rövid megfogalmazását,
-\item a felhasznált módszerek rövid leírását, 
-\item a program használatához szükséges összes információt.
-\end{itemize}
 
 A Spacechess program segítségével Térsakkot lehet játszani a számítógépet használva tábla és bábuk helyett. A program lehetőséget ad rá, hogy két játékos ugyanazon számítógép előtt ülve megmérkőzzön egymással, továbbá arra is van lehetőség, hogy - TCP/IP hálózaton keresztül - két különböző számítógépről játsszanak egymás ellen. A program a befejeződött játszmákat elmenti, azok archiválhatóak és utólag visszanézhetőek. A szoftver platformfüggetlen, egyaránt futtatható GNU/Linux és Microsoft Windows operációs rendszerek alatt. A szoftver használatához grafikus környezetre és egérre (vagy más mutatóeszközre) van szükség.
 
@@ -72,25 +79,22 @@ A Spacechess program segítségével Térsakkot lehet játszani a számítógép
 
 A Spacechess program a "Spacechess" futtatható állományból, továbbá a bábok képét tartalmazó képfájlokból, illetve egy True Type Font betűtípus-leíró fájlból áll. Mindezeket egy közös mappába a számítógépre kell másolni. 
 
-GNU/Linux operációs rendszer esetén a futtatáshoz szükséges, hogy a rendszerre az SFML multimédiás programkönyvtár minimálisan 2.1-es verziója telepítve legyen. Amennyiben a rendszer apt csomagkezelőt használ, az "\underline{apt-get install libsfml-system2 libsfml-network2 libsfml-window2 libsfml-graphics2}" parancs segítségével lehet az SFML szükséges komponenseit telepíteni.
+GNU/Linux operációs rendszer esetén a futtatáshoz szükséges, hogy a rendszerre az SFML multimédiás programkönyvtár minimálisan 2.1-es verziója telepítve legyen. Ubuntu rendszer esetén az SFML szükséges komponenseit a következő csomagok telepítésvel biztosíthatjuk: libsfml-system2, libsfml-network2, libsfml-window2, libsfml-graphics2.
 
 Microsoft Windows operációs rendszer esetén az SFML használatához szükséges DLL állományokat a Spacechess program mappájába kell elhelyezni (a mellékelt CD-n a mappa tartalmazza az állományokat). 
 
 \section{Futtatás}	
 
-Mivel a Spacechess program alapvetően GNU/Linux rendszerre lett fejlesztve, futtatása követi annak szemléletét, így a futtatás különböző módjait parancssori argumentumok megadásával lehet elérni. A szoftver a következő módokon futtatható:
-\begin{itemize}
-\item[{\tt Spacechess [...]}]
+Mivel a Spacechess program alapvetően GNU/Linux rendszerre lett fejlesztve, futtatása követi annak szemléletét, így a futtatás különböző módjait parancssori argumentumok megadásával lehet elérni. A programból minden üzemmódban a grafikus felület ablakának bezárásával léphetünk ki. A szoftver a következő módokon futtatható:
+\subsection*{\tt Spacechess}
 Argumentum megadása nélkül futtatva helyi játékot kezdünk, ahol mindkét játékos ugyanazon számítógép előtt ülve felváltva léphet.
-\item[{\tt -s [portszám]}]
+\subsection*{\tt Spacechess -s [portszám]}
 Az -s argumentum megadásával hálózati játékot kezdeményezhetünk, ilyenkor a program kiszolgáló üzemmódban indul el, és várja, hogy a szoftver egy másik példánya TCP/IP hálózaton keresztül csatlakozzon hozzá. Portszám megadása opcionális, alapértelmezésben az 54321 porton történik a csatlakozás.
-\item[{\tt -c [ipcím[:portszám]]}]
-A -c argumentum megadásával programunk csatlakozni próbál a szoftver egy másik példányához. Az ipcím paraméterrel adható meg a távoli számítógép hálózati címe (elhagyva a helyi számítógéphez próbál csatlakozni). A portszám megadása szintén opcionális, amennyiben nem az alapértelmezett hálózati porton szeretnék játszani, itt tudjuk az új portszámot megadni. Például a "Spacechess 192.168.0.2:4000" parancs a 192.168.0.2 IP-címmel azonosított számítógép 4000-es számú portján keresi a kiszolgáló üzemmódban elindított Spacechess példányt, amit az adott számítógépen a "Spacechess -s 4000" parancs segítségével indíthatunk el.
-\item[{\tt -r [fájlnév]}]
+\subsection*{\tt Spacechess -c [ipcím[:portszám]]}
+A -c argumentum megadásával programunk csatlakozni próbál a szoftver egy másik példányához. Az ipcím paraméterrel adható meg a távoli számítógép hálózati címe (elhagyva a helyi számítógéphez próbál csatlakozni). A portszám megadása szintén opcionális, amennyiben nem az alapértelmezett hálózati porton szeretnék játszani, itt tudjuk az új portszámot megadni. Például a "{\tt Spacechess -c 192.168.0.2:4000}" parancs a 192.168.0.2 IP-címmel azonosított számítógép 4000-es számú portján keresi a kiszolgáló üzemmódban elindított Spacechess példányt, amit az adott számítógépen a "{\tt Spacechess -s 4000}" parancs segítségével indíthatunk el.
+\subsection*{\tt Spacechess -r [fájlnév]}
 Az -r argumentum segítségével visszajátszó üzemmódban indíthatjuk el a szoftvert. Alapértelmezésben a "lastspacechessgame.txt" állomány kerül megnyitásra, ez a fájlnév megadásával felülbírálható. A megadott állomány a Spacechess program által elmentett játszmaleíró fálj kell legyen.
-A programból minden üzemmódban a grafikus felület ablakának bezárásával léphetünk ki.
 
-\end{itemize}
 
 \section{Játék egy számítógépen}
 
@@ -98,7 +102,9 @@ Amennyiben helyi játékot indítunk, megjelenik a grafikus felhasználói felü
 
 \subsection{A játéktábla számítógépes megjelenítése}
 
-A Spacechess program az 5x5x5 mezőből álló táblát 5 síktáblaként jeleníti meg. Azonban a síktáblák nem a kocka egyes szintjeit reprezentálják, hanem (balról jobbra haladva) a világos oldala felől nézve egymás után következő síkmetszeteket, vagyis a játéktábla sorait\footnote{A tábla térbeli szerkezetéből következik, hogy amit a hagyományos sakkban \textit{sor}nak nevezünk, az itt 5x5 mezőt jelent: mind az 5 szinten egy-egy 5 mezőből álló sort.}. Így a képernyő bal oldalán megjelenő 5x5-ös síktábla a világos színnel játszó játékoshoz legközelebb eső sorait tartalmazza a játéktáblának (a kocka legközelebbi szeletét). A képernyő jobb szélén található 5x5-ös síktábla pedig a kocka legtávolabbi sorait, amelyen sötét tisztjei találhatóak az alapállásban. Így a képernyőn felfelé és lefelé mutató irány a térbeli sakktáblán is felfelé illetve lefelé mutat. A táblák fölött és mellett látható az eligazodást segítő jelölés ("ABCDE" a szintek, "abcde" a vonalak és "12345" a sorok jelölésére). Az egérmutatót az egyes mezők fölé mozgatva a tábla alatt megjelenik az adott mező jelölése (például Ac4 vagy Db3).
+A Spacechess program az $ 5 \times 5 \times 5 $ mezőből álló táblát 5 síktáblaként jeleníti meg. Azonban a síktáblák nem a kocka egyes szintjeit reprezentálják, hanem (balról jobbra haladva) a világos oldala felől nézve egymás után következő síkmetszeteket, vagyis a játéktábla sorait\footnote{A tábla térbeli szerkezetéből következik, hogy amit a hagyományos sakkban \textit{sor}nak nevezünk, az itt $ 5 \times 5 $ mezőt jelent: mind az 5 szinten egy-egy 5 mezőből álló sort.}. Így a képernyő bal oldalán megjelenő $ 5 \times 5 $ mezőből álló síktábla a világos színnel játszó játékoshoz legközelebb eső sorait tartalmazza a játéktáblának (a kocka legközelebbi szeletét). A képernyő jobb szélén található $ 5 \times 5 $ mezőből álló síktábla pedig a kocka legtávolabbi sorait, amelyen sötét tisztjei találhatóak az alapállásban. Így a képernyőn felfelé és lefelé mutató irány a térbeli sakktáblán is felfelé illetve lefelé mutat. 
+
+A táblák fölött és mellett látható az eligazodást segítő jelölés ("ABCDE" a szintek, "abcde" a vonalak és "12345" a sorok jelölésére). Az egérmutatót az egyes mezők fölé mozgatva a tábla alatt megjelenik az adott mező jelölése (például Ac4 vagy Db3).
 
 \subsection{A lépés}
 
