@@ -173,9 +173,43 @@ A tesztek forráskódja szabvány C++ szöveg néhány makróval kiegészítve. 
 
 A SCENARIO, GIVEN, THEN, WHEN makrók célja a Catch rendszerben a tesztvezérelt fejlesztés lehetővé tétele. Amennyiben erre nincs szükség, a Catch használata még egyszerűbb lehet. A SCENARIO makró helyett használható az azonos funkcionalitású TEST\_CASE makró, és a GIVEN, THEN, WHEN makrók helyettesíthetőek a SECTION makróval, amely tetszőleges mélységben tartalmazhat további SECTION makrókat. További tesztek készítéséhez ezt az egyszerűbb megközelítést javaslom.
 
+\subsection{További felhasznált eszközök}
+
+A fejlesztést elsődlegesen Ubuntu GNU/Linux rendszeren végeztem. Fejlesztői környezetnek a nagyszerű KDevelop integrált fejlesztőrendszert használtam. A sakkbábuk képfájljait az Inkscape program segítségével szabtam a program igényeihez. Az eredeti képfájlokat Uray Marcell János készítette és tette szabadon felhasználhatóvá. A programban használt betűtípus szintén szabadon felhasználható, és az SFML példaállományaiból származik.
+
+\subsection{Módszertan}
+
+A program fejlesztése során több fejlesztési és projekt-kivitelezési módszertant is kipróbáltam. Folyamatosan törekedtem az objektum-orientált fejlesztési elvek minél teljesebb elsajátítására. A fejlesztés iteratív folyamat volt, amelyben tervezési szakaszokat kódolási szakaszok váltottak. A tervezést többnyire UML diagramok készítése jelentette. A kódolási szakaszban a diagramok alapján készítettem kódot, azonban az eközben felmerülő problémákra már kódban kerestem megoldást. Amikor kezdtem elveszteni a tájékozódást a kódban, az alapján frissítettem az UML diagramokat, és ismét az UML szintjén végeztem a tervezést. Körülbelül nyolc ilyen tervezés-kódolás iterációt csináltam végig.
+
+A projekt menedzselése során egy agilisnek tekinthető módszert, a SMART módszertant követtem. Ennek keretében két-három hetes időszakokra egyszerűbb, jól körülhatárolt, reálisan megvalósítandó célokat tűztünk ki a konzulensem segítségével, melyeket írásban rögzítettem. Bár a határidőket időnként nem sikerült tartanom, a módszer tervezhetősége folytán lehetőséget adott a korrekciókra.
+
+Az agilis fejlesztési módszerek alkalmazásában nagyon nagy hatással volt rám Robert C. Martin Tiszta Kód című könyve. Ennek eredményeképpen jelentek meg a kódban nagy számban a különböző részfeladatokat ellátó privát eljárások. Ennek köszönhető, hogy a kódban nagyon kevés megjegyzés maradt, helyettük a függvények és változók hosszú, beszédes neveket kaptak annak érdekében, hogy szerepük és funkciójuk megjegyzések nélkül is tisztán és világosan érthetővé váljon a kód olvasója számára. A programot folyamatosan refaktoráltam, hogy minél egyszerűbbé, minél érthetőbbé váljon a forráskód.
+
 \section{A program logikai szerkezete}
 
+A Spacechess program megvalósításához a Modell-Nézet-Vezérlő architektúrát választottam. A három modul kezdetben nagyon elvált egymástól, a Nézet csak a Vezérlőn keresztül kommunikált a Modellel. Ez nehézkesnek bizonyult, ezért létrehoztam a Modell számára egy csak olvasható interfészt, és a Nézet immár ezen keresztül közvetlenül is lekérheti a Modell állapotának részleteit. A három modul három különböző névtérben helyezkedik el.
+
 \subsection{A vezérlés}
+
+A {\tt main} függvény és az alkalmazás osztály kivételével az összes vezérlési osztály a \mbox{Controller} névtérben kapott helyet.
+
+\subsubsection{A program belépési pontja}
+
+A program belépési pontja a {\tt main} függvény, ami mindösszesen létrehoz egy alkalmazás (App) objektumot, és delegálja a parancssori paramétereket számára.
+
+\subsubsection{Az App osztály}
+
+Az App osztály létrehozza a grafikus felhasználói felület ablakát ({\tt setUpWindow} metódus), és a parancssori paraméterek függvényében a megfelelő vezérlő objektumot ({\tt setUpAGameController} metódus). Amennyiben a parancssori paraméterek nem megfelelőek, erről tájékoztatást ad ({\tt showUsage} metódus), majd a program kilép.
+
+\subsubsection{A GameController osztály és leszármazottai}
+
+A GameController osztály leszármazottai biztosítják a program különféle működési módjainak vezérlését. A LocalGameController a helyi játék lebonyolításáért felelős, a NetworkGameController a hálózati játék működtetéséért. A PlaybackController osztály szintén a GameController leszármazottja, a játszmák visszajátszásának vezérlését valósítja meg.
+
+A GameController osztály öröklődő attribútuma a Modell játszma (Game) osztályának egy példánya, továbbá a Nézet grafikus megjelenítésért felelős Render2D osztályának egy példánya. A vezérlő és a nézet közötti belső üzenetküldésre használatos az EventQueue osztály egy példánya által megvalósított, belső eseményeket leíró üzenetsor. 
+
+A GameController osztály három absztrakt metódust tartalmaz. Ezek a {\tt mainLoop}, amelyben a vezérlési ciklust kell megvalósítani, a {\tt handleSystemEvents}, amely az SFML által közvetített rendszeresemények lekezelését szolgálja, és a {\tt handleGameEvents}, amelyben a belső üzenetsor (EventQueue) eseményeit kezeljük le. Az App osztály a GameController valamely leszármazottjának {\tt mainLoop} metódusának adja át a vezérlést.
+
+
 
 \subsection {A játékmodell}
 
@@ -183,7 +217,6 @@ A SCENARIO, GIVEN, THEN, WHEN makrók célja a Catch rendszerben a tesztvezérel
 
 \section{A tesztelés}
 
-doxygen?
 
 Érdekesebb részek...
 
