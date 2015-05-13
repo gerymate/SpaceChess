@@ -3,7 +3,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[magyar]{babel}
 \usepackage[inner=3.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{graphicx}
 \linespread{1.5}
+
 
 
 % Title Page
@@ -12,7 +14,52 @@
 
 
 \begin{document}
-\maketitle
+
+% % %
+\begin{titlepage}
+	\thispagestyle{empty}
+	
+	\begin{minipage}{0.30\linewidth}
+		\includegraphics[scale=0.4]{eltecimer.eps}
+	\end{minipage}
+	\begin{minipage}{0.50\linewidth}
+		\begin{center}
+			Eötvös Loránd Tudományegyetem \\
+			Informatikai Kar\\
+			Programozási Nyelvek és Fordítóprogramok Tanszék
+		\end{center}
+	\end{minipage}
+	
+	
+	\vspace{7cm}
+	
+	\begin{center}
+		\Huge
+		\textbf{Térsakk}
+		\normalsize
+	\end{center}
+	
+	\vspace{5.4cm}
+	
+	
+	\begin{minipage}{0.5\linewidth}
+		\textbf{Pataki Norbert}\\
+		Adjunktus
+	\end{minipage}
+	\begin{minipage}{0.5\linewidth}
+		\textbf{Máté Gergely}\\
+		Programtervező Informatikus BSc
+	\end{minipage}
+	
+	\vspace{4cm}
+	
+	\begin{center}
+		Budapest, 2015
+	\end{center}
+	
+\end{titlepage}
+
+% % %
 \tableofcontents
 
 \chapter{Bevezető}
@@ -23,10 +70,8 @@ Gyerekkorom másik szenvedélye a számítógépes játékok játszása volt, eb
 
 Célomul azt tűztem ki, hogy elkészítem a Térsakk játék számítógépen játszható változatát. 
 
-\chapter {A Térsakkról}
-
 \section{A Térsakk rövid története}
-A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack találta fel 1907-ben. Maack a nyugati világban addigra széles körben elterjedt hagyományos sakkjátékot szerette volna kiterjeszteni három dimenzióra. Eleinte $ 8 \times 8 \times 8 $ mezőből álló táblával kísérletezett, egy erre a célra kialakított polcon egymás fölé helyezett nyolc hagyományos sakktáblát. Ekkor azonban 512 mezőből áll a tábla, és mivel játékosonként csak 32 bábu van, a bábuk aránya a mezők számához viszonyítva mindössze 1:8 - szemben a hagyományos sakk 1:2 arányával. Mivel ez nagyon lassú játékhoz vezet, Maack később arra jutott, hogy az $ 5 \times 5 \times 5 $-ös táblaméret kellemesebb játékot eredményez. Ekkor játékosonként 20 bábu van a táblán, és a bábuk aránya a mezők számához viszonyítva 1:3.125-höz. A második világháborúig bezárólag még Raumschach-klub is működött Hamburgban, azonban ezután a játék - feltehetően a nehézkes fizikai megvalósítás miatt - feledésbe merült.
+A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack találta fel 1907-ben  \cite{chessvariants}. Maack a nyugati világban addigra széles körben elterjedt hagyományos sakkjátékot szerette volna kiterjeszteni három dimenzióra. Eleinte $ 8 \times 8 \times 8 $ mezőből álló táblával kísérletezett, egy erre a célra kialakított polcon egymás fölé helyezett nyolc hagyományos sakktáblát. Ekkor azonban 512 mezőből áll a tábla, és mivel játékosonként csak 32 bábu van, a bábuk aránya a mezők számához viszonyítva mindössze 1:8 - szemben a hagyományos sakk 1:2 arányával. Mivel ez nagyon lassú játékhoz vezet, Maack később arra jutott, hogy az $ 5 \times 5 \times 5 $-ös táblaméret kellemesebb játékot eredményez. Ekkor játékosonként 20 bábu van a táblán, és a bábuk aránya a mezők számához viszonyítva 1:3.125-höz. A második világháborúig bezárólag még Raumschach-klub is működött Hamburgban, azonban ezután a játék - feltehetően a nehézkes fizikai megvalósítás miatt - feledésbe merült.
 
 \section{A játék szabályai, menete}
 A Térsakk a hagyományos sakk kiterjesztése térbeli táblára. Dolgozatomban a hagyományos sakk szabályait ismertnek tekintem, mivel ezen a téren rengeteg kiváló irodalom áll rendelkezésre. A játékmenet a hagyományos sakkéval megegyezik, világos kezd, világos és sötét felváltva lépnek, és a játék célja az ellenfél királyának bemattolása. Ezért a Térsakk szabályainak ismertetése kapcsán a hagyományos sakktól való eltérésekre koncentrálok.
@@ -137,7 +182,7 @@ A Fejlesztői dokumentáció tartalmazza
 \end{itemize}
 
 
-\section{A szoftver specifikációja}
+\section{A szoftver informális specifikációja}
 
 A szoftver célja, hogy a Térsakk játékot szimulálja, a Térsakk tábláját és bábuit virtuálisan megjelenítse, és segítségével két személy helyben egy számítógépen, vagy hálózaton keresztül két számítógépen Térsakk játszmákat játszhasson le. Célja továbbá, hogy a játszott játszmák archiválásra kerüljenek, és a szoftver segítségével visszanézhetőek legyenek.
 
@@ -175,7 +220,7 @@ A SCENARIO, GIVEN, THEN, WHEN makrók célja a Catch rendszerben a tesztvezérel
 
 \subsection{További felhasznált eszközök}
 
-A fejlesztést elsődlegesen Ubuntu GNU/Linux rendszeren végeztem. Fejlesztői környezetnek a nagyszerű KDevelop integrált fejlesztőrendszert használtam. A sakkbábuk képfájljait az Inkscape program segítségével szabtam a program igényeihez. Az eredeti képfájlokat Uray Marcell János készítette és tette szabadon felhasználhatóvá. A programban használt betűtípus szintén szabadon felhasználható, és az SFML példaállományaiból származik.
+A fejlesztést elsődlegesen Ubuntu GNU/Linux rendszeren végeztem. Fejlesztői környezetnek a nagyszerű KDevelop integrált fejlesztőrendszert használtam. A sakkbábuk képfájljait az Inkscape program segítségével szabtam a program igényeihez. Az eredeti képfájlokat Uray Marcell János készítette és tette szabadon felhasználhatóvá. A programban használt betűtípus szintén szabadon felhasználható, és az SFML példaállományaiból származik. A Microsoft Windows alatt működő változat a Visual Studio Community 2013 verziójával került lefordításra.
 
 \subsection{Módszertan}
 
@@ -183,7 +228,7 @@ A program fejlesztése során több fejlesztési és projekt-kivitelezési móds
 
 A projekt menedzselése során egy agilisnek tekinthető módszert, a SMART módszertant követtem. Ennek keretében két-három hetes időszakokra egyszerűbb, jól körülhatárolt, reálisan megvalósítandó célokat tűztünk ki a konzulensem segítségével, melyeket írásban rögzítettem. Bár a határidőket időnként nem sikerült tartanom, a módszer tervezhetősége folytán lehetőséget adott a korrekciókra.
 
-Az agilis fejlesztési módszerek alkalmazásában nagyon nagy hatással volt rám Robert C. Martin Tiszta Kód című könyve. Ennek eredményeképpen jelentek meg a kódban nagy számban a különböző részfeladatokat ellátó privát eljárások. Ennek köszönhető, hogy a kódban nagyon kevés megjegyzés maradt, helyettük a függvények és változók hosszú, beszédes neveket kaptak annak érdekében, hogy szerepük és funkciójuk megjegyzések nélkül is tisztán és világosan érthetővé váljon a kód olvasója számára. A programot folyamatosan refaktoráltam, hogy minél egyszerűbbé, minél érthetőbbé váljon a forráskód.
+Az agilis fejlesztési módszerek alkalmazásában nagyon nagy hatással volt rám Robert C. Martin Tiszta Kód című könyve \cite{cleancode}. Ennek eredményeképpen jelentek meg a kódban nagy számban a különböző részfeladatokat ellátó privát eljárások. Ennek köszönhető, hogy a kódban nagyon kevés megjegyzés maradt, helyettük a függvények és változók hosszú, beszédes neveket kaptak annak érdekében, hogy szerepük és funkciójuk megjegyzések nélkül is tisztán és világosan érthetővé váljon a kód olvasója számára. A programot folyamatosan refaktoráltam, hogy minél egyszerűbbé, minél érthetőbbé váljon a forráskód.
 
 \section{A program logikai szerkezete}
 
@@ -221,5 +266,11 @@ A GameController osztály három absztrakt metódust tartalmaz. Ezek a {\tt main
 Érdekesebb részek...
 
 \section{Továbbfejlesztési lehetőségek}
+
+\begin{thebibliography}{Raum}
+	\bibitem[Raum]{chessvariants} Bruce Balden, Hans L. Bodlaender: Raumschach, The Chess Variant Pages, www.chessvariants.org/3d.dir/3d5.html, 2014 június 1.
+			
+	\bibitem[CC]{cleancode} Robert C. Martin: Tiszta Kód, Kiskapu, 2010, [466], ISBN 978-963-9637-69-6
+\end{thebibliography}
 
 \end{document}          
