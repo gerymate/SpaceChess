@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \linespread{1.5}
 
-
+\hyphenation{Spacechess Position Player Figure Game History Judge Board Piece GameEvent King Queen Knight Bishop Unicorn Pawn Rook EventQueue Event GameController Controller Model View BoardPainter PanelPainter Widget}
 
 % Title Page
 \title{Térsakk}
@@ -200,19 +200,19 @@ Ahogy haladtam a program fejlesztésével, a C++11 szabványnak egyre több szol
 
 \subsection{SFML}
 
-Szintén a hatékonyság és a platformfüggetlenség kívánalmának akarván megfelelni, a grafikus felhasználói felület megvalósításához az OpenGl szabványra esett a választásom. Mivel azonban az OpenGl igényel valamilyen köztes réteget az alkalmazás és az operációs rendszer között (például önmagában nem tartalmaz ablakkezelést), a Simple Fast Muldimedia Library (továbbiakban SFML) nyílt forráskódú programkönyvtár segítségéhez fordultam. Mint kiderült, az SFML erősen objektumorientált szemléletű, és azon túl, hogy lehetőséget ad OpenGl programok írására, önmagában is rendelkezik magasabb szintű grafikus képességekkel, amelyek a program elkészítéséhez elégnek bizonyultak. Így aztán az OpenGl közvetlen programozására az alkalmazásban nem is került sor. 
+Szintén a hatékonyság és a platformfüggetlenség kívánalmának akarván megfelelni, a grafikus felhasználói felület megvalósításához az OpenGl szabványra esett a választásom. Mivel azonban az OpenGl igényel valamilyen köztes réteget az alkalmazás és az operációs rendszer között (például önmagában nem tartalmaz ablakkezelést), a Simple and Fast Muldimedia Library (továbbiakban SFML) nyílt forráskódú programkönyvtár segítségéhez fordultam \cite{sfml}. Mint kiderült, az SFML erősen objektumorientált szemléletű, és azon túl, hogy lehetőséget ad OpenGl programok írására, önmagában is rendelkezik magasabb szintű grafikus képességekkel, amelyek a program elkészítéséhez elégnek bizonyultak. Így aztán az OpenGl közvetlen programozására az alkalmazásban nem is került sor. 
 
 Az SFML azon túl, hogy biztosítja az ablakkezelést és egyszerű grafikus műveleteket, az egér kezelését is egyszerűvé teszi, továbbá tartalmaz egy hálózati modult, amivel az operációs rendszer hálózati szolgáltatásait elfedi. Így az operációs rendszer szolgáltatásait a fájlkezelést illetően a C++11 szabvány könyvtára, az összes többi szolgáltatást illetően pedig az SFML elfedi. Az SFML mind GNU/Linux, mind Microsoft Windows, mind Apple OS-X környezetben működik, így használatával a platformfüggetlenség nagy mértékben megvalósult, a Spacechess program forráskódja lényegében változtatások nélkül\footnote{Apróbb változtatásokra szükség lehet, mivel a különböző fordítóprogramok a C++11 szabványt különböző mértékben valósítják meg.} lefordítható az említett platformokon. 
 
 \subsection{CMake}
 
-Mivel a Spacechess program nagyszámú forrásfájlból áll, szükségem volt egy egységes, több platformon is működő \emph{build}-rendszerre, amely a forrásfájlokból a megfelelő bináris állományokat elkészíti. Erre a célra a nyílt forrású CMake rendszert használtam. A CMake egy úgynevezett meta-build rendszer. A forráskód mappáiban elhelyezett {\tt CMakeList.txt} állományok a CMake saját programnyelvén\footnote{A CMake programnyelve leginkább a shell scriptek nyelveihez hasonló.} leírják, hogy a forrásfájlokat hogyan kell lefordítani. A CMake program ez alapján készíti el az adott platform és fejlesztőkörnyezet egyedi build állományait, például GNU/Linux esetén \emph{Makefile} állományokat, vagy Microsoft Visual Studio esetén a fordítás szerkezetét leíró \emph{Solution}-t. Ezután az adott fejlesztőeszköz végzi el a fordítást.
+Mivel a Spacechess program nagyszámú forrásfájlból áll, szükségem volt egy egységes, több platformon is működő \emph{build}-rendszerre, amely a forrásfájlokból a megfelelő bináris állományokat elkészíti. Erre a célra a nyílt forrású CMake rendszert használtam \cite{cmake}. A CMake egy úgynevezett meta-build rendszer. A forráskód mappáiban elhelyezett {\tt CMakeList.txt} állományok a CMake saját programnyelvén\footnote{A CMake programnyelve leginkább a shell scriptek nyelveihez hasonló.} leírják, hogy a forrásfájlokat hogyan kell lefordítani. A CMake program ez alapján készíti el az adott platform és fejlesztőkörnyezet egyedi build állományait, például GNU/Linux esetén \emph{Makefile} állományokat, vagy Microsoft Visual Studio esetén a fordítás szerkezetét leíró \emph{Solution}-t. Ezután az adott fejlesztőeszköz végzi el a fordítást.
 
 A Spacechess program kapcsán a CMake elemi használatához elég azt tudni, hogy amennyiben új C++ forrásállományt ({\tt *.cpp}) hozunk létre, annak nevét a tartalmazó mappa {\tt CMakeList.txt} állmányában a \emph{SOURCES} változó értékeként fel kell sorolni a fordításhoz.
 
 \subsection{Catch}
 
-A szoftver fejlesztése során célszerűnek tűnt az egyes részek működését automatikus teszteléssel biztosítani. Ehhez szükségem volt egy könnyek kezelhető tesztelési keretrendszerre. Némi tájékozódás után a Catch nevű eszközre esett a választás. A Catch egyetlen \emph{header} állományból áll, aminek következtében nagyon hamar üzembe tudtam állítani. A tesztfájlok a forráskód Tests almappájába kerültek, és első utasításként behívják a catch.hpp állományt. A tesztek lefordításához a forráskódhoz hasonlóan a CMake rendszer használatos. A fordítás során egy Tests nevű futtatható állomány keletkezik, amelyet végrehajtva az összes tesztünk ellenőrzésre kerül.
+A szoftver fejlesztése során célszerűnek tűnt az egyes részek működését automatikus teszteléssel biztosítani. Ehhez szükségem volt egy könnyek kezelhető tesztelési keretrendszerre. Némi tájékozódás után a Catch nevű eszközre esett a választás \cite{catch}. A Catch egyetlen \emph{header} állományból áll, aminek következtében nagyon hamar üzembe tudtam állítani. A tesztfájlok a forráskód Tests almappájába kerültek, és első utasításként behívják a catch.hpp állományt. A tesztek lefordításához a forráskódhoz hasonlóan a CMake rendszer használatos. A fordítás során egy Tests nevű futtatható állomány keletkezik, amelyet végrehajtva az összes tesztünk ellenőrzésre kerül.
 
 A tesztek forráskódja szabvány C++ szöveg néhány makróval kiegészítve. A SCENARIO makró segítségével teszteseteket adhatunk meg. A teszteseteken belül megadhatunk környezeteket a GIVEN, WHEN és THEN makrókkal, melyek azonos funkcionalitással bírnak, és tetszőleges mélységben egymásba ágyazhatóak. Az alacsonyabb szinten lévő környezetben történő változások egyáltalán nincsenek kihatással a magasabb szinten lévő környezetre, így azonos környezetet biztosíthatunk több különböző, egymás után végrehajtandó teszt számára, ha az előkészítést magasabb szinten, az egyes tesztesetek vizsgálatát alacsonyabb szinten végezzük el. Megadhatunk továbbá a programra vonatkozó logikai állításokat a REQUIRE makró paramétereként, ezek igaz volta kerül ellenőrzésre a teszt futtatása során.
 
@@ -236,7 +236,7 @@ A Spacechess program megvalósításához a Modell-Nézet-Vezérlő architektúr
 
 \subsection{A vezérlés}
 
-A {\tt main} függvény és az alkalmazás osztály kivételével az összes vezérlési osztály a \mbox{Controller} névtérben kapott helyet.
+A {\tt main} függvény és az alkalmazás osztály kivételével az összes vezérlési osztály a Controller névtérben kapott helyet.
 
 \subsubsection{A program belépési pontja}
 
@@ -250,13 +250,122 @@ Az App osztály létrehozza a grafikus felhasználói felület ablakát ({\tt se
 
 A GameController osztály leszármazottai biztosítják a program különféle működési módjainak vezérlését. A LocalGameController a helyi játék lebonyolításáért felelős, a NetworkGameController a hálózati játék működtetéséért. A PlaybackController osztály szintén a GameController leszármazottja, a játszmák visszajátszásának vezérlését valósítja meg.
 
-A GameController osztály öröklődő attribútuma a Modell játszma (Game) osztályának egy példánya, továbbá a Nézet grafikus megjelenítésért felelős Render2D osztályának egy példánya. A vezérlő és a nézet közötti belső üzenetküldésre használatos az EventQueue osztály egy példánya által megvalósított, belső eseményeket leíró üzenetsor. 
+A GameController osztály öröklődő attribútuma a Modell játszmát leíró osztályának (Game) egy példánya, továbbá a Nézet grafikus megjelenítésért felelős osztályának (Render2D) egy példánya. A Vezérlő és a Nézet közötti belső üzenetküldésre használatos az EventQueue osztály által megvalósított, belső eseményeket leíró üzenetsor. 
 
 A GameController osztály három absztrakt metódust tartalmaz. Ezek a {\tt mainLoop}, amelyben a vezérlési ciklust kell megvalósítani, a {\tt handleSystemEvents}, amely az SFML által közvetített rendszeresemények lekezelését szolgálja, és a {\tt handleGameEvents}, amelyben a belső üzenetsor (EventQueue) eseményeit kezeljük le. Az App osztály a GameController valamely leszármazottjának {\tt mainLoop} metódusának adja át a vezérlést.
 
-
-
 \subsection {A játékmodell}
+
+A játszmák logikai működését szimuláló Modell osztályai a Model névtérbe kerültek. A Modell a következő alapfogalmakkal dolgozik.
+
+\subsubsection {Player}
+A Player enumeráció segítségével a játékosokra lehet hivatkozni.
+
+\subsubsection{Figure}
+A Figure enumeráció a Térsakk játék különböző figuráit sorolja fel.
+
+\subsubsection{Position}
+A Position osztály a 3 dimenziós sakktábla egy mezőjét jelöli ki. Ezen túl lehetőséget nyújt a szomszédos pozíciók meghatározására egy adott mezőhöz képest az {\tt over, under, right, left, farther, closer} metódusok segítségével, mely irányok a világos játékos oldala felől értendőek. Ezek a metódusok egy új Position objektumot adnak vissza, ami ismét rendelkezik ilyen metódusokkal, tehát például egy huszár egy lehetséges lépését leírhatjuk a {\tt position.farther().farther().left()} kifejezéssel. Position objektumot létrehozhatunk úgy is, hogy számszerűen megadjuk, melyik szinten, melyik vonalon és melyik sorban legyen a pozíció, de az osztály túlterhelt konstruktora elfogadja a játékban használatos három jelből álló pozícióleírást (például "Cc3" vagy "Ad2") is egy sztringben. A Position osztály megvalósítja a $<$ összehasonlító operátort, hogy használható legyen rendezést kívánó szabványos konténerekben.
+
+\subsubsection{A Piece osztály és leszármazottai}
+
+A Piece egy absztrakt osztály, melynek leszármazottai  az egyes figurák viselkedését adják meg. A Piece osztály a statikus {\tt generatePiece} metódus segítségével generálja a különböző bábu-objektumokat. A {\tt generatePiece} metódus egy bábu-leíró sztringet és egy, a táblára mutató mutatót vár paraméterül. A bábu-leíró sztring formátuma a következő:
+\begin{itemize}
+	\item az első karakter kisbetűs 'w' vagy 'b' attól függően, hogy világos vagy sötét figurát szeretnénk,
+	\item a második karakter a nagybetűs 'K', 'Q', 'R', 'B', 'N', 'U', 'P', amely rendre királyt, vezért, bástyát, futót, huszárt, unikornist és gyalogot jelöl,
+	\item a következő három karakter a figura pozícióját adja meg a játéktábla jelölésével (például "Bc4" vagy "Ee5").
+\end{itemize}
+Amennyiben a bábu-leíró sztring formátuma hibás, invalid\_argument kivétel keletkezik.
+
+A Pieceből származott objektumok ismerik a játékost, amelynek bábui ({\tt getPlayer}), meg tudják mondani, hogy hol helyezkednek el a táblán ({\tt getPosition}), és hogy milyen figurák ők ({\tt getFigure}). Ennél többet is tudnak azonban, meg tudják mondani, hogy mely mezőkre léphetnek ({\tt getPossibleMoves} metódus), illetve mely mezőkön tudnak ütni ({\tt getPossibleTakes} metódus). Ez utóbbi három metódust a leszármazottak értelemszerűen felüldefiniálhatják. Mivel a lehetséges lépések pozíciói csak a gyalog esetén térnek el a lehetséges ütések pozícióitól, a Piece osztály {\tt getPossibleTakes} metódusa közös, megfelelő alapértelmezett működést biztosít a többi figura számára.
+
+Mivel a lehetséges lépések és ütések meghatározása során olyan tevékenységekre van szükség, amelyek kettő vagy több figura esetén megegyeznek, a Piece osztály nagyszámú védett segédfüggvényt bocsát a tőle öröklődő osztályok rendelkezésére. Ezek a következők:
+\begin{itemize}
+	\item A logikai értékkel visszatérő {\tt canMoveTo, canTakeAt, canMoveToOrTakeAt} függvények megadják, hogy egy adott pozíció üres-e, az ellenfél bábuját tartalmazza-e, illetve ezek közül valamelyik teljesül-e.
+	\item A {\tt filterForOnBoard, filterForMove, filterForTake, filterForMoveOrTake} eljárások egy pozíciókból álló listát várnak paraméterül, és különböző feltételek szerint megszűrik azokat, vagyis a listáról kitörlik azokat a pozíciókat, amelyek nem felelnek meg egy adott feltételnek. 
+		\subitem A {\tt filterForOnBoard} eljárás a táblára eső pozíciókat hagyja a listában. Erre azért van szükség, mert a pozíciók közötti navigálás során (a Position osztály {\tt over, under, left, right, farther, closer} metódusai segítségével) előfordulhat, hogy lemegyünk a tábláról. 
+		\subitem A {\tt filterForMove} eljárás azokat a pozíciókat hagyja a listában, amelyre a báb ütés nélkül léphet.
+		\subitem A {\tt filterForTake} eljárás azokat a pozíciókat adja meg, amelyeken ütni lehetséges, vagyis amelyeken az ellenfél bábuja áll.
+		\subitem A {\tt filterForMoveOrTake} a fenti két eljárás értelemszerű kombinációja.
+	\item A {\tt moveOrTakeStraightFrom}, {\tt moveOrTakePlaneDiagonallyFrom} és {\tt moveOrTakeTrueDiagonallyFrom} függvények azon bábok mozgásának leírásához nyújtanak segítséget, amelyek egy adott pozícióból egy adott irányba tetszőleges számút léphetnek. A függvények az megadott pozícióból elindulva sorra megvizsgálják, hogy az adott irányokba haladva szabad-e az út a bábu előtt, illetve lehetséges-e az ellenfél egy bábuját kiütni. Mindhárom függvény az elérhető pozíciók listáját adja visszatérési értékként. A {\tt moveOrTakeStraightFrom} függvény a bástya mozgásának irányait vizsgálja, a tábla síkjaira merőleges irányokat. A {\tt moveOrTakePlaneDiagonallyFrom} függvény a tábla síkjaiban átlós mozgással elérhető mezőket eredményezi. A {\tt moveOrTakeTrueDiagonallyFrom} függvény az Unikornis mozgási lehetőségeit számolja ki. A Vezér mozgási lehetőségeit e három függvény eredményeinek uniója alkotja.
+	
+	Hogy e három függvényt megvalósítsa, a Piece osztály definiál még két segédeljárást.
+	\subitem Az {\tt addPositionsFromSourceInDirection} eljárás egy adott pozícióból egy adott irányba elhelyezkedő pozíciókat adja hozzá egy már meglévő pozíciólistához. Az eljárás érdekessége, hogy az irány fogalmát egy Position objektumból Position objektumot létrehozó függvény (DirectionFunction) segítségével ragadja meg. Az elemi irányfüggvényeket a Position osztály már definiálta, ezekből összetett irányfüggvényeket pedig lambda-kifejezések segítségével definiálhatunk.
+	\subitem Az {\tt addPositionsFromSourceInManyDirections} eljárás annyiban tér el az előzőtől, hogy nem egyetlen irányfüggvényt, hanem irányfüggvények listáját várja paraméterül. A listát feldolgozza, és az összes megadott irányba leellenőrzi, hogy meddig lehetséges a lépés.
+\end{itemize}
+A Piece osztály segédfüggvényeinek megvalósításánál igen hasznosnak bizonyultak a funkcionális programozás terén folytatott tanulmányaim.
+
+A Piece osztály leszármazottjai a King, a Queen, a Knight, a Bishop, a Rook, az Unicorn és a Pawn osztályok. Többségük csak a {\tt getFigure} és {\tt getPossibleMoves} metódusokat definiálja felül.
+
+\subsubsection{A Board osztály}
+
+A Board osztály biztosítja a játéktábla belső reprezentációját. A táblát egy szótár (std::map) adatszerkezettel írja le, melyben a kulcsok Position objektumok, az értékek pedig Piece objektumokra mutató pointerek. Ez az adatszerkezet nagy hatékonysággal valósítja meg a pozíció alapú bábukeresést, amelyre a sakk- és mattvizsgálat során nagy számban van szükség.
+
+A Board osztály lehetővé teszi, hogy hozzáadjuk egy bábut a táblához ({\tt addPiece} metódus), eltávolítsunk egy bábut a tábláról ({\tt removePiece} metódus), lekérjünk egy bábut egy adott pozícióról ({\tt getPiece} metódus), megállapítsuk egy pozícióról, hogy van-e rajta báb ({\tt isOccupied} metódus). Ezen felül lehetőségünk van egy adott játékos adott figuráját megkeresni a táblán ({\tt find} metódus, amely egy pozícióval tér vissza), illetve az adott játékos összes még játékban lévő bábuját is lekérhetjük ({\tt getAllPiecesFor} metódus). A {\tt getFullBoard} metódus segítségével pedig egy olyan reprezentációját kapjuk a táblának (Fullboard struktúra), amelyet a Nézet könnyen meg tud jeleníteni.
+
+\subsubsection{A GameEvent osztály és leszármazottai}
+
+A GameEvent osztály a játszma egy eseményét reprezentálja a Modellben. Ilyen események például a játszma kezdete, vagy egy lépés megtétele. A GameEvent osztály a Command programfejlesztési mintán alapul \cite{designpatterns}. Minden GameEvent objektum rendelkezik egy mutatóval, amely az aktuális játszmát reprezentáló Game osztály példányára mutat. Ezen mutatón keresztül a GameEvent objektumok különböző módosításokat tehetnek a játszma reprezentációján.
+
+A GameEvent osztály három absztrakt metódust tartalmaz, ezek az {\tt execute}, a {\tt revert} és a {\tt getNotation}. Az {\tt execute} metódus segítségével a játszmaesemény (például lépés) végrehajtásra kerül. A {\tt revert} metódus megpróbálja visszaállítani az esemény előtti állapotot. E két metódus segítségével a játsz\-ma\-tör\-té\-net\-ben lépkedni lehet.
+
+A GameEvent osztály felelős azért is, hogy az általa reprezentált játszmaeseményről információt adjon. Az említett {\tt getNotation} metódus visszaadja az esemény jelölését egy sztringben. A {\tt getPlayer} metódus megadja az esemény során cselekvő játékost (ez akár Nobody értékkel is bírhat, például a játszma elindítását reprezentáló esemény esetében). A {\tt getMoveNumber} megadja, hogy az esemény a játszmatörténetben hanyadik lépésnél következik be.
+
+A GameEvent osztály {\tt generateMove} statikus metódusával generálhatunk Move objektumokat, melyek a GameEvent leszármazottjai. A metódus vagy két pozíciót (honnan és hova), vagy egy lépést leíró sztringet vár paraméterül, továbbá egy mutatót az aktuális játszmát leíró Game objektumra. A lépést leíró sztring formátuma a következő:
+\begin{itemize}
+	\item az első három karakter annak a pozíciónak a játékbeli jelölése, amelyről lépni szeretnénk,
+	\item ezt egy szóköz követi,
+	\item az utolsó három karakter pedgi annak a pozíciónak a leíró jelölése, ahova lépni akarunk.
+\end{itemize}
+Egy lehetséges lépést leíró sztring például az "Aa1 Bb2", vagy a "Cc3 Bc5".
+
+\subsubsection{A History osztály}
+
+A History osztály kezeli a játszmatörténetet. Belső reprezentációja egy GameEvent objektumokra mutató pointerekből álló vektor. A History osztály tartalmaz egy mutatót az őt attribútumként tartalmazó, a játszmát reprezentáló Game osztályra. Ezen mutatón keresztül tudja a játszma belső reprezentációját megváltoztatni. A History osztályt érdemes úgy elképzelni, mint egy GameEvent objektumokból álló listát. A History objektumnak van egy aktuális eleme, amely legutoljára végrehajtásra került. A History létrejöttekor automatikusan tartalmaz egy Creation objektumot, amely a GameEvent osztály leszármazottja, és a játszma kezdetét jelöli. A játszmatörténethez ezután az {\tt addEvent} metódussal adhatunk hozzá eseményeket. A {\tt reset} metódus a játszmatörténet elejére ugrik, az {\tt actualize} metódus pedig a végére, vagyis végrehajtja a listában található összes eseményt. A {\tt stepForward} és {\tt stepBack} metódusokkal lépdelhetünk előre illetve hátra a játszmatörténetben. A {\tt clearFuture} metódus törli az összes olyan eseményt, amely az aktuális esemény után szerepel még a listában.
+
+A {\tt getCurrentEvent} metódussal lekérhetjük az utolsó végrehajtott eseményt. A {\tt getPlayerForLastEvent} és a {\tt getMoveNumberForLastEvent} az utolsó eseményben érintett játékost, illetve a lépés számát adja vissza. Ez utóbbi számozás a sakkban szokásos módon történik, vagyis nem az egyes lépések, hanem világos-sötét lépéspárok kerülnek számozásra. A {\tt getNextPlayer} metódus megadja az aktuálisan soron következő játékost.
+
+Egy History objektum szövegfolyammá alakítható, illetve szövegfolyamból beolvasható a folyamokon felüldefiniált $<<$ és $>>$ operátorok segítségével.
+
+\subsubsection{A Judge osztály}
+
+A Judge osztály a játszma aktuális állásában legális lépések, valamint a sakk, patt és matt megállapítására szolgál. Ezen tevékenységekhez a Judge osztály igénybe veszi az aktuális játszmát reprezentáló Game osztálytól elkért Board és History objektumok szolgáltatásait. A Game osztály aktuális példányát a Judge osztály konstruktorparaméteren, egy mutatón keresztül kapja meg.
+
+A Judge a következő publikus szolgáltatásokat nyújtja:
+
+\begin{itemize}
+	\item Az {\tt isValidMove} logikai függvény megmondja, hogy egy pozíció-pár által megadott lépés szabályos-e.
+	
+	\item Az {\tt isInCheck} logikai függvény megmondja, hogy a paraméterként kapott játékos királya sakkban van-e. Ehhez lekérdezi a Board objektumtól a király pozícióját, illetve a másik játékos összes bábuját egy listába. A bábuk listáján lineáris keresés segítségével olyan bábut keres, amelynek ütési lehetőségei között szerepel a király pozíciója. Mivel egy bábu lépési lehetőségeinek elméleti felső korlátját adja a 124 mező, és az ellenfélnek legfeljebb 20 bábuja lehet, a függvény műveletigénye O(1).
+	
+	\item a {\tt getCurrentlyPossibleMovesFrom} metódus egy pozíciót kap paraméterül,  és egy listában megadja, hogy a soron következő játékos az adott pozíción lévő bábuval mely helyekre léphet. Amennyiben az adott pozíción nincs a soron következő játékosnak bábuja, nullptr-t kapunk vissza. A Judge a lehetséges lépések meghatározásánál az adott figurák elhelyezkedésén és képességein túl figyelembe veszi azt a szabályt, hogy a király nem kerülhet sakkba a lépés következtében, valamint ha sakkban van, akkor csak az számít érvényes lépésnek, aminek következtében a sakk megszűnik.
+	
+	Utóbbi megállapításához a Judge osztály a {\tt filterTargetsForNotInCheckAfter} függvényt alkalmazza. Ez a függvény paraméterül megkapja a kiindulási pozíciót, valamint az összes elérhető pozíció listáját. Ebből a listából egy szótárt készít, amelyben a célpozíció adja a kulcsot, értékként pedig minden egyes célpozícióhoz legenerálja a lépést megvalósító GameEvent objektumot. Ezután a History objektumot hívja segítségül a lépés utáni helyzet vizsgálatához a következő algoritmussal: létrehoz egy új, üres listát a legális célpozícióknak, majd végigiterál a szótár összes elemén, és az adott Move játékeseményt hozzáadja a játszmatörténethez, majd végrehajtja azt. Az új helyzetben az {\tt isInCheck} függvény segítségével megvizsgálja, hogy a lépést követően sakkban van-e a király, és amennyiben nem, a lépés legális, a szótár kulcsát, azaz a célpozíciót hozzáveszi a szabályos célpozíciókat tartalmazó listához. A ciklus magja ezután a visszalép a játsz\-ma\-tör\-té\-net\-ben, és a hozzáadott Move eseményt törli a történet végéről. A ciklus végén a függvény visszatér a legális lépéseket tartalmazó listával. Mivel az {\tt isInCheck} függvény műveletigénye O(1), és a lehetséges célpozíciók számára elméleti felső korlát a 124, a {\tt filterTargetsForNotInCheckAfter} függvény műveletigénye szintén O(1) lesz. A valós műveletigény felső korlátját meghatározó konstans azonban az eddigi korlátokkal számolva $124 \times 20 \times 124 = 307520$!
+
+	\item A {\tt canMove} metódus megadja, hogy a paraméterként kapott játékos tud-e egyáltalán legális lépést tenni. A metódus lekéri a Board objektumtól a játékos összes bábuját, majd a listán egy lineáris keresést hajt végre. A lineáris keresés során azt vizsgálja, hogy az adott bábu által legálisan megtehető lépések listájának van-e legalább egy eleme. A vizsgálat során nem a Piece objektum {\tt getPossibleMove} eljárására támaszkodik, hanem a Judge saját {\tt getPossibleMove} megvalósítására, amely tartalmazza a lépés utáni sakk-ellenőrzést is. Ez azt jelenti, hogy a függvény közvetve legfeljebb 20-szor hívja meg a {\tt filterTargetsForNotInCheckAfter} függvényt. A műveletigény így továbbra is O(1) marad, azonban a valós műveletigényre vonatkozó felső becslésünk eléri a $20 \times 310000 = 6200000$ műveletet. Itt már intuitívan érezhető, hogy a becslések során a becslés hibája "elszállt". A hiba az elméleti felső korlátok hibás alkalmazásában keresendő, például míg bábunként 124 lépési lehetőséget adtunk meg (a tábla korlátja), a kezdetben a bábuk felét adó gyalogok legfeljebb 7 mezőre léphetnek, a 4 bástya egyenként legfeljebb 12 mezőre, és a legtöbb lépési lehetőséggel rendelkező vezér legfeljebb (a tábla Cc3 mezőjén állva) 52 mezőre. Már akkor jelentősen javítunk a {\tt canMove} függvény műveletigényének becslésén, ha a vezér lépéseinek maximumával számolunk, ekkor a műveletigényre lehetséges felső korlát az $ 52 \times 20 \times 52 \times 20 = 1081600$.
+\end{itemize}
+
+\subsubsection{A Game osztály}
+
+A Game osztály a Model legfelső szintű osztálya, és egy Térsakk játszma teljes számítógépes reprezentálását biztosítja. A Game osztály ehhez három fő osztálynak delegál feladatokat:
+\begin{itemize}
+	\item a Board osztály biztosítja a tábla és az azon elhelyezkedő bábuk belső reprezentációját,
+	\item a History osztály biztosítja a játszmatörténetet, azaz a játszma lépéseinek rögzítését,
+	\item a Judge osztály biztosítja a szabályok betartását.
+\end{itemize}
+Mivel ezek a funkciók kölcsönösen összefüggenek, mindhárom osztály közvetlen vagy közvetett módon kommunikál egymással.
+
+A Game osztály megvalósítja az IGameInfo interfészt, amelyen keresztül a játszma állapotáról információ kérhető:
+\begin{itemize}
+	\item a {\tt getGameState} metódus a játszma aktuális állapotát adja eredményül, a megjelenítő általi közvetlen felhasználás céljára. Ez tartalmazza többek között a bábuk elhelyezkedését a táblán;
+	\item a {\tt getCurrentlyPossibleMovesFrom} metódus megadja, hogy az aktuális játékos egy adott mezőről mely más mezőkre léphet;
+	\item a {\tt getNextPlayer} metódus megadja a lépésre következő játékost;
+	\item a {\tt getBoard}, {\tt getHistory}, {\tt getJudge} metódusok segítségével kérhetjük le az adott alegységet megvalósító objektomokat\footnote{Megjegyzés: mivel az IGameInfo interfész viszonylag későn került bevezetésre, jelenleg ezek a metódusai nem biztosítják az adott alegység konstansként való kezelését. Ennek biztosítása a továbbfejlesztés egyik első lépése kell legyen.}.
+\end{itemize}
+
+A Vezérlő osztályai a Game osztály {\tt move} metódusával kezdeményezhetnek lépéseket, illetve a {\tt stepForward, stepBackward} metódusokkal lehetőség van előre és hátra lépkedni a játszmatörténetben. A játszmák elmentését illetve betöltését a folyamokon felüldefiniált $<<$ és $>>$ operátorok biztosítják.
+
+\subsubsection{A GameState, a Fullboard és a Field struktúrák}
 
 \subsection{A megjelenítés}
 
@@ -267,10 +376,18 @@ A GameController osztály három absztrakt metódust tartalmaz. Ezek a {\tt main
 
 \section{Továbbfejlesztési lehetőségek}
 
-\begin{thebibliography}{Raum}
-	\bibitem[Raum]{chessvariants} Bruce Balden, Hans L. Bodlaender: Raumschach, The Chess Variant Pages, www.chessvariants.org/3d.dir/3d5.html, 2014 június 1.
+\begin{thebibliography}{Catch}
+	\bibitem[Catch]{catch} Catch, github.com/philsquared/Catch, 2015.02.01
 			
 	\bibitem[CC]{cleancode} Robert C. Martin: Tiszta Kód, Kiskapu, 2010, [466], ISBN 978-963-9637-69-6
+
+	\bibitem[CMake]{cmake} CMake, www.cmake.org, 2014.12.01.
+	
+	\bibitem[GoF]{designpatterns} Gamma, ... : Design Patterns, ...
+	
+	\bibitem[Raum]{chessvariants} Bruce Balden, Hans L. Bodlaender: Raumschach, The Chess Variant Pages, www.chessvariants.org/3d.dir/3d5.html, 2014.06.01.
+		
+	\bibitem[SFML]{sfml} Simple and Fast Multimedia Library, www.sfml-dev.org, 2014.12.01.
 \end{thebibliography}
 
 \end{document}          
