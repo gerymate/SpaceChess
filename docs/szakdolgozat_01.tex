@@ -253,11 +253,29 @@ Az App osztály létrehozza a grafikus felhasználói felület ablakát ({\tt se
 
 \subsubsection{A GameController osztály és leszármazottai}
 
-A GameController osztály leszármazottai biztosítják a program különféle működési módjainak vezérlését. A LocalGameController a helyi játék lebonyolításáért felelős, a NetworkGameController a hálózati játék működtetéséért. A PlaybackController osztály szintén a GameController leszármazottja, a játszmák visszajátszásának vezérlését valósítja meg.
+A GameController osztály leszármazottai biztosítják a program különféle működési módjainak vezérlését. 
 
 A GameController osztály öröklődő attribútuma a Modell játszmát leíró osztályának (Game) egy példánya, továbbá a Nézet grafikus megjelenítésért felelős osztályának (Render2D) egy példánya. A Vezérlő és a Nézet közötti belső üzenetküldésre használatos az EventQueue osztály által megvalósított, belső eseményeket leíró üzenetsor. 
 
 A GameController osztály három absztrakt metódust tartalmaz. Ezek a {\tt mainLoop}, amelyben a vezérlési ciklust kell megvalósítani, a {\tt handleSystemEvents}, amely az SFML által közvetített rendszeresemények lekezelését szolgálja, és a {\tt handleGameEvents}, amelyben a belső üzenetsor (EventQueue) eseményeit kezeljük le. Az App osztály a \break GameController valamely leszármazottjának {\tt mainLoop} metódusának adja át a vezérlést.
+
+\subsubsection{A PlaybackController osztály}
+
+A PlaybackController osztály a játszmák visszajátszásának vezérlését valósítja meg. A konstruktor végrehajtása során a {\tt loadGame} metódus fájlból betölt egy játszmát. A rendszeresemények kezelése során ({\tt handleSystemEvents}) a bal és jobb egérgomb hatására egy-egy üzenet kerül a belső üzenetsorra. A {\tt handleGameEvents} metódus ezeket az üzeneteket feldolgozza, és lefordítja a Modell metódushívásaira. A {\tt mainLoop} metódus a kétféle eseménykezelőt futtatja, illetve frissíti a Nézet állapotát.
+
+\subsubsection{A LocalGameController osztály}
+
+A LocalGameController osztály a helyi játék lebonyolításáért felelős. A rendszeresemények kezelése során ({\tt handleSystemEvents}) közvetíti az egérkattintás esemény tulajdonságait (az egér pozícióját) a Nézet számára. A Nézet megvizsgálja, hogy mely megjelenített elemen következett be az egérkattintás, és ennek megfelelően Event üzeneteket tesz a belső üzenetsorra. Az üzenetek feldolgozását a LocalGameController a PlayerController osztálynak delegálja ({\tt handleSelection}). A PlayerController különbséget tesz első és második kattintás között ({\tt handleFirstSelection} és {\\handleSecondSelection} metódusok), vagyis menedzseli a bábuk és a lépés célmezőjének kiválasztását. A PlayerController ismeri a Nézetet, és kérvényezi tőle a kiválasztott bábu alatti mező, illetve a lehetséges lépések célmezőinek vizuális kiemelését. A PlayerController elkéri a játszmát reprezentáló Game objektumtól az aktuálisan megtehető lépések listáját. Amennyiben a játékos legális lépést kezdeményezett, a PlayerController továbbítja ezt a kérést a Game objektum számára. A LocalGameController {\tt mainLoop} metódusa a külső és belső események feldolgozása után frissíti a Nézetet, és kilépéskor a {\tt saveGame} metódus hívásával fájlba menti a játszmatörténetet.
+
+\subsubsection{A NetworkGameController osztály}
+
+A NetworkGameController a hálózati játék működtetéséért felelős. Mivel sok átfedést tartalmaz a LocalGameController funkcionalitásával, annak leszármazottja. A NetworkGameController konstruktorban megkapja, hogy kiszolgáló vagy kliens üzemmódban működik-e, valamint a hálózati paramétereket. 
+
+A hálózati kapcsolat felépítését a ConnectionBuilder osztálynak delegálja, amely szintén konstruktorparamétereken keresztül kapja meg a működési módot és a hálózati paramétereket. A ConnectionBuilder kiszolgáló oldalon várakozni kezd ({\tt startListening}), majd a csatlakozási kérelmet fogadja ({\tt acceptConnection}). Kliens oldalon az osztály csatlakozni próbál egy kiszolgálóhoz ({\tt connectToServer} metódus). A csatlakozás kétféle menetét elfedi az {\tt establishConnection} metódus. A {\tt getInfoMessage} függvény egy sztringben tájékoztatást ad a csatlakozás aktuális állapotáról. A sikeres csatlakozás eredménye mindkét üzemmódban egy kommunikációra kész, az SFML által biztosított sf::TcpSocket objektum.
+
+A NetworkGameController osztály a NetworkPhase enumeráció segítségével nyomon követi a hálózati kapcsolat állapotát. A {\tt mainLoop} metódusa a rendszeresemények kezelésén túl kiegészül a {\tt handleConnections} metódus hívásával, ami a kapcsolat kezeléséért felelős. A {\tt handleConnections} kommunikál a ConnectionBuilder objektummal, valamint működő kapcsolat esetén továbbadja a vezérlést az üzeneteket fogadó és feldolgozó {\tt handleCommunication} metódusnak, ami lefordítja a hálózati üzeneteket a Modell metódusainak hívásaira. A belső üzenetsor feldolgozását végző {\tt handleGameEvents} metódus kiegészül a {\tt sendMove} metódus hívásával, amennyiben helyi lépésre kerül sor. A {\tt sendMove} elküldi a lépést a hálózati kapcsolaton keresztül a másik fél számára. 
+
+A NetworkGameController tudja, hogy melyik játékos a helyi játékos (localPlayer attribútum), és a helyi események feldolgozását csak akkor végzi el, ha a helyi játékos van soron ({\tt localPlayerIsNextPlayer}). Ellenkező esetben a hálózatról várja a következő lépést. Kilépés előtt ez az osztály is elmenti a játszmatörténetet.
 
 \subsection {A játékmodell}
 
@@ -441,7 +459,7 @@ A Vezérlő kiegészíthető lehet mesterséges intelligencia vezérelte játék
 
 A grafikai megjelenítés igazi forradalmát hozhatja, ha három dimenziós grafikát kezdünk használni. Mivel a programban a Modell és a Vezérlő erősen el van határolva a Nézettől, előbbi kettő minimális változtatásával megvalósítható egy 3D megjelenítés. A 3D megjelenítés implementálásához feltehetően célszerű valamilyen nyílt forrású 3D motort igénybe venni.
 
-Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya annak, hogy a képernyőn egymás mellé helyezzük 5 db 3D megjelenítőt. Ezzel a technikával játszhatóvá válhat egy új játék, a sakk 4 dimenziós kiterjesztése. Ebben a játékban a játszma egy $5 \times 5 \times 5 \times 5$ mezőből álló hiperkocka alkotta táblán játszódik... 
+Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya annak, hogy a képernyőn egymás mellé helyezzünk 5 darab 3D megjelenítőt. Ezzel a technikával játszhatóvá válhat egy új játék, a sakk 4 dimenziós kiterjesztése. Ebben a játékban a játszma egy $5 \times 5 \times 5 \times 5$ mezőből álló hiperkocka alkotta táblán játszódik... 
 
 \begin{thebibliography}{CMake}
 	\bibitem[Catch]{catch} Catch, github.com/philsquared/Catch, 2015.02.01
