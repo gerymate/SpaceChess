@@ -374,27 +374,85 @@ A Game osztály megvalósítja az IGameInfo interfészt, amelyen keresztül a j�
 
 A Vezérlő osztályai a Game osztály {\tt move} metódusával kezdeményezhetnek lépéseket, illetve a {\tt stepForward, stepBackward} metódusokkal lehetőség van előre és hátra lépkedni a játszmatörténetben. A játszmák elmentését illetve betöltését a folyamokon felüldefiniált $<<$ és $>>$ operátorok biztosítják.
 
-\subsubsection{A GameState, a Fullboard és a Field struktúrák}
+\subsubsection{A GameState, a FullBoard és a Field struktúrák}
+
+A program fejlesztése során először a Modell egy kezdeti megvalósítását készítettem el, amihez "karakteres" nézet tartozott. Ebben a kezdeti modellben még nem szerepelt sem játszmatörténet, sem lépésellenőrzés, ellenben a játszma aktuális állapotát egy GameState struktúra írta le. Ehhez a kezdeti Modellhez készült a Nézetet megvalósító Render2D modul, amely egy GameState struktúra alapján készíti el a megjelenítendő grafikus képet. Később a Modell jelentős újratervezésre és átdolgozásra került, a játszma belső állapotát immár a Game, a Board és a History osztályok együttműködő példányai reprezentálják. Hogy ne kelljen a már elkészült Render2D modult jelentősen átalakítani, az új Game osztály rendelkezik egy {\tt getGameState} metódussal, amely a Modell állapotát egy GameState struktúrába kinyeri.
+
+A GameState struktúra tartalmazza a soron következő játékost, valamint egy FullBoard struktúrát. A FullBoard strúktúra a táblát leíró struktúra, és három egymásba ágyazott std::vector-ból áll, amelyek a tábla három tengelyét reprezentálják. A FullBoard struktúra a tábla egyes mezőit Field struktúrákkal írja le. A Field struktúra megadja a játékost (Player, ami felveheti a Nobody értéket is), a mezőn álló figurát (Figure, ami felveheti a None értéket is), és egy Position objektumot, amely megadja, hogy a mező hol helyezkedik el a táblán belül. A FullBoard struktúra továbbá tartalmaz egy {\tt at} függvényt, amely egy pozíciót kapva paraméterként visszaadja a pozícióhoz tartozó Field objektumot. Az {\tt at} művelet a szabvány könyvtár {\tt at} műveleteihez hasonlóan kivételt vált ki, ha a pozíció a táblán kívülre esik.
+
+A GameState, FullBoard és Field struktúrákhoz tartozik $<<$ és $>>$ operátor, melyeket a korábbi karakteres megjelenítés során alkalmaztam. Ezeket az operátorokat jelenleg a program nem használja.
 
 \subsection{A megjelenítés}
 
+A Nézet osztályait a View névtér tartalmazza.
+
+\subsubsection{A Render2D osztály}
+
+A Nézet osztályait a Render2D osztály fogja össze. A nézet az IGameInfo interfészen keresztül ismeri a Game osztály egy példányát, amelytől a játszma aktuális állapotát igény ({\tt update} metódus) esetén lekéri. Megjelenítésre kerül a tábla (BoardPainter osztály), illetve további információk a játékról (PanelPainter osztály). A Nézet meg tudja állapítani, hogy az egérmutató a tábla mely része fölött tartózkodik ({\tt setAndGetBoardCursorFromScreenPosition} metódus), valamint hogy egy kattintás milyen megjelenített objektum fölött történt ({\tt handleClick} metódus). A mutatóeszköz kezelését azonban nem a Nézet végzi, hanem a Vezérlőtől kapja meg a mutatóeszköz koordinátáit. A Render2D osztály a Vezérlővel való kommunikációhoz megkapja a Vezérlő EventQueue objektumát.
+
+A Render2D osztály a {\tt setSelectedField}, {\tt clearSelectedField}, {\tt setHighlightedFields} és {\tt clearHighlightedFields} műveleteket kínálja a Vezérlő számára, melyekkel a lépni kívánó bábu mezője, valamint a bábu által szabályszerűen elérhető mezők kiemelhetőek, illetve a kiemelések megszüntethetőek. A {\tt setMessage} metódus segítségével megadható egy sztring, amelyet a Nézet megjelenít. A {\tt setLocalPlayers} metódusnak hálózati játéknál van szerepe, ez biztosítja, hogy a Nézet csak akkor kezelje a mutatóeszköz műveleteit, amikor a helyi játékos van soron.
+
+A Render2D osztály tartalmaz még egy StyleSheet struktúrát is.
+
+\subsubsection{A StyleSheet struktúra}
+
+A grafikus megjelenítés részleteit (színeket, méreteket, textúrákat) a StyleSheet struktúrája tartalmazza. Az összes megjelenítő alegység kap egy mutatót a StyleSheet struktúrára, amelyből csak egyetlen példány keletkezik a Nézetben. A StyleSheet struktúra létrehozza a bábuk képét tartalmazó textúrákat, és biztosít egy {\tt getPieceFor} műveletet, amellyel ezek lekérhetőek. A StyleSheet biztosítja a szövegek megjelenítéséhez a betűtípust, valamint a tábla szélén megjelenő annotáció karaktereit. A megjelenítendő kép dimenzióit és színeit konstansok segítségével definiálja. 
+
+\subsubsection{A BoardPainter osztály}
+
+A BoardPainter osztály felelős a tábla megjelenítéséért ({\tt draw} metódus). A megjelenítéshez a játszma állapotát az IGameInfo interfészen keresztül kéri le. Tovább módosítják a megjelenítést a {\tt setSelectedField} és {\tt setHighlightedFields} metódusok, melyekkel egyes mezőket különböző színekkel kiemelhetünk.
+
+Ezen túl a BoardPainter alkalmas arra, hogy meghatározza, egy adott képernyőpozíció a játéktábla mely mezőjére esik ({\tt getFieldPositionFromScreenPosition} és {\tt setAndGetBoardCursorFromScreenPosition} metódusok). A {\tt handleClick} metódus segítségével - ha a tábla egy mezője fölött van az egérmutató - a BoardPainter üzenetben elküldi a Vezérlőnek a kiválasztott mező táblabeli pozícióját.
+
+A rajzoláshoz a BoardPainter a View névtér \textbf{Field} osztályát hívja segítségül. A Field osztály az SFML absztrakt sf::Drawable osztályának leszármazottja, így az SFML grafikus motorja közvetlenül meg tudja jeleníteni ({\tt draw} metódus). Egy Field objektum a megjelenítéséhez szükséges összes információt tartalmazza. Konstruktorban kapja meg a Modell azon Field struktúráját, amelynek tartalmát megjeleníti. Amennyiben a mezőn bábu áll, a bábunak megfelelő textúra is kirajzolásra kerül. A {\tt setUnderCursor}, {\tt setTouched}, {\tt setHighlighted} metódusokkal beállíthatóak különböző kiemelések. A statikus, logikai {\tt isWhiteField} függvény megmondja, hogy egy adott táblabeli pozíció világos vagy sötét színezésű. A mező kirajzolása mindezek figyelembevételével történik. A {\tt getPosition} és {\tt getBoundaries} függvények az egérmutató táblabeli helyzetének meghatározásához nyújtanak segítséget.
+
+A BoardPainter osztály {\tt draw} metódusának algoritumusa a következő: a program szintenként, soronként és oszloponként végighalad a táblán, és egy std::vector-ban (drawableFields) minden egyes mezőhöz létrehoz egy Field objektumot, amelyet a megfelelő képernyő-koordinátákkal felparaméterez. A {\tt draw} eközben kirajzolja a tábla körül megjelenő, a mezők azonosítását szolgáló tájékoztató jeleket is. Ezután a drawableFields objektumain szűrőszerűen többször végighalad, és azok {\tt setUnderCursor}, {\tt setTouched} és {\tt setHighlighted} metódusaival a megfelelő helyeken alkalmazza a kiemeléseket rajtuk. Végül az összes mezőre alkalmazza annak megvalósított {\tt draw} metódusát. A BoardPainter a rajzolási műveletek kisebb részekre bontásához több privát metódust is használ ({\tt buildPlane}, {\tt buildRow}, {\tt drawPlaneDecoration}, {\tt drawRowDecoration}), és az ezek közötti kommunikációhoz egyfajta állapotgépet valósít meg (currentPlane, currentRow, currentColumn változók). Ez a megközelítés inkább a struktúrált, mintsem az objektumorientált szemléletet követi.
+
+\subsubsection{A PanelPainter osztály, a Widget és leszármazottai}
+
+A PanelPainter osztály a képernyőn különböző információk megjelenítésére használható. Az információk megjelenítését az absztrakt Widget osztály leszármazottai biztosítják. A Widget az SFML sf::Drawable osztályát kibővíti saját pozíciójának, méreteinek, valamint a megjelenítést befolyásoló StyleSheet objektumnak ismeretével. A PanelPainter tartalmaz egy Widgetekből álló konténert, és a {\tt draw} eljárás hívására az abban található Widgeteket kirajzolja. A konténert a (privát) {\tt buildPanel} eljárás állítja össze. Emiatt a megoldás miatt (sajnos) a PanelPainter egyfajta közvetítőként működik a Modell állapotinformációi és a különféle Widgetek között.
+
+A Widget osztálynak a következő leszármazottjai készültek el:
+\begin{itemize}
+	\item a CursorInfo tájékoztatást ad arról, hogy az egérmutató a tábla mely mezője fölött tartózkodik éppen;
+	\item a MessageWidget egy std::string-et jelenít meg a képernyőn;
+	\item a NextPlayerInfo kiírja a következő játékost, valamint hálózati játék esetén tájékoztatást ad arról, hogy a helyi játékos világossal vagy sötéttel játszik.
+\end{itemize}
+
+A PanelPainter osztály fel van készítve arra, hogy megállapítsa, egy mutatóesemény melyik Widget fölött következett be ({\tt getRect} és {\tt handleClick} metódusok). Ezt a funkciót a program jelenleg nem használja.
+
 \section{A tesztelés}
 
+A tesztelést két fronton végeztem. A használati esetek viszonylag kis száma folytán az integrációs tesztek elvégzését a program kézi kipróbálása jelentette. Ez magába foglalta a felhasználói felület tesztelését (kijelölés, kijelölés törlése, a lépési lehetőségek megjelenítésének ellenőrzése, a lépés, a tábla különböző színezéseinek ellenőrzése, az információs panel információtartalmának ellenőrzése), a hálózati játék tesztelését (csatlakozás különböző hálózati portokon, a lépések sorrendjének biztosítása, a hálózati kommunikáció eredményessége, kapcsolat elvesztése), valamint a szándékosan hibát eredményező helyzetek tesztelését (hiányzó állományok).
 
-Érdekesebb részek...
+A tesztelés izgalmasabb részét a Modell automatikus tesztelése jelentette. A Modell elemi részeit (Position, a Piece leszármazottjai, Board, History) részletes, minden nem triviális metódusra kiterjedő egységtesztekkel vizsgáltam. A History teszteléséhez létrehoztam egy MockGameEvent osztályt, amely az absztrakt GameEvent leszármazottja, és a GameEvent osztály funkciótól független működését szimulálja. A tesztelés során 15 tesztesetben 118 vizsgálat történik. A fejlesztés során az egységtesztek sikeres futtatása biztosította, hogy az alacsonyabb szinten lévő osztályok működése felől biztonságban érezhettem magam. Ez óriási segítség volt a refaktorálás során, mivel megbizonyosodhattam róla, hogy az egyes osztályok a refaktorálás után is ugyanúgy ellátják feladataikat, mint előtte. Feltehetően az egységteszteknek köszönhetem, hogy a magasabb szintű funkciók megvalósítása során csak kevés időt kellett a debugger használatával töltenem.
 
 \section{Továbbfejlesztési lehetőségek}
 
-\begin{thebibliography}{EffCpp}
+A program folyamatos iterált fejlesztés eredménye. Ennek következtében a korábban érthető, célszerű, megfelelő struktúrák időről időre egyre kevésbé maradtak érthetőek és célszerűek. A szoftver jelenlegi formájában a kitűzött célokat megvalósítja, azonban bármilyen komolyabb továbbfejlesztés előtt alapos refaktorálást igényel.
+
+A refaktorálást a tesztek átdolgozásával kezdeném. Egyelőre csak a Modell osztályaihoz tartoznak egységtesztek, ezt célszerűnek látom egyrészt felfrissíteni, másrészt a Vezérlő modul osztályaira kiterjeszteni. Sajnos a Nézet általános működése jellegénél fogva nehezen tesztelhető automatikus eszközökkel, azonban ahol összetettebb funkció van megvalósítva, ott a Nézet elemeihez is célszerű egységteszteket készíteni.
+
+A tesztlefedettség alapos kiterjesztése után megnyílik a lehetőség a szerkezeti refaktorálásra. Érzésem szerint a Vezérlő osztályaira kisebb tisztázás vár. Sokkal jelentősebb fejlesztési lehetőségek akadnak a Nézeten belül. Ami a 2D megjelenítőt illeti, célszerűnek látnám egy erősebben objektum-orientált szemlélet alkalmazását. Logikailag a BoardPainter osztály funkciója (egy bizonyos információ közvetítése a játszma állapotáról) beleillik a Widget osztály feladataiba. Másrészt a Widget osztály leszármazottjait erőteljesen függetleníteném a PanelPainter osztálytól, és a Vezérlővel való kommunikácót sokkal jobban a belső üzenetküldő szolgálat (jelenleg EventQueue) funkcióira bíznám. Amennyiben a megjelenített Nézet elemei jobban kihasználnák az objektum-orientált programozás előnyeit, megnyílna a lehetőség az ablak dinamikus átméretezése illetve a különböző képfelbontásokban hasonló eredményt adó teljes képernyős megjelenítés előtt. A Widget osztály további leszármazottja lehet egy Button osztály, amellyel különböző funkciók válnának kezdeményezhetővé a felhasználói felületről.
+
+A hálózati játék menetébe illeszthető a játékosok egymás közötti kommunikációja (chat), a játék feladásának, döntetlen felajánlásának lehetősége. Növelheti a játék érdekességét, ha időkorlátokat vezetünk be. Hosszabb távon gondolkodva a játék kiegészíthető egy játszmaszervező webes szolgáltatással.
+
+A Vezérlő kiegészíthető lehet mesterséges intelligencia vezérelte játékossal. A Modell jelenlegi funkciói némileg megalapozzák egy gyengébben játszó MI elkészítését.
+
+A grafikai megjelenítés igazi forradalmát hozhatja, ha három dimenziós grafikát kezdünk használni. Mivel a programban a Modell és a Vezérlő erősen el van határolva a Nézettől, előbbi kettő minimális változtatásával megvalósítható egy 3D megjelenítés. A 3D megjelenítés implementálásához feltehetően célszerű valamilyen nyílt forrású 3D motort igénybe venni.
+
+Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya annak, hogy a képernyőn egymás mellé helyezzük 5 db 3D megjelenítőt. Ezzel a technikával játszhatóvá válhat egy új játék, a sakk 4 dimenziós kiterjesztése. Ebben a játékban a játszma egy $5 \times 5 \times 5 \times 5$ mezőből álló hiperkocka alkotta táblán játszódik... 
+
+\begin{thebibliography}{CMake}
 	\bibitem[Catch]{catch} Catch, github.com/philsquared/Catch, 2015.02.01
 			
 	\bibitem[CC]{cleancode} Robert C. Martin: Tiszta Kód, Kiskapu, 2010, [466], ISBN 978-963-9637-69-6
 
 	\bibitem[CMake]{cmake} CMake, www.cmake.org, 2014.12.01.
 	
-	\bibitem[CppC]{codingrules} Alexandrescu, Herb: C++ kódolási szabályok, ...
+	\bibitem[CppC]{codingrules} Andrei Alexandrescu, Herb Sutter: C++ kódolási szabályok, Kiskapu, 2005, [223], ISBN 963-9301-93-0
 	
-	\bibitem[EffCpp]{effective} Scott Meyers: Hatékony C++, ...
+	\bibitem[Eff]{effective} Scott Meyers: Hatékony C++, Scolar, 2003, [272], ISBN 978-963-9193-82-6
 	
 	\bibitem[GoF]{designpatterns} Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides: Design Patterns, Addison-Wesley, 1995, [395], ISBN 0-201-63361-2
 	
