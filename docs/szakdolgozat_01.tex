@@ -5,6 +5,7 @@
 \usepackage[magyar]{babel}
 \usepackage[inner=3.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \linespread{1.5}
 
 \hyphenation{Spacechess Position Player Figure Game History Judge Board Piece GameEvent King Queen Knight Bishop Unicorn Pawn Rook EventQueue Event GameController Controller Model View BoardPainter PanelPainter Widget Makefile SCENARIO GIVEN WHEN THEN SECTION}
@@ -78,7 +79,8 @@ A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack talá
 A Térsakk a hagyományos sakk kiterjesztése térbeli táblára. Dolgozatomban a hagyományos sakk szabályait ismertnek tekintem, mivel ezen a téren rengeteg kiváló irodalom áll rendelkezésre. A játékmenet a hagyományos sakkéval megegyezik, világos kezd, világos és sötét felváltva lépnek, és a játék célja az ellenfél királyának bemattolása. Ezért a Térsakk szabályainak ismertetése kapcsán a hagyományos sakktól való eltérésekre koncentrálok.
 
 \subsection{Tábla, jelölés}
-A Térsakk egy $ 5 \times 5 \times 5 $ "mezőből" álló kockában játszódik. Ezt úgy is elképzelhetjük, mintha készítenénk öt darab $ 5 \times 5 $-ös sík sakktáblát, és egymás fölé helyeznénk azokat. A figurák egy adott mezőről nem csak az adott síkbeli mezőkre léphetnek, hanem például a mező fölötti, illetve alatti mezőkre is. A mezők jelölése hasonló a hagyományos sakkéhoz, azonban kiegészül a \textbf{szint} jelölésével: az egymás fölötti sakktáblákat lentről felfelé az A, B, C, D, E (nagy)betűkkel jelöljük. Az egyes szinteken belül a \textbf{vonal}at balról jobbra a, b, c, d, e (kis)betűk jelölik, a \textbf{sor}okat pedig a világos oldaltól távolodva az 1, 2, 3, 4, 5 számok. Így például kezdetben a világos bástyáit tartalmazó mezők az Aa1 és Ae1 mezők, míg sötét bástyái a kocka átellenes sarkaiban, az Ea5 és Ee5 mezőkön állnak.
+
+A Térsakk egy $ 5 \times 5 \times 5 $ ,,mezőből'' álló kockában játszódik. Ezt úgy is elképzelhetjük, mintha készítenénk öt darab $ 5 \times 5 $-ös sík sakktáblát, és egymás fölé helyeznénk azokat. A figurák egy adott mezőről nem csak az adott síkbeli mezőkre léphetnek, hanem például a mező fölötti, illetve alatti mezőkre is. A mezők jelölése hasonló a hagyományos sakkéhoz, azonban kiegészül a \textbf{szint} jelölésével: az egymás fölötti sakktáblákat lentről felfelé az A, B, C, D, E (nagy)betűkkel jelöljük. Az egyes szinteken belül a \textbf{vonal}at balról jobbra a, b, c, d, e (kis)betűk jelölik, a \textbf{sor}okat pedig a világos oldaltól távolodva az 1, 2, 3, 4, 5 számok. Így például kezdetben a világos bástyáit tartalmazó mezők az Aa1 és Ae1 mezők, míg sötét bástyái a kocka átellenes sarkaiban, az Ea5 és Ee5 mezőkön állnak.
 
 \subsection{Kezdőállás}
 A játékban mindkét játékosnak 20-20 báb áll a rendelkezésére. Ezek az \textit{unikornis} kivételével a hagyományos sakkból ismert bábok. Világos bábui az alsó két szinten (A, B), az első két soron (1, 2) helyezkednek el. A második soron csak gyalogok állnak. Az A szint első sorában áll balról jobbra egy bástya, egy huszár, a király, a másik huszár, a másik bástya. A B szint első sorában aszimmetrikusan helyezkednek el a bábok, hogy a futók különböző alapszínre (világos és sötét mezőre is) kerüljenek. Itt a világos mezőn álló futó, egy unikornis, a vezér, a sötét mezőn álló futó és még egy unikornis követik egymást.
@@ -91,29 +93,57 @@ Némileg meglepő lehet - a játéktér térbeli felépítéséből és a kezdő
 
 \subsubsection{A király}
 
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{white-king}
+\end{wrapfigure}
+
 A király az összes körülötte lévő mezőre léphet. Ez nem csak az adott szinten lévő szomszédos (oldallal vagy sarokkal érintkező) mezőket jelenti, hanem az eggyel lejjebbi illetve feljebbi szinteken lévő szomszédos mezőket is. Ez a tábla belsejében szabadon álló király esetén 26 mezőt jelent (9 egy szinttel feljebb, 8 az adott szinten, 9 egy szinttel lejjebb). A hagyományos sakkhoz hasonlóan nem léphetünk úgy, hogy a királyunk sakkba kerüljön. Sáncolni nem lehetséges.
 
 \subsubsection{A vezér}
+
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{black-queen}
+\end{wrapfigure}
 
 A vezér a Térsakk legerősebb bábja. A hagyományos sakkhoz hasonlóan tetszőleges számú mezőt haladhat egy adott irányba. Ez az irány lehet egyenes (mint a bástya), vagy egy sík mentén átlós (mint a futó), vagy akár a kocka átlójával párhuzamosan átlós (mint az unikornis).
 
 \subsubsection{A bástya}
 
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{white-rook}
+\end{wrapfigure}
+
 A bástya a tábla adta koordináta-rendszer három tengelyével párhuzamos irányokba tetszőleges számú mezőt mehet előre. Ez a tábla belsejében szabadon álló bástya esetén hat irányt jelent, a hagyományos sakk irányai kiegészülnek a fel- illetve lefelé történő mozgással. Amennyiben egy mezőre kockaként tekintünk, a bástya mindig a kocka oldallapján halad keresztül.
 
 \subsubsection{Az unikornis}
+
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{black-unicorn}
+\end{wrapfigure}
 
 Az unikornis a kocka átlóival párhuzamos irányokba tetszőleges számú lépést tehet. Ez a tábla belsejében szabadon álló unikornis esetén nyolc irányt jelent. Amennyiben egy mezőre kockaként tekintünk, az unikornis mindig a kocka csúcsain halad át.
 
 \subsubsection{A futó}
 
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{white-bishop}
+\end{wrapfigure}
+
 A futó a hagyományos sakkhoz hasonlóan, síkban átlósan mozog. Mivel egy mezőt három sík is tartalmaz (vízszintesen az egyes szintek, függőlegesen az egyes vonalak és az egyes sorok által meghatározott síkok), egy a tábla belsejében szabadon álló futó 12 irányba indulhat el. Amennyiben egy mezőre kockaként tekintünk, a futó azt a kocka összes élén keresztül hagyhatja el. 
 
 \subsubsection{A huszár}
 
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{black-knight}
+\end{wrapfigure}
+
 A huszár a hagyományos sakkhoz hasonlóan két lépést tesz egy adott irányba, majd egy lépést arra az irányra merőlegesen. Ez azonban a térbeli szerkezetből fakadóan hat kezdeti irányt, és a merőleges választásánál kezdeti irányonként négy további lehetőséget jelent. A huszár útja során a közben álló bábokat átugorja. 
 
 \subsubsection{A gyalog}
+
+\begin{wrapfigure}{r}{10mm}
+	\includegraphics[width=10mm, height=10mm]{white-pawn}
+\end{wrapfigure}
 
 A világos gyalogok a sötét alapvonalak felé, a sötét gyalogok a világos alapvonalak felé haladnak. Kezdeti kettős lépés a tábla kis mérete miatt nincs. Egy világos gyalog léphet előre (eggyel nagyobb számú sorba), vagy felfelé (egy szinttel feljebb). Ütni üthet az adott szinten átlósan előre, egy szinttel feljebb átlósan felfelé, valamint azonos vonalon maradva átlósan előre felfelé is. Sötét gyalogjai hasonlóan viselkednek, azonban világos alapsorai felé haladnak, vagyis adott szinten kisebb számú sorba, vagy pedig lefelé történhet a lépés. A gyalogok az ellenfél tisztjeinek alapsorait elérve vezérré változnak át.
 
@@ -123,7 +153,7 @@ A Spacechess program segítségével Térsakkot lehet játszani a számítógép
 
 \section{Telepítés}
 
-A Spacechess program a "Spacechess" futtatható állományból, továbbá a bábok képét tartalmazó képfájlokból, illetve egy True Type Font betűtípus-leíró fájlból áll. Mindezeket egy közös mappába a számítógépre kell másolni. 
+A Spacechess program a ,,Spacechess'' futtatható állományból, továbbá a bábok képét tartalmazó képfájlokból, illetve egy True Type Font betűtípus-leíró fájlból áll. Mindezeket egy közös mappába a számítógépre kell másolni. 
 
 GNU/Linux operációs rendszer esetén a futtatáshoz szükséges, hogy a rendszerre az SFML multimédiás programkönyvtár minimálisan 2.1-es verziója telepítve legyen. Ubuntu rendszer esetén az SFML szükséges komponenseit a következő csomagok telepítésével biztosíthatjuk: libsfml-system2, libsfml-network2, libsfml-window2, libsfml-graphics2.
 
@@ -131,15 +161,17 @@ Microsoft Windows operációs rendszer esetén az SFML használatához szükség
 
 \section{Futtatás}	
 
+\includegraphics[width=\textwidth]{SCScreenshotLin4}
+
 Mivel a Spacechess program alapvetően GNU/Linux rendszerre lett fejlesztve, futtatása követi annak szemléletét, így a futtatás különböző módjait parancssori argumentumok megadásával lehet elérni. A programból minden üzemmódban a grafikus felület ablakának bezárásával léphetünk ki. A szoftver a következő módokon futtatható:
 \subsection*{\tt Spacechess}
 Argumentum megadása nélkül futtatva helyi játékot kezdünk, ahol mindkét játékos ugyanazon számítógép előtt ülve felváltva léphet.
 \subsection*{\tt Spacechess -s [portszám]}
-Az -s argumentum megadásával hálózati játékot kezdeményezhetünk, ilyenkor a program kiszolgáló üzemmódban indul el, és várja, hogy a szoftver egy másik példánya TCP/IP hálózaton keresztül csatlakozzon hozzá. Portszám megadása opcionális, a\-lap\-ér\-tel\-me\-zés\-ben az 54321 porton történik a csatlakozás.
+Az -s argumentum megadásával hálózati játékot kezdeményezhetünk, ilyenkor a program kiszolgáló üzemmódban indul el, és várja, hogy a szoftver egy másik példánya TCP/IP hálózaton keresztül csatlakozzon hozzá. Portszám megadása opcionális, a\-lap\-ér\-tel\-me\-zés\-ben az 54321 porton történik a csatlakozás. Amennyiben a megadott port foglalt, a program hibaüzenettel kilép.
 \subsection*{\tt Spacechess -c [ipcím[:portszám]]}
-A -c argumentum megadásával programunk csatlakozni próbál a szoftver egy másik példányához. Az "ipcím" paraméterrel adható meg a távoli számítógép hálózati címe (elhagyva a helyi számítógéphez próbál csatlakozni). A portszám megadása szintén opcionális, amennyiben nem az alapértelmezett hálózati porton szeretnék játszani, itt tudjuk az új portszámot megadni. Például a "{\tt Spacechess -c 192.168.0.2:4000}" parancs a 192.168.0.2 IP-címmel azonosított számítógép 4000-es számú portján keresi a kiszolgáló üzemmódban elindított Spacechess példányt, amit az adott számítógépen a "{\tt Spacechess -s 4000}" parancs segítségével indíthatunk el.
+A -c argumentum megadásával programunk csatlakozni próbál a szoftver egy másik példányához. Az ,,ipcím'' paraméterrel adható meg a távoli számítógép hálózati címe (elhagyva a helyi számítógéphez próbál csatlakozni). A portszám megadása szintén opcionális, amennyiben nem az alapértelmezett hálózati porton szeretnék játszani, itt tudjuk az új portszámot megadni. Például a ,,{\tt Spacechess -c 192.168.0.2:4000}'' parancs a 192.168.0.2 IP-címmel azonosított számítógép 4000-es számú portján keresi a kiszolgáló üzemmódban elindított Spacechess példányt, amit az adott számítógépen a ,,{\tt Spacechess -s 4000}'' parancs segítségével indíthatunk el. Amennyiben a kapcsolódás valamilyen okból sikertelen, a program hibaüzenettel kilép.
 \subsection*{\tt Spacechess -r [fájlnév]}
-Az -r argumentum segítségével visszajátszó üzemmódban indíthatjuk el a szoftvert. Alapértelmezésben a "lastspacechessgame.txt" állomány kerül megnyitásra, ez a fájlnév megadásával felülbírálható. A megadott állomány a Spacechess program által elmentett játszmaleíró fájl kell legyen.
+Az -r argumentum segítségével visszajátszó üzemmódban indíthatjuk el a szoftvert. Alapértelmezésben a ,,lastspacechessgame.txt'' állomány kerül megnyitásra, ez a fájlnév megadásával felülbírálható. A megadott állomány a Spacechess program által elmentett játszmaleíró fájl kell legyen.
 
 
 \section{Játék egy számítógépen}
@@ -150,9 +182,11 @@ Amennyiben helyi játékot indítunk, megjelenik a grafikus felhasználói felü
 
 A Spacechess program az $ 5 \times 5 \times 5 $ mezőből álló táblát 5 síktáblaként jeleníti meg. Azonban a síktáblák nem a kocka egyes szintjeit reprezentálják, hanem (balról jobbra haladva) a világos oldala felől nézve egymás után következő síkmetszeteket, vagyis a játéktábla sorait\footnote{A tábla térbeli szerkezetéből következik, hogy amit a hagyományos sakkban \textit{sor}nak nevezünk, az itt $ 5 \times 5 $ mezőt jelent: mind az 5 szinten egy-egy 5 mezőből álló sort.}. Így a képernyő bal oldalán megjelenő $ 5 \times 5 $ mezőből álló síktábla a világos színnel játszó játékoshoz legközelebb eső sorait tartalmazza a játéktáblának (a kocka legközelebbi szeletét). A képernyő jobb szélén található $ 5 \times 5 $ mezőből álló síktábla pedig a kocka legtávolabbi sorait, amelyen sötét tisztjei találhatóak az alapállásban. Így a képernyőn felfelé és lefelé mutató irány a térbeli sakktáblán is felfelé illetve lefelé mutat. 
 
-A táblák fölött és mellett látható az eligazodást segítő jelölés ("ABCDE" a szintek, "abcde" a vonalak és "12345" a sorok jelölésére). Az egérmutatót az egyes mezők fölé mozgatva a tábla alatt megjelenik az adott mező jelölése (például Ac4 vagy Db3).
+A táblák fölött és mellett látható az eligazodást segítő jelölés (,,ABCDE'' a szintek, ,,abcde'' a vonalak és ,,12345'' a sorok jelölésére). Az egérmutatót az egyes mezők fölé mozgatva a tábla alatt megjelenik az adott mező jelölése (például Ac4 vagy Db3).
 
 \subsection{A lépés}
+
+\includegraphics[width=\textwidth]{SCScreenshotLin2}
 
 Egérkattintás segítségével a soron következő játékos bábui kiválaszthatóak. Amennyiben a bábunak vannak lépési lehetőségei, ezek színezés segítségével megjelennek a táblán. Ha a játékos meggondolja magát, és inkább másik bábuval szeretne lépni, a korábban kiválasztott bábura ismét kattintva a kijelölés megszűnik, és ezután új báb választható. Amikor kijelöltünk egy bábut lépésre, majd egy átszínezett mezőre kattintunk, ahova a kijelölt bábu a játék szabályai szerint léphet, a lépés megtörténik, és ezután a másik játékos következik.
 
@@ -162,34 +196,25 @@ Amennyiben egy gyalogunkkal belépünk az ellenfél tisztjeinek bázisára, gyal
 
 \section{Visszajátszás}
 
-Bármikor, amikor egy játszma során bezárjuk az alkalmazást, az összes addigi lépés elmentésre kerül a "lastspacechessgame.txt" elnevezésű állományba. Ezt az állományt archiválási céllal átnevezhetjük, illetve az "-r" argumentummal indítva a programot a játszmát visszanézhetjük. A visszajátszás során megjelenik a grafikus felhasználói felület, a táblán a kezdőállással. A jobb oldali egérgombbal bárhol kattintva a játszma történetében egy lépést haladhatunk előre, vagyis megnézhetjük a következő lépés eredményét. A bal oldali egérgombbal kattintva az egy lépéssel korábbi állapotot kapjuk. Így oda-vissza végignézhetjük a játszma lépéseit.
+Bármikor, amikor egy játszma során bezárjuk az alkalmazást, az összes addigi lépés elmentésre kerül a ,,lastspacechessgame.txt'' elnevezésű állományba. Ezt az állományt archiválási céllal átnevezhetjük, illetve az ,,-r'' argumentummal indítva a programot a játszmát visszanézhetjük. A visszajátszás során megjelenik a grafikus felhasználói felület, a táblán a kezdőállással. A jobb oldali egérgombbal bárhol kattintva a játszma történetében egy lépést haladhatunk előre, vagyis megnézhetjük a következő lépés eredményét. A bal oldali egérgombbal kattintva az egy lépéssel korábbi állapotot kapjuk. Így oda-vissza végignézhetjük a játszma lépéseit.
 
 \section{Játék hálózaton}
 
 A hálózati játék során két, egymással TCP/IP hálózati kapcsolatban álló számítógépen két külön Spacechess program kommunikál. Ennek menete a következő:
 
-Először elindítjuk a kiszolgálót az "-s" parancssori argumentummal. Megjelenik a grafikus felhasználói felület, és a program jelzi, hogy csatlakozásra vár.
+Először elindítjuk a kiszolgálót az ,,-s'' parancssori argumentummal. Megjelenik a grafikus felhasználói felület, és a program jelzi, hogy csatlakozásra vár.
 
-Ekkor a másik játékos elindítja a csatlakozó szoftvert a "-c" argumentummal. Ha a csatlakozás sikeres, a játszma elindul. A csatlakozó játékos játszik világossal, így övé az első lépés. Amikor ezt megtette, a lépés megjelenik mindkét játékos számítógépén, és most sötéten a lépés sora. A lépés megtételének módja megegyezik a helyi játszmánál használható módozattal: a léptetni kívánt bábot kijelöljük, majd a célmezőre kattintunk, stb.
+Ekkor a másik játékos elindítja a csatlakozó szoftvert a ,,-c'' argumentummal. Ha a csatlakozás sikeres, a játszma elindul. A csatlakozó játékos játszik világossal, így övé az első lépés. Amikor ezt megtette, a lépés megjelenik mindkét játékos számítógépén, és most sötéten a lépés sora. A lépés megtételének módja megegyezik a helyi játszmánál használható módozattal: a léptetni kívánt bábot kijelöljük, majd a célmezőre kattintunk, stb.
 
 \chapter{Fejlesztői dokumentáció}
-
-A Fejlesztői dokumentáció tartalmazza 
-\begin{itemize}
-\item a probléma részletes specifikációját, 
-\item a felhasznált módszerek részletes leírását, a használt fogalmak definícióját,
-\item a program logikai és fizikai szerkezetének leírását (adatszerkezetek, adatbázisok, modulfelbontás),
-\item a tesztelési tervet és a tesztelés eredményeit.
-\end{itemize}
-
 
 \section{A szoftver informális specifikációja}
 
 A szoftver célja, hogy a Térsakk játékot szimulálja, a Térsakk tábláját és bábuit virtuálisan megjelenítse, és segítségével két személy helyben egy számítógépen, vagy hálózaton keresztül két számítógépen Térsakk játszmákat játszhasson le. Célja továbbá, hogy a játszott játszmák archiválásra kerüljenek, és a szoftver segítségével vissza\-néz\-he\-tő\-ek legyenek.
 
-Ezek a tevékenységek a felhasználó szemszögéből a következő UML diagramokkal írhatók le.
+%Ezek a tevékenységek a felhasználó szemszögéből a következő UML diagramokkal írhatók le.
 
-[ Felhasználói esetek diagramokkal ]
+%[ Felhasználói esetek diagramokkal ]
 
 \section{A használt fejlesztői eszközök és módszerek}
 
@@ -199,19 +224,19 @@ A szoftver fejlesztése során elsődleges szempont volt, hogy a programot a leh
 
 Ahogy haladtam a program fejlesztésével, a C++11 szabványnak egyre több szol\-gál\-ta\-tá\-sát ismertem meg. A fejlesztés során igyekeztem folyamatosan hasznosítani az új ismereteket. Például míg eleinte konstruktorok segítségével inicializáltam a különböző objektumokat, később átálltam az egységes inicializáló-listák használatára. Vagy míg eleinte a \emph{new} kulcsszó segítségével inicializáltam a smart-pointereket, később átálltam a \emph{std::make\_shared\textless\textgreater()} sablonfüggvény használatára. Ennek köszönhetően azonban a C++ nyelv használata nem lett egységes a forrásszövegben, még a folyamatos refaktorálás ellenére sem.
 
-A fejlesztés során igyekeztem szem előtt tartani a \cite{codingrules} és \cite{effective} könyvekben bemutatott szempontokat. Különösen odafigyeltem a RAII (Resource Allocation Is Initialization) elv betartására \cite{raii}. Kiterjedten alkalmaztam smart pointereket, elsősorban a standard könyvtár shared\_ptr sablonját. Minden olyan esetben, ahol egy függvény iterált adatszerkezetet fogad paraméterül, vagy ad visszatérési értékül, a megvalósításban az iterált szerkezetre mutató smart pointer szerepel. Mivel ez implementációs részlet, erre a program szerkezetének leírásában ezután nem térek ki, vagyis például ahol listáról írok, ott a megvalósításban egyaránt állhat lista, vagy egy listára mutató smart pointer. Azonban egyszerű mutatókkal dolgoztam azokban az esetekben, ahol egy objektum egy másik objektummal ismeretségi viszonyban van, azonban nem "birtokolja" azt. Amikor például azt írom, hogy a GameEvent osztály ismeri a Game-et, ez azt jelenti, hogy a GameEvent osztály a konstruktorában kap egy Game típusú objektumra mutatót pointert, hogy a Game típusú objektumot meg tudja szólítani.
+A fejlesztés során igyekeztem szem előtt tartani a \cite{codingrules} és \cite{effective} könyvekben bemutatott szempontokat. Különösen odafigyeltem a RAII (Resource Allocation Is Initialization) elv betartására \cite{raii}. Kiterjedten alkalmaztam smart pointereket, elsősorban a standard könyvtár shared\_ptr sablonját. Minden olyan esetben, ahol egy függvény iterált adatszerkezetet fogad paraméterül, vagy ad visszatérési értékül, a megvalósításban az iterált szerkezetre mutató smart pointer szerepel. Mivel ez implementációs részlet, erre a program szerkezetének leírásában ezután nem térek ki, vagyis például ahol listáról írok, ott a megvalósításban egyaránt állhat lista, vagy egy listára mutató smart pointer. Azonban egyszerű mutatókkal dolgoztam azokban az esetekben, ahol egy objektum egy másik objektummal ismeretségi viszonyban van, azonban nem ,,birtokolja'' azt. Amikor például azt írom, hogy a GameEvent osztály ismeri a Game-et, ez azt jelenti, hogy a GameEvent osztály a konstruktorában kap egy Game típusú objektumra mutatót pointert, hogy a Game típusú objektumot meg tudja szólítani.
 
 A hibakezelés során törekedtem kivételkezelés alkalmazására. A kiváltott kivételek minden esetben a std::exception leszármazottjai. Nem készítettem saját kivételosztályokat, hanem a szabvány könyvtár készletéből gazdálkodtam. Például amikor egy paraméterként kapott leíró sztring hibás formátumú, akkor invalid\_argument kivétel keletkezik. Az alacsonyabb szinteken keletkező kivételeket magasabb szinteken elkaptam, és adott esetben új, a hiba helyét és jellegét jobban körülhatároló kivételekkel helyettesítettem. A kivételek minden esetben szöveges tájékoztatást tartalmaznak a hibáról.
 
 \subsection{SFML}
 
-Szintén a hatékonyság és a platformfüggetlenség kívánalmának akarván megfelelni, a grafikus felhasználói felület megvalósításához az OpenGl szabványra esett a választásom. Mivel azonban az OpenGl igényel valamilyen köztes réteget az alkalmazás és az operációs rendszer között (például önmagában nem tartalmaz ablakkezelést), a Simple and Fast Muldimedia Library (továbbiakban SFML) nyílt forráskódú programkönyvtár se\-gít\-sé\-gé\-hez fordultam \cite{sfml}. Mint kiderült, az SFML erősen objektumorientált szemléletű, és azon túl, hogy lehetőséget ad OpenGl programok írására, önmagában is rendelkezik magasabb szintű grafikus képességekkel, amelyek a program elkészítéséhez elégnek bizonyultak. Így aztán az OpenGl közvetlen programozására az alkalmazásban nem is került sor. 
+Szintén a hatékonyság és a platformfüggetlenség kívánalmának akarván megfelelni, a grafikus felhasználói felület megvalósításához az OpenGl szabványra esett a választásom. Mivel azonban az OpenGl igényel valamilyen köztes réteget az alkalmazás és az operációs rendszer között (például önmagában nem tartalmaz ablakkezelést), a Simple and Fast Multimedia Library (továbbiakban SFML) nyílt forráskódú programkönyvtár se\-gít\-sé\-gé\-hez fordultam \cite{sfml}. Mint kiderült, az SFML erősen objektumorientált szemléletű, és azon túl, hogy lehetőséget ad OpenGl programok írására, önmagában is rendelkezik magasabb szintű grafikus képességekkel, amelyek a program elkészítéséhez elégnek bizonyultak. Így aztán az OpenGl közvetlen programozására az alkalmazásban nem is került sor. 
 
 Az SFML azon túl, hogy biztosítja az ablakkezelést és egyszerű grafikus műveleteket, az egér kezelését is egyszerűvé teszi, továbbá tartalmaz egy hálózati modult, amivel az operációs rendszer hálózati szolgáltatásait elfedi. Így az operációs rendszer szolgáltatásait a fájlkezelést illetően a C++11 szabvány könyvtára, az összes többi szolgáltatást illetően pedig az SFML elfedi. Az SFML mind GNU/Linux, mind Microsoft Windows, mind Apple OS-X környezetben működik, így használatával a platformfüggetlenség nagy mértékben megvalósult, a Spacechess program forráskódja lé\-nye\-gé\-ben változtatások nélkül\footnote{Apróbb változtatásokra szükség lehet, mivel a különböző fordítóprogramok a C++11 szabványt különböző mértékben valósítják meg.} lefordítható az említett platformokon. 
 
 \subsection{CMake}
 
-Mivel a Spacechess program nagyszámú forrásfájlból áll, szükségem volt egy egységes, több platformon is működő \emph{build}-rendszerre, amely a forrásfájlokból a megfelelő bináris állományokat elkészíti. Erre a célra a nyílt forrású CMake rendszert használtam \cite{cmake}. A CMake egy úgynevezett meta-build rendszer. A forráskód mappáiban elhelyezett {\tt CMakeList.txt} állományok a CMake saját programnyelvén\footnote{A CMake programnyelve leginkább a shell scriptek nyelveihez hasonló.} leírják, hogy a for\-rás\-fáj\-lo\-kat hogyan kell lefordítani. A CMake program ez alapján készíti el az adott platform és fejlesztőkörnyezet egyedi build állományait, például GNU/Linux esetén \emph{Makefile} állományokat, vagy Microsoft Visual Studio esetén a fordítás szerkezetét leíró \emph{Solutiont}. Ezután az adott fejlesztőeszköz végzi el a fordítást.
+Mivel a Spacechess program nagyszámú forrásfájlból áll, szükségem volt egy egységes, több platformon is működő \emph{build}-rendszerre, amely a forrásfájlokból a megfelelő bináris állományokat elkészíti. Erre a célra a nyílt forrású CMake rendszert használtam \cite{cmake}. A CMake egy úgynevezett meta-build rendszer. A forráskód mappáiban elhelyezett {\tt CMakeList.txt} állományok a CMake saját programnyelvén\footnote{A CMake programnyelve leginkább a shell scriptek nyelveihez hasonló.} leírják, hogy a for\-rás\-fáj\-lo\-kat hogyan kell lefordítani. A CMake program ez alapján készíti el az adott platform és fejlesztőkörnyezet egyedi build állományait, például GNU/Linux esetén \emph{Makefile} állományokat, vagy Microsoft Visual Studio esetén a fordítás szerkezetét leíró \emph{Solutiont}\footnote{Mivel a Visual Studio beállításait meglehetősen bonyolult konfigurálni CMake-ből, a forráskód Visual Studioval történő fordításához további (kézi) konfigurálás lehet szükséges.}. Ezután az adott fejlesztőeszköz végzi el a fordítást.
 
 A Spacechess program kapcsán a CMake elemi használatához elég azt tudni, hogy amennyiben új C++ forrásállományt ({\tt *.cpp}) hozunk létre, annak nevét a tartalmazó mappa {\tt CMakeList.txt} állmányában a \emph{SOURCES} változó értékeként fel kell sorolni a fordításhoz.
 
@@ -231,7 +256,7 @@ A fejlesztést elsődlegesen Ubuntu GNU/Linux rendszeren végeztem. Fejlesztői 
 
 A program fejlesztése során több fejlesztési és projekt-kivitelezési módszertant is kipróbáltam. Folyamatosan törekedtem az objektum-orientált fejlesztési elvek minél teljesebb elsajátítására. A fejlesztés iteratív folyamat volt, amelyben tervezési szakaszokat kódolási szakaszok váltottak. A tervezést többnyire UML diagramok készítése jelentette. A kódolási szakaszban a diagramok alapján készítettem kódot, azonban az eközben felmerülő problémákra már kódban kerestem megoldást. Amikor kezdtem elveszteni a tájékozódást a kódban, az alapján frissítettem az UML diagramokat, és ismét az UML szintjén végeztem a tervezést. Körülbelül nyolc ilyen tervezés-kódolás iterációt csináltam végig.
 
-A projekt menedzselése során egy agilisnek tekinthető módszert, a SMART módszertant követtem. Ennek keretében két-három hetes időszakokra egyszerűbb, jól körülhatárolt, reálisan megvalósítandó célokat tűztünk ki a konzulensem segítségével, melyeket írásban rögzítettem. Bár a határidőket időnként nem sikerült tartanom, a módszer tervezhetősége folytán lehetőséget adott a korrekciókra.
+A projekt menedzselése során egy agilisnek tekinthető módszert, a SMART módszertant követtem \cite{smart}. Ennek keretében két-három hetes időszakokra egyszerűbb, jól körülhatárolt, reálisan megvalósítandó célokat tűztünk ki a konzulensem segítségével, melyeket írásban rögzítettem. Bár a határidőket időnként nem sikerült tartanom, a módszer tervezhetősége folytán lehetőséget adott a korrekciókra.
 
 Az agilis fejlesztési módszerek alkalmazásában nagyon nagy hatással volt rám a \cite{cleancode} könyv. Ennek eredményeképpen jelentek meg a kódban nagy számban a különböző részfeladatokat ellátó privát eljárások. Ennek köszönhető, hogy a kódban nagyon kevés megjegyzés maradt, helyettük a függvények és változók hosszú, beszédes neveket kaptak annak érdekében, hogy szerepük és funkciójuk megjegyzések nélkül is tisztán és világosan érthetővé váljon a kód olvasója számára. A programot folyamatosan refaktoráltam, hogy minél egyszerűbbé, minél érthetőbbé váljon a forráskód.
 
@@ -288,7 +313,7 @@ A Player enumeráció segítségével a játékosokra lehet hivatkozni.
 A Figure enumeráció a Térsakk játék különböző figuráit sorolja fel.
 
 \subsubsection{Position}
-A Position osztály a 3 dimenziós sakktábla egy mezőjét jelöli ki. Ezen túl lehetőséget nyújt a szomszédos pozíciók meghatározására egy adott mezőhöz képest az {\tt over, under, right, left, farther, closer} metódusok segítségével, mely irányok a világos játékos oldala felől értendőek. Ezek a metódusok egy új Position objektumot adnak vissza, ami ismét rendelkezik ilyen metódusokkal, tehát például egy huszár egy lehetséges lépését leírhatjuk a {\tt position.farther().farther().left()} kifejezéssel. Position objektumot létrehozhatunk úgy is, hogy számszerűen megadjuk, melyik szinten, melyik vonalon és melyik sorban legyen a pozíció, de az osztály túlterhelt konstruktora elfogadja a játékban használatos három jelből álló pozícióleírást (például "Cc3" vagy "Ad2") is egy sztringben. A Position osztály megvalósítja a $<$ összehasonlító operátort, hogy használható legyen rendezést kívánó szabványos konténerekben.
+A Position osztály a 3 dimenziós sakktábla egy mezőjét jelöli ki. Ezen túl lehetőséget nyújt a szomszédos pozíciók meghatározására egy adott mezőhöz képest az {\tt over, under, right, left, farther, closer} metódusok segítségével, mely irányok a világos játékos oldala felől értendőek. Ezek a metódusok egy új Position objektumot adnak vissza, ami ismét rendelkezik ilyen metódusokkal, tehát például egy huszár egy lehetséges lépését leírhatjuk a {\tt position.farther().farther().left()} kifejezéssel. Position objektumot létrehozhatunk úgy is, hogy számszerűen megadjuk, melyik szinten, melyik vonalon és melyik sorban legyen a pozíció, de az osztály túlterhelt konstruktora elfogadja a játékban használatos három jelből álló pozícióleírást (például ,,Cc3'' vagy ,,Ad2'') is egy sztringben. A Position osztály megvalósítja a $<$ összehasonlító operátort, hogy használható legyen rendezést kívánó szabványos konténerekben.
 
 \subsubsection{A Piece osztály és leszármazottai}
 
@@ -296,11 +321,11 @@ A Piece egy absztrakt osztály, melynek leszármazottai  az egyes figurák visel
 \begin{itemize}
 	\item az első karakter kisbetűs 'w' vagy 'b' attól függően, hogy világos vagy sötét figurát szeretnénk,
 	\item a második karakter a nagybetűs 'K', 'Q', 'R', 'B', 'N', 'U', 'P', amely rendre királyt, vezért, bástyát, futót, huszárt, unikornist és gyalogot jelöl,
-	\item a következő három karakter a figura pozícióját adja meg a játéktábla jelölésével (például "Bc4" vagy "Ee5").
+	\item a következő három karakter a figura pozícióját adja meg a játéktábla jelölésével (például ,,Bc4'' vagy ,,Ee5'').
 \end{itemize}
 Amennyiben a bábu-leíró sztring formátuma hibás, invalid\_argument kivétel keletkezik.
 
-A Pieceből származott objektumok ismerik a játékost, amelynek bábui ({\tt getPlayer}), meg tudják mondani, hogy hol helyezkednek el a táblán ({\tt getPosition}), és hogy milyen figurák ők ({\tt getFigure}). Ennél többet is tudnak azonban, meg tudják mondani, hogy mely mezőkre léphetnek ({\tt getPossibleMoves} metódus), illetve mely mezőkön tudnak ütni ({\tt getPossibleTakes} metódus). Ez utóbbi három metódust a leszármazottak értelemszerűen felüldefiniálhatják. Mivel a lehetséges lépések pozíciói csak a gyalog esetén térnek el a lehetséges ütések pozícióitól, a Piece osztály {\tt getPossibleTakes} metódusa közös, megfelelő alapértelmezett működést biztosít a többi figura számára.
+A Piece-ből származott objektumok ismerik a játékost, amelynek bábui ({\tt getPlayer}), meg tudják mondani, hogy hol helyezkednek el a táblán ({\tt getPosition}), és hogy milyen figurák ők ({\tt getFigure}). Ennél többet is tudnak azonban, meg tudják mondani, hogy mely mezőkre léphetnek ({\tt getPossibleMoves} metódus), illetve mely mezőkön tudnak ütni ({\tt getPossibleTakes} metódus). Ez utóbbi három metódust a leszármazottak értelemszerűen felüldefiniálhatják. Mivel a lehetséges lépések pozíciói csak a gyalog esetén térnek el a lehetséges ütések pozícióitól, a Piece osztály {\tt getPossibleTakes} metódusa közös, megfelelő alapértelmezett működést biztosít a többi figura számára.
 
 Mivel a lehetséges lépések és ütések meghatározása során olyan tevékenységekre van szükség, amelyek kettő vagy több figura esetén megegyeznek, a Piece osztály nagyszámú védett segédfüggvényt bocsát a tőle öröklődő osztályok rendelkezésére. Ezek a következők:
 \begin{itemize}
@@ -310,7 +335,7 @@ Mivel a lehetséges lépések és ütések meghatározása során olyan tevéken
 		\subitem A {\tt filterForMove} eljárás azokat a pozíciókat hagyja a listában, amelyre a báb ütés nélkül léphet.
 		\subitem A {\tt filterForTake} eljárás azokat a pozíciókat adja meg, amelyeken ütni lehetséges, vagyis amelyeken az ellenfél bábuja áll.
 		\subitem A {\tt filterForMoveOrTake} a fenti két eljárás értelemszerű kombinációja.
-	\item A {\tt moveOrTakeStraightFrom}, a {\tt moveOrTakePlaneDiagonallyFrom} és a \break {\tt moveOrTakeTrueDiagonallyFrom} függvények azon bábok mozgásának leírásához nyújtanak segítséget, amelyek egy adott pozícióból egy adott irányba tetszőleges számút léphetnek. A függvények az megadott pozícióból elindulva sorra megvizsgálják, hogy az adott irányokba haladva szabad-e az út a bábu előtt, illetve lehetséges-e az ellenfél egy bábuját kiütni. Mindhárom függvény az elérhető pozíciók listáját adja visszatérési értékként. A {\tt moveOrTakeStraightFrom} függvény a bástya mozgásának irányait vizsgálja, a tábla síkjaira merőleges irányokat. A {\tt moveOrTakePlaneDiagonallyFrom} függvény a tábla síkjaiban átlós mozgással elérhető mezőket eredményezi. A {\tt moveOrTakeTrueDiagonallyFrom} függvény az Unikornis mozgási lehetőségeit számolja ki. A Vezér mozgási lehetőségeit e három függvény eredményeinek uniója alkotja.
+	\item A {\tt moveOrTakeStraightFrom}, a {\tt moveOrTakePlaneDiagonallyFrom} és a \break {\tt moveOrTakeTrueDiagonallyFrom} függvények azon bábok mozgásának leírásához nyújtanak segítséget, amelyek egy adott pozícióból egy adott irányba tetszőleges számút léphetnek. A függvények a megadott pozícióból elindulva sorra megvizsgálják, hogy az adott irányokba haladva szabad-e az út a bábu előtt, illetve lehetséges-e az ellenfél egy bábuját kiütni. Mindhárom függvény az elérhető pozíciók listáját adja visszatérési értékként. A {\tt moveOrTakeStraightFrom} függvény a bástya mozgásának irányait vizsgálja, a tábla síkjaira merőleges irányokat. A {\tt moveOrTakePlaneDiagonallyFrom} függvény a tábla síkjaiban átlós mozgással elérhető mezőket eredményezi. A {\tt moveOrTakeTrueDiagonallyFrom} függvény az Unikornis mozgási lehetőségeit számolja ki. A Vezér mozgási lehetőségeit e három függvény eredményeinek uniója alkotja.
 	
 	Hogy e három függvényt megvalósítsa, a Piece osztály definiál még két segédeljárást.
 	\subitem Az {\tt addPositionsFromSourceInDirection} eljárás egy adott pozícióból egy adott irányba elhelyezkedő pozíciókat adja hozzá egy már meglévő pozíciólistához. Az eljárás érdekessége, hogy az irány fogalmát egy Position objektumból Position objektumot létrehozó függvény (DirectionFunction) segítségével ragadja meg. Az elemi irányfüggvényeket a Position osztály már definiálta, ezekből összetett irányfüggvényeket pedig lambda-kifejezések segítségével definiálhatunk.
@@ -324,11 +349,11 @@ A Piece osztály leszármazottjai a King, a Queen, a Knight, a Bishop, a Rook, a
 
 A Board osztály biztosítja a játéktábla belső reprezentációját. A táblát egy szótár (std::map) adatszerkezettel írja le, melyben a kulcsok Position objektumok, az értékek pedig Piece objektumokra mutató pointerek. Ez az adatszerkezet nagy hatékonysággal valósítja meg a pozíció alapú bábukeresést, amelyre a sakk- és mattvizsgálat során nagy számban van szükség.
 
-A Board osztály lehetővé teszi, hogy hozzáadjunk egy bábut a táblához ({\tt addPiece} metódus), eltávolítsunk egy bábut a tábláról ({\tt removePiece} metódus), lekérjünk egy bábut egy adott pozícióról ({\tt getPiece} metódus), megállapítsuk egy pozícióról, hogy van-e rajta báb ({\tt isOccupied} metódus). Ezen felül lehetőségünk van egy adott játékos adott figuráját megkeresni a táblán ({\tt find} metódus, amely egy pozícióval tér vissza), illetve az adott játékos összes még játékban lévő bábuját is lekérhetjük ({\tt getAllPiecesFor} metódus). A {\tt getFullBoard} metódus segítségével pedig egy olyan reprezentációját kapjuk a táblának (Fullboard struktúra), amelyet a Nézet könnyen meg tud jeleníteni.
+A Board osztály lehetővé teszi, hogy hozzáadjunk egy bábut a táblához ({\tt addPiece} metódus), eltávolítsunk egy bábut a tábláról ({\tt removePiece} metódus), lekérjünk egy bábut egy adott pozícióról ({\tt getPiece} metódus), megállapítsuk egy pozícióról, hogy van-e rajta báb ({\tt isOccupied} metódus). Ezen felül lehetőségünk van egy adott játékos adott figuráját megkeresni a táblán ({\tt find} metódus, amely egy pozícióval tér vissza), illetve az adott játékos összes még játékban lévő bábuját is lekérhetjük ({\tt getAllPiecesFor} metódus). A {\tt getFullBoard} metódus segítségével pedig egy olyan reprezentációját kapjuk a táblának (FullBoard struktúra), amelyet a Nézet könnyen meg tud jeleníteni.
 
 \subsubsection{A GameEvent osztály és leszármazottai}
 
-A GameEvent osztály a játszma egy eseményét reprezentálja a Modellben. Ilyen események például a játszma kezdete, vagy egy lépés megtétele. A GameEvent osztály a Command programfejlesztési mintán alapul \cite{designpatterns}. Minden GameEvent objektum rendelkezik egy mutatóval, amely az aktuális játszmát reprezentáló Game osztály példányára mutat. Ezen mutatón keresztül a GameEvent objektumok különböző módosításokat tehetnek a játszma reprezentációján.
+A GameEvent osztály a játszma egy eseményét reprezentálja a Modellben. Ilyen események például a játszma kezdete, vagy egy lépés megtétele. A GameEvent osztály a Command programfejlesztési mintán alapul \cite[233]{designpatterns}. Minden GameEvent objektum rendelkezik egy mutatóval, amely az aktuális játszmát reprezentáló Game osztály példányára mutat. Ezen mutatón keresztül a GameEvent objektumok különböző módosításokat tehetnek a játszma reprezentációján.
 
 A GameEvent osztály három absztrakt metódust tartalmaz, ezek az {\tt execute}, a {\tt revert} és a {\tt getNotation}. Az {\tt execute} metódus segítségével a játszmaesemény (például lépés) végrehajtásra kerül. A {\tt revert} metódus megpróbálja visszaállítani az esemény előtti állapotot. E két metódus segítségével a játsz\-ma\-tör\-té\-net\-ben lépkedni lehet.
 
@@ -338,9 +363,9 @@ A GameEvent osztály {\tt generateMove} statikus metódusával generálhatunk Mo
 \begin{itemize}
 	\item az első három karakter annak a pozíciónak a játékbeli jelölése, amelyről lépni szeretnénk,
 	\item ezt egy szóköz követi,
-	\item az utolsó három karakter pedgi annak a pozíciónak a leíró jelölése, ahova lépni akarunk.
+	\item az utolsó három karakter pedig annak a pozíciónak a leíró jelölése, ahova lépni akarunk.
 \end{itemize}
-Egy lehetséges lépést leíró sztring például az "Aa1 Bb2", vagy a "Cc3 Bc5".
+Egy lehetséges lépést leíró sztring például az ,,Aa1 Bb2'', vagy a ,,Cc3 Bc5''.
 
 \subsubsection{A History osztály}
 
@@ -361,7 +386,7 @@ A Judge a következő publikus szolgáltatásokat nyújtja:
 	
 	\item Az {\tt isInCheck} logikai függvény megmondja, hogy a paraméterként kapott játékos királya sakkban van-e. Ehhez lekérdezi a Board objektumtól a király pozícióját, illetve a másik játékos összes bábuját egy listába. A bábuk listáján lineáris keresés segítségével olyan bábut keres, amelynek ütési lehetőségei között szerepel a király pozíciója.
 	
-	\item a {\tt getCurrentlyPossibleMovesFrom} metódus egy pozíciót kap paraméterül,  és egy listában megadja, hogy a soron következő játékos az adott pozíción lévő bábuval mely helyekre léphet. Amennyiben az adott pozíción nincs a soron következő játékosnak bábuja, nullptr-t kapunk vissza. A Judge a lehetséges lépések meghatározásánál az adott figurák elhelyezkedésén és képességein túl figyelembe veszi azt a szabályt, hogy a király nem kerülhet sakkba a lépés következtében, valamint ha sakkban van, akkor csak az számít érvényes lépésnek, aminek következtében a sakk megszűnik.
+	\item a {\tt getCurrentlyPossibleMovesFrom} metódus egy pozíciót kap paraméterül,  és egy listában megadja, hogy a soron következő játékos az adott pozíción lévő bábuval mely helyekre léphet. Amennyiben az adott pozíción nincs a soron következő játékosnak bábuja, nullptr-t kapunk eredményül. A Judge a lehetséges lépések meghatározásánál az adott figurák elhelyezkedésén és képességein túl figyelembe veszi azt a szabályt, hogy a király nem kerülhet sakkba a lépés következtében, valamint ha sakkban van, akkor csak az számít érvényes lépésnek, aminek következtében a sakk megszűnik.
 	
 	Utóbbi megállapításához a Judge osztály a {\tt filterTargetsForNotInCheckAfter} függvényt alkalmazza. Ez a függvény paraméterül megkapja a kiindulási pozíciót, valamint az összes elérhető pozíció listáját. Ebből a listából egy szótárt készít, amelyben a célpozíció adja a kulcsot, értékként pedig minden egyes célpozícióhoz legenerálja a lépést megvalósító GameEvent objektumot. Ezután a History objektumot hívja segítségül a lépés utáni helyzet vizsgálatához a következő algoritmussal: létrehoz egy új, üres listát a legális célpozícióknak, majd végigiterál a szótár összes elemén, és az adott Move játékeseményt hozzáadja a játszmatörténethez, majd végrehajtja azt. Az új helyzetben az {\tt isInCheck} függvény segítségével megvizsgálja, hogy a lépést követően sakkban van-e a király, és amennyiben nem, a lépés legális, a szótár kulcsát, azaz a célpozíciót hozzáveszi a szabályos célpozíciókat tartalmazó listához. A ciklus magja ezután a visszalép a játszmatörténetben, és a hozzáadott Move eseményt törli a történet végéről. A ciklus végén a függvény visszatér a legális lépéseket tartalmazó listával. 
 
@@ -369,7 +394,7 @@ A Judge a következő publikus szolgáltatásokat nyújtja:
 	
 	A {\tt canMove} a Modell leginkább műveletigényes metódusa. A művelet végrehajt egy lineáris keresést, amely a játékos bábuinak száma (j) függvényében $O(j)$ műveletigényű. Azonban a keresés feltételében szerepel a Judge {\tt getPossibleMoves} művelete, amely a bábu által megtehető összes lépésre (k) ellenőrzi, hogy utána sakkban van-e a játékos. Mivel a sakk ellenőrzésekor két egymásba ágyazott lineáris keresést hajtunk végre (az ellenfél játékosai (l darab) által megtehető ütő lépések (m darab), az {\tt isInCheck} metódus $O(l \times m)$ műveletigényű. Ennélfogva a {\tt getPossibleMoves} műveletigénye $O(k \times l \times m)$, és a {\tt canMove} műveletigénye $O(j \times k \times l \times m)$ lesz. Azonban a valós műveletigényt a bábuk száma, a tábla véges mérete, illetve az egyes bábuk által egy lépésben elérhető mezők száma kellően alacsonyan tartja. A játékosok bábuinak száma játékosonként legfeljebb 20 lehet. A tábla 125 mezőből áll, az egy lépésben elérhető mezők számára tehát elméleti felső korlát a 124. A bábuk által egy lépésben elérhető mezők száma azonban ennél jóval kevesebb: az üres tábla közepére (Cc3 mező) helyezve a gyalog 7, a huszár 24, a bástya mindössze 12 (!), az unikornis 16, a futó 24, a vezér (= bástya + unikornis + futó) 52, a király 26 mezőre léphet. Mivel a játszma során minél több bábu van a táblán, egymás mozgását annál inkább korlátozzák, a valós műveletigény jelentősen tovább csökken. 
 	
-	A {\tt canMove} műveletigényének vizsgálata kapcsán érdekesség, hogy a hagyományos sakk játszása során egy matt megállapítása hasonlóan műveletigényes feladat: meg kell vizsgálni, hogy a játékos bármely bábujával, a bábu bármely lehetséges lépésével létre tud-e hozni olyan helyzetet, amelyben a másik játékos egyik bábujával sem támadja a királyt. Ezt a vizsgálatot az emberi agy látszólag figyelemre méltó sebességgel képes végrehajtani, azonban ehhez szinte bizonyosan heurisztikákat használ, hiszen tapasztalt sakkozók között is időről időre előfordul egy játszma során "meglepő" matt.
+	A {\tt canMove} műveletigényének vizsgálata kapcsán érdekesség, hogy a hagyományos sakk játszása során egy matt megállapítása hasonlóan műveletigényes feladat: meg kell vizsgálni, hogy a játékos bármely bábujával, a bábu bármely lehetséges lépésével létre tud-e hozni olyan helyzetet, amelyben a másik játékos egyik bábujával sem támadja a királyt. Ezt a vizsgálatot az emberi agy látszólag figyelemre méltó sebességgel képes végrehajtani, azonban ehhez szinte bizonyosan heurisztikákat használ, hiszen tapasztalt sakkozók között is időről időre előfordul egy játszma során ,,meglepő'' matt.
 \end{itemize}
 
 \subsubsection{A Game osztály}
@@ -387,16 +412,16 @@ A Game osztály megvalósítja az IGameInfo interfészt, amelyen keresztül a j�
 	\item a {\tt getGameState} metódus a játszma aktuális állapotát adja eredményül, a megjelenítő általi közvetlen felhasználás céljára. Ez tartalmazza többek között a bábuk elhelyezkedését a táblán;
 	\item a {\tt getCurrentlyPossibleMovesFrom} metódus megadja, hogy az aktuális játékos egy adott mezőről mely más mezőkre léphet;
 	\item a {\tt getNextPlayer} metódus megadja a lépésre következő játékost;
-	\item a {\tt getBoard}, {\tt getHistory}, {\tt getJudge} metódusok segítségével kérhetjük le az adott alegységet megvalósító objektomokat\footnote{Megjegyzés: mivel az IGameInfo interfész viszonylag későn került bevezetésre, jelenleg ezek a metódusai nem biztosítják az adott alegység konstansként való kezelését. Ennek biztosítása a továbbfejlesztés egyik első lépése kell legyen.}.
+	\item a {\tt getBoard}, {\tt getHistory}, {\tt getJudge} metódusok segítségével kérhetjük le az adott alegységet megvalósító objektumokat\footnote{Megjegyzés: mivel az IGameInfo interfész viszonylag későn került bevezetésre, jelenleg ezek a metódusai nem biztosítják az adott alegység konstansként való kezelését. Ennek biztosítása a továbbfejlesztés egyik első lépése kell legyen.}.
 \end{itemize}
 
 A Vezérlő osztályai a Game osztály {\tt move} metódusával kezdeményezhetnek lépéseket, illetve a {\tt stepForward, stepBackward} metódusokkal lehetőség van előre és hátra lépkedni a játszmatörténetben. A játszmák elmentését illetve betöltését a folyamokon felüldefiniált $<<$ és $>>$ operátorok biztosítják.
 
 \subsubsection{A GameState, a FullBoard és a Field struktúrák}
 
-A program fejlesztése során először a Modell egy kezdeti megvalósítását készítettem el, amihez "karakteres" nézet tartozott. Ebben a kezdeti modellben még nem szerepelt sem játszmatörténet, sem lépésellenőrzés, ellenben a játszma aktuális állapotát egy GameState struktúra írta le. Ehhez a kezdeti Modellhez készült a Nézetet megvalósító Render2D modul, amely egy GameState struktúra alapján készíti el a megjelenítendő grafikus képet. Később a Modell jelentős újratervezésre és átdolgozásra került, a játszma belső állapotát immár a Game, a Board és a History osztályok együttműködő példányai reprezentálják. Hogy ne kelljen a már elkészült Render2D modult jelentősen átalakítani, az új Game osztály rendelkezik egy {\tt getGameState} metódussal, amely a Modell állapotát egy GameState struktúrába kinyeri.
+A program fejlesztése során először a Modell egy kezdeti megvalósítását készítettem el, amihez ,,karakteres'' nézet tartozott. Ebben a kezdeti modellben még nem szerepelt sem játszmatörténet, sem lépésellenőrzés, ellenben a játszma aktuális állapotát egy GameState struktúra írta le. Ehhez a kezdeti Modellhez készült a Nézetet megvalósító Render2D modul, amely egy GameState struktúra alapján készíti el a megjelenítendő grafikus képet. Később a Modell jelentős újratervezésre és átdolgozásra került, a játszma belső állapotát immár a Game, a Board és a History osztályok együttműködő példányai reprezentálják. Hogy ne kelljen a már elkészült Render2D modult jelentősen átalakítani, az új Game osztály rendelkezik egy {\tt getGameState} metódussal, amely a Modell állapotát egy GameState struktúrába kinyeri.
 
-A GameState struktúra tartalmazza a soron következő játékost, valamint egy FullBoard struktúrát. A FullBoard strúktúra a táblát leíró struktúra, és három egymásba ágyazott std::vector-ból áll, amelyek a tábla három tengelyét reprezentálják. A FullBoard struktúra a tábla egyes mezőit Field struktúrákkal írja le. A Field struktúra megadja a játékost (Player, ami felveheti a Nobody értéket is), a mezőn álló figurát (Figure, ami felveheti a None értéket is), és egy Position objektumot, amely megadja, hogy a mező hol helyezkedik el a táblán belül. A FullBoard struktúra továbbá tartalmaz egy {\tt at} függvényt, amely egy pozíciót kapva paraméterként visszaadja a pozícióhoz tartozó Field objektumot. Az {\tt at} művelet a szabvány könyvtár {\tt at} műveleteihez hasonlóan kivételt vált ki, ha a pozíció a táblán kívülre esik.
+A GameState struktúra tartalmazza a soron következő játékost, valamint egy FullBoard struktúrát. A FullBoard struktúra a táblát leíró struktúra, és három egymásba ágyazott std::vector-ból áll, amelyek a tábla három tengelyét reprezentálják. A FullBoard struktúra a tábla egyes mezőit Field struktúrákkal írja le. A Field struktúra megadja a játékost (Player, ami felveheti a Nobody értéket is), a mezőn álló figurát (Figure, ami felveheti a None értéket is), és egy Position objektumot, amely megadja, hogy a mező hol helyezkedik el a táblán belül. A FullBoard struktúra továbbá tartalmaz egy {\tt at} függvényt, amely egy pozíciót kapva paraméterként visszaadja a pozícióhoz tartozó Field objektumot. Az {\tt at} művelet a szabvány könyvtár {\tt at} műveleteihez hasonlóan kivételt vált ki, ha a pozíció a táblán kívülre esik.
 
 A GameState, FullBoard és Field struktúrákhoz tartozik $<<$ és $>>$ operátor, melyeket a korábbi karakteres megjelenítés során alkalmaztam. Ezeket az operátorokat jelenleg a program nem használja.
 
@@ -420,11 +445,11 @@ A grafikus megjelenítés részleteit (színeket, méreteket, textúrákat) a St
 
 A BoardPainter osztály felelős a tábla megjelenítéséért ({\tt draw} metódus). A megjelenítéshez a játszma állapotát az IGameInfo interfészen keresztül kéri le. Tovább módosítják a megjelenítést a {\tt setSelectedField} és {\tt setHighlightedFields} metódusok, melyekkel egyes mezőket különböző színekkel kiemelhetünk.
 
-Ezen túl a BoardPainter alkalmas arra, hogy meghatározza, egy adott képernyőpozíció a játéktábla mely mezőjére esik ({\tt getFieldPositionFromScreenPosition} és {\tt setAndGetBoardCursorFromScreenPosition} metódusok). A {\tt handleClick} metódus segítségével - ha a tábla egy mezője fölött van az egérmutató - a BoardPainter üzenetben elküldi a Vezérlőnek a kiválasztott mező táblabeli pozícióját.
+Ezen túl a BoardPainter alkalmas arra, hogy meghatározza, egy adott képernyő-pozíció a játéktábla mely mezőjére esik ({\tt getFieldPositionFromScreenPosition} és {\tt setAndGetBoardCursorFromScreenPosition} metódusok). A {\tt handleClick} metódus segítségével - ha a tábla egy mezője fölött van az egérmutató - a BoardPainter üzenetben elküldi a Vezérlőnek a kiválasztott mező táblabeli pozícióját.
 
 A rajzoláshoz a BoardPainter a View névtér \textbf{Field} osztályát hívja segítségül. A Field osztály az SFML absztrakt sf::Drawable osztályának leszármazottja, így az SFML grafikus motorja közvetlenül meg tudja jeleníteni ({\tt draw} metódus). Egy Field objektum a megjelenítéséhez szükséges összes információt tartalmazza. Konstruktorban kapja meg a Modell azon Field struktúráját, amelynek tartalmát megjeleníti. Amennyiben a mezőn bábu áll, a bábunak megfelelő textúra is kirajzolásra kerül. A {\tt setUnderCursor}, {\tt setTouched}, {\tt setHighlighted} metódusokkal beállíthatóak különböző kiemelések. A statikus, logikai {\tt isWhiteField} függvény megmondja, hogy egy adott táblabeli pozíció világos vagy sötét színezésű. A mező kirajzolása mindezek figyelembevételével történik. A {\tt getPosition} és {\tt getBoundaries} függvények az egérmutató táblabeli helyzetének meghatározásához nyújtanak segítséget.
 
-A BoardPainter osztály {\tt draw} metódusának algoritumusa a következő: a program szintenként, soronként és oszloponként végighalad a táblán, és egy std::vector-ban (drawableFields) minden egyes mezőhöz létrehoz egy Field objektumot, amelyet a megfelelő képernyő-koordinátákkal felparaméterez. A {\tt draw} eközben kirajzolja a tábla körül megjelenő, a mezők azonosítását szolgáló tájékoztató jeleket is. Ezután a drawableFields objektumain szűrőszerűen többször végighalad, és azok {\tt setUnderCursor}, {\tt setTouched} és {\tt setHighlighted} metódusaival a megfelelő helyeken alkalmazza a kiemeléseket rajtuk. Végül az összes mezőre alkalmazza annak megvalósított {\tt draw} metódusát. A BoardPainter a rajzolási műveletek kisebb részekre bontásához több privát metódust is használ ({\tt buildPlane}, {\tt buildRow}, {\tt drawPlaneDecoration}, {\tt drawRowDecoration}), és az ezek közötti kommunikációhoz egyfajta állapotgépet valósít meg (currentPlane, currentRow, currentColumn változók). Ez a megközelítés inkább a struktúrált, mintsem az objektumorientált szemléletet követi.
+A BoardPainter osztály {\tt draw} metódusának algoritmusa a következő: a program szintenként, soronként és oszloponként végighalad a táblán, és egy std::vector-ban (drawableFields) minden egyes mezőhöz létrehoz egy Field objektumot, amelyet a megfelelő képernyő-koordinátákkal felparaméterez. A {\tt draw} eközben kirajzolja a tábla körül megjelenő, a mezők azonosítását szolgáló tájékoztató jeleket is. Ezután a drawableFields objektumain szűrőszerűen többször végighalad, és azok {\tt setUnderCursor}, {\tt setTouched} és {\tt setHighlighted} metódusaival a megfelelő helyeken alkalmazza a kiemeléseket rajtuk. Végül az összes mezőre alkalmazza annak megvalósított {\tt draw} metódusát. A BoardPainter a rajzolási műveletek kisebb részekre bontásához több privát metódust is használ ({\tt buildPlane}, {\tt buildRow}, {\tt drawPlaneDecoration}, {\tt drawRowDecoration}), és az ezek közötti kommunikációhoz egyfajta állapotgépet valósít meg (currentPlane, currentRow, currentColumn változók). Ez a megközelítés inkább a strukturált, mintsem az objektumorientált szemléletet követi.
 
 \subsubsection{A PanelPainter osztály, a Widget és leszármazottai}
 
@@ -433,11 +458,11 @@ A PanelPainter osztály a képernyőn különböző információk megjelenítés
 A Widget osztálynak a következő leszármazottjai készültek el:
 \begin{itemize}
 	\item a CursorInfo tájékoztatást ad arról, hogy az egérmutató a tábla mely mezője fölött tartózkodik éppen;
-	\item a MessageWidget egy std::string-et jelenít meg a képernyőn;
+	\item a MessageWidget egy sztringet jelenít meg a képernyőn;
 	\item a NextPlayerInfo kiírja a következő játékost, valamint hálózati játék esetén tájékoztatást ad arról, hogy a helyi játékos világossal vagy sötéttel játszik.
 \end{itemize}
 
-A PanelPainter osztály fel van készítve arra, hogy megállapítsa, egy mutatóesemény melyik Widget fölött következett be ({\tt getRect} és {\tt handleClick} metódusok). Ezt a funkciót a program jelenleg nem használja.
+A PanelPainter osztály fel van készítve arra, hogy egy, a mutatóeszköz által kiváltott rendszereseményről megállapítsa, az melyik Widget fölött következett be ({\tt getRect} és {\tt handleClick} metódusok). Ezt a funkciót a program jelenleg nem használja.
 
 \section{A tesztelés}
 
@@ -447,7 +472,7 @@ A tesztelés izgalmasabb részét a Modell automatikus tesztelése jelentette. A
 
 \section{Továbbfejlesztési lehetőségek}
 
-A program folyamatos iterált fejlesztés eredménye. Ennek következtében a korábban érthető, célszerű, megfelelő struktúrák időről időre egyre kevésbé maradtak érthetőek és célszerűek. A szoftver jelenlegi formájában a kitűzött célokat megvalósítja, azonban bármilyen komolyabb továbbfejlesztés előtt alapos refaktorálást igényel.
+A program tervezési, kódolási és tesztelési szakaszok többszöri iterációjának eredménye. Ennek mellékhatásaként néhány, korábban érthető, célszerű, feladatának pontosan megfelelő struktúra veszített érthetőségéből és célszerűségéből. A szoftver jelenlegi formájában a kitűzött célokat megvalósítja, azonban komolyabb továbbfejlesztés előtt alapos refaktorálást igényel.
 
 A refaktorálást a tesztek átdolgozásával kezdeném. Egyelőre csak a Modell osztályaihoz tartoznak egységtesztek, ezt célszerűnek látom egyrészt felfrissíteni, másrészt a Vezérlő modul osztályaira kiterjeszteni. Sajnos a Nézet általános működése jellegénél fogva nehezen tesztelhető automatikus eszközökkel, azonban ahol összetettebb funkció van megvalósítva, ott a Nézet elemeihez is célszerű egységteszteket készíteni.
 
@@ -457,7 +482,7 @@ A hálózati játék menetébe illeszthető a játékosok egymás közötti komm
 
 A Vezérlő kiegészíthető lehet mesterséges intelligencia vezérelte játékossal. A Modell jelenlegi funkciói némileg megalapozzák egy gyengébben játszó MI elkészítését.
 
-A grafikai megjelenítés igazi forradalmát hozhatja, ha három dimenziós grafikát kezdünk használni. Mivel a programban a Modell és a Vezérlő erősen el van határolva a Nézettől, előbbi kettő minimális változtatásával megvalósítható egy 3D megjelenítés. A 3D megjelenítés implementálásához feltehetően célszerű valamilyen nyílt forrású 3D motort igénybe venni.
+A játékélményt jelentősen fokozhatja, ha három dimenziós grafikát kezdünk használni. Mivel a programban a Modell és a Vezérlő erősen el van határolva a Nézettől, előbbi kettő minimális változtatásával megvalósítható 3D megjelenítés. A 3D megjelenítés implementálásához feltehetően célszerű valamilyen nyílt forrású 3D motort igénybe venni.
 
 Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya annak, hogy a képernyőn egymás mellé helyezzünk 5 darab 3D megjelenítőt. Ezzel a technikával játszhatóvá válhat egy új játék, a sakk 4 dimenziós kiterjesztése. Ebben a játékban a játszma egy $5 \times 5 \times 5 \times 5$ mezőből álló hiperkocka alkotta táblán játszódik... 
 
@@ -479,6 +504,8 @@ Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya an
 	\bibitem[Raum]{chessvariants} Bruce Balden, Hans L. Bodlaender: Raumschach, The Chess Variant Pages, www.chessvariants.org/3d.dir/3d5.html, 2014.06.01.
 		
 	\bibitem[SFML]{sfml} Simple and Fast Multimedia Library, www.sfml-dev.org, 2014.12.01.
+	
+	\bibitem[SM]{smart} SMART criteria, Wikipedia, en.wikipedia.org/wiki/SMART\_criteria, 2015.01.15.
 \end{thebibliography}
 
 \end{document}          
