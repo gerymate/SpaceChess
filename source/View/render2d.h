@@ -18,7 +18,7 @@ class Render2D
     BoardPainter boardPainter;
     PanelPainter panelPainter;
     Model::Position cursor;
-    std::string message {""};
+    std::string message;
 public:
     Render2D(sf::RenderWindow* theWindow, Model::IGameInfo* theGame, 
 	     EventQueue* theEventQueue);

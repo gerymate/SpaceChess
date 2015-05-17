@@ -11,6 +11,7 @@ PlaybackController::PlaybackController(sf::RenderWindow* theWindow, const std::s
     : GameController(theWindow)
 {
     renderer.setLocalPlayers(Model::Player::Nobody);
+    helpText = std::string{"Playback mode: left click for previous move, right click for next."};
     renderer.setMessage(helpText);
     loadGame(fileName);
 }

@@ -7,7 +7,7 @@
 using namespace std;
 using namespace Controller;
 
-App::App(string theMode, string theParams) : mode{theMode}, params{theParams}
+App::App(string theMode, string theParams) : mode(theMode), params(theParams)
 {
 }
 

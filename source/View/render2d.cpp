@@ -8,6 +8,7 @@ Render2D::Render2D(sf::RenderWindow* theWindow,
 	, boardPainter(theWindow, &style, theGame, theEventQueue)
 	, panelPainter(theWindow, &style)
 {
+    message = "";
     window->setVerticalSyncEnabled(true);
     panelPainter.setTopLeft(sf::Vector2f{20, 300});    
 }

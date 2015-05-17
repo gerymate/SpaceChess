@@ -4,7 +4,7 @@
 namespace View {
  
 MessageWidget::MessageWidget(const sf::Vector2f& thePosition, StyleSheet* theStyle, std::string theMessage)
-    : Widget{thePosition, theStyle}, message{theMessage}
+    : Widget{thePosition, theStyle}, message(theMessage)
 {
 }
 

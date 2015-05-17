@@ -15,7 +15,7 @@ class ConnectionBuilder
 
     unsigned short portNumber {54321};
     sf::TcpListener listener;
-    std::string helperMessage {""};
+    std::string helperMessage;
     bool connected {false};
     
     void setInitialConnectionMessage();

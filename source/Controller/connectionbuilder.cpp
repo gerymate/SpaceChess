@@ -7,8 +7,9 @@ namespace Controller
 
 ConnectionBuilder::ConnectionBuilder(sf::TcpSocket* theClient, bool isServer,
 				     const std::string& theRemoteAddress)
-    : client{theClient}, thisIsAServer{isServer}, remoteAddress{theRemoteAddress}
+    : client{theClient}, thisIsAServer{isServer}, remoteAddress(theRemoteAddress)
 {
+    helperMessage = "";
     setPortNumber();
     setInitialConnectionMessage();    
 }

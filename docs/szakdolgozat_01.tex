@@ -76,7 +76,7 @@ Célomul azt tűztem ki, hogy elkészítem a Térsakk játék számítógépen j
 A Térsakkot - eredeti nevén, németül: Raumschach - Dr. Ferdinand Maack találta fel 1907-ben  \cite{chessvariants}. Maack a nyugati világban addigra széles körben elterjedt hagyományos sakkjátékot szerette volna kiterjeszteni három dimenzióra. Eleinte $ 8 \times 8 \times 8 $ mezőből álló táblával kísérletezett, egy erre a célra kialakított polcon egymás fölé helyezett nyolc hagyományos sakktáblát. Ekkor azonban 512 mezőből áll a tábla, és mivel játékosonként csak 32 bábu van, a bábuk aránya a mezők számához viszonyítva mindössze 1:8 - szemben a hagyományos sakk 1:2 arányával. Mivel ez nagyon lassú játékhoz vezet, Maack később arra jutott, hogy az $ 5 \times 5 \times 5 $-ös táblaméret kellemesebb játékot eredményez. Ekkor játékosonként 20 bábu van a táblán, és a bábuk aránya a mezők számához viszonyítva 1:3.125-höz. A második világháborúig bezárólag még Raumschach-klub is működött Hamburgban, azonban ezután a játék - feltehetően a nehézkes fizikai megvalósítás miatt - feledésbe merült.
 
 \section{A játék szabályai, menete}
-A Térsakk a hagyományos sakk kiterjesztése térbeli táblára. Dolgozatomban a hagyományos sakk szabályait ismertnek tekintem, mivel ezen a téren rengeteg kiváló irodalom áll rendelkezésre. A játékmenet a hagyományos sakkéval megegyezik, világos kezd, világos és sötét felváltva lépnek, és a játék célja az ellenfél királyának bemattolása. Ezért a Térsakk szabályainak ismertetése kapcsán a hagyományos sakktól való eltérésekre koncentrálok.
+A Térsakk a hagyományos sakk kiterjesztése térbeli táblára. Dolgozatomban a hagyományos sakk szabályait ismertnek tekintem, mivel ezen a téren rengeteg kiváló irodalom áll rendelkezésre (például: \cite{zold}). A játékmenet a hagyományos sakkéval megegyezik, világos kezd, világos és sötét felváltva lépnek, és a játék célja az ellenfél királyának bemattolása. Ezért a Térsakk szabályainak ismertetése kapcsán a hagyományos sakktól való eltérésekre koncentrálok.
 
 \subsection{Tábla, jelölés}
 
@@ -212,7 +212,28 @@ Ekkor a másik játékos elindítja a csatlakozó szoftvert a ,,-c'' argumentumm
 
 A szoftver célja, hogy a Térsakk játékot szimulálja, a Térsakk tábláját és bábuit virtuálisan megjelenítse, és segítségével két személy helyben egy számítógépen, vagy hálózaton keresztül két számítógépen Térsakk játszmákat játszhasson le. Célja továbbá, hogy a játszott játszmák archiválásra kerüljenek, és a szoftver segítségével vissza\-néz\-he\-tő\-ek legyenek.
 
-%Ezek a tevékenységek a felhasználó szemszögéből a következő UML diagramokkal írhatók le.
+Ezek a tevékenységek a felhasználó szemszögéből a következő UML diagramokkal írhatók le:
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{use_case_local_game}
+	\end{center}
+	\caption{Helyi játék használati esetei}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{use_case_network_game}
+	\end{center}
+	\caption{Hálózati játék használati esetei}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{use_case_playback}
+	\end{center}
+	\caption{Visszajátszás használati esetei}
+\end{figure}
 
 %[ Felhasználói esetek diagramokkal ]
 
@@ -222,9 +243,9 @@ A szoftver célja, hogy a Térsakk játékot szimulálja, a Térsakk tábláját
 
 A szoftver fejlesztése során elsődleges szempont volt, hogy a programot a lehető legtöbb számítógépen futtatni lehessen, vagyis a lehető legnagyobb mértékű platformfüggetlenség. Szempont volt továbbá a hatékonyság, hogy (jövőbeli fejlesztési lehetőségként) adott esetben kis számítási kapacitással rendelkező eszközökön (például mobiltelefonokon) is jól működjön a program. Ezért az implementáláshoz a C++ programozási nyelv 2011-es ISO szabványára (a továbbiakban C++11) esett a választás, mivel ez mind a széles körben elérhetőség, mind a hatékonyság követelményeinek megfelel. A program készítése során igyekeztem elsődlegesen a C++11 eszközeit használni, vagyis ha egy feladat megoldható a C++11 segítségével, akkor nem használtam harmadik fél által kínált programkönyvtárakat.
 
-Ahogy haladtam a program fejlesztésével, a C++11 szabványnak egyre több szol\-gál\-ta\-tá\-sát ismertem meg. A fejlesztés során igyekeztem folyamatosan hasznosítani az új ismereteket. Például míg eleinte konstruktorok segítségével inicializáltam a különböző objektumokat, később átálltam az egységes inicializáló-listák használatára. Vagy míg eleinte a \emph{new} kulcsszó segítségével inicializáltam a smart-pointereket, később átálltam a \emph{std::make\_shared\textless\textgreater()} sablonfüggvény használatára. Ennek köszönhetően azonban a C++ nyelv használata nem lett egységes a forrásszövegben, még a folyamatos refaktorálás ellenére sem.
+Ahogy haladtam a program fejlesztésével, a C++11 szabványnak egyre több szol\-gál\-ta\-tá\-sát ismertem meg. A fejlesztés során igyekeztem folyamatosan hasznosítani az új ismereteket. Például míg eleinte konstruktorok segítségével inicializáltam a különböző objektumokat, később átálltam az egységes inicializáló-listák használatára. Vagy míg eleinte a \texttt{new} kulcsszó segítségével inicializáltam a smart-pointereket, később átálltam a \texttt{std::make\_shared} sablonfüggvény használatára. Ennek köszönhetően azonban a C++ nyelv használata nem lett egységes a forrásszövegben, még a folyamatos refaktorálás ellenére sem.
 
-A fejlesztés során igyekeztem szem előtt tartani a \cite{codingrules} és \cite{effective} könyvekben bemutatott szempontokat. Különösen odafigyeltem a RAII (Resource Allocation Is Initialization) elv betartására \cite{raii}. Kiterjedten alkalmaztam smart pointereket, elsősorban a standard könyvtár shared\_ptr sablonját. Minden olyan esetben, ahol egy függvény iterált adatszerkezetet fogad paraméterül, vagy ad visszatérési értékül, a megvalósításban az iterált szerkezetre mutató smart pointer szerepel. Mivel ez implementációs részlet, erre a program szerkezetének leírásában ezután nem térek ki, vagyis például ahol listáról írok, ott a megvalósításban egyaránt állhat lista, vagy egy listára mutató smart pointer. Azonban egyszerű mutatókkal dolgoztam azokban az esetekben, ahol egy objektum egy másik objektummal ismeretségi viszonyban van, azonban nem ,,birtokolja'' azt. Amikor például azt írom, hogy a GameEvent osztály ismeri a Game-et, ez azt jelenti, hogy a GameEvent osztály a konstruktorában kap egy Game típusú objektumra mutatót pointert, hogy a Game típusú objektumot meg tudja szólítani.
+A fejlesztés során igyekeztem szem előtt tartani a \cite{codingrules} és \cite{effective} könyvekben bemutatott szempontokat. Különösen odafigyeltem a RAII (Resource Allocation Is Initialization) elv betartására \cite{raii}. Kiterjedten alkalmaztam smart pointereket, elsősorban a standard könyvtár shared\_ptr sablonját. Minden olyan esetben, ahol egy függvény valamely szabványos konténert fogadja paraméterül, vagy adja visszatérési értékül, a megvalósításban a konténerre mutató smart pointer szerepel. Mivel ez implementációs részlet, erre a program szerkezetének leírásában ezután nem térek ki, például ahol listáról írok, ott a megvalósításban egyaránt állhat lista, vagy egy listára mutató smart pointer. Egyszerű mutatókkal dolgoztam azokban az esetekben, ahol egy objektum egy másik objektummal ismeretségi viszonyban van, azonban nem ,,birtokolja'' azt. Amikor például azt írom, hogy a GameEvent osztály ismeri a Game-et, ez azt jelenti, hogy a GameEvent osztály a konstruktorában kap egy Game típusú objektumra mutatót pointert, hogy a Game típusú objektumot meg tudja szólítani.
 
 A hibakezelés során törekedtem kivételkezelés alkalmazására. A kiváltott kivételek minden esetben a std::exception leszármazottjai. Nem készítettem saját kivételosztályokat, hanem a szabvány könyvtár készletéből gazdálkodtam. Például amikor egy paraméterként kapott leíró sztring hibás formátumú, akkor invalid\_argument kivétel keletkezik. Az alacsonyabb szinteken keletkező kivételeket magasabb szinteken elkaptam, és adott esetben új, a hiba helyét és jellegét jobban körülhatároló kivételekkel helyettesítettem. A kivételek minden esetben szöveges tájékoztatást tartalmaznak a hibáról.
 
@@ -244,7 +265,7 @@ A Spacechess program kapcsán a CMake elemi használatához elég azt tudni, hog
 
 A szoftver fejlesztése során célszerűnek tűnt az egyes részek működését automatikus teszteléssel biztosítani. Ehhez szükségem volt egy könnyek kezelhető tesztelési keretrendszerre. Némi tájékozódás után a Catch nevű eszközre esett a választás \cite{catch}. A Catch egyetlen \emph{header} állományból áll, aminek következtében nagyon hamar üzembe tudtam állítani. A tesztfájlok a forráskód Tests almappájába kerültek, és első utasításként behívják a catch.hpp állományt. A tesztek lefordításához a forráskódhoz hasonlóan a CMake rendszer használatos. A fordítás során egy Tests nevű futtatható állomány keletkezik, amelyet végrehajtva az összes tesztünk ellenőrzésre kerül.
 
-A tesztek forráskódja szabvány C++ szöveg néhány makróval kiegészítve. A SCENARIO makró segítségével teszteseteket adhatunk meg. A teszteseteken belül megadhatunk környezeteket a GIVEN, WHEN és THEN makrókkal, melyek azonos funkcionalitással bírnak, és tetszőleges mélységben egymásba ágyazhatóak. Az alacsonyabb szinten lévő környezetben történő változások egyáltalán nincsenek kihatással a magasabb szinten lévő környezetre, így azonos környezetet biztosíthatunk több különböző, egymás után végrehajtandó teszt számára, ha az előkészítést magasabb szinten, az egyes tesztesetek vizsgálatát alacsonyabb szinten végezzük el. Megadhatunk továbbá a programra vonatkozó logikai állításokat a REQUIRE makró paramétereként, ezek igaz volta kerül ellenőrzésre a teszt futtatása során.
+A tesztek forráskódja szabvány C++ szöveg néhány makróval kiegészítve. A \break SCENARIO makró segítségével teszteseteket adhatunk meg. A teszteseteken belül megadhatunk környezeteket a GIVEN, WHEN és THEN makrókkal, melyek azonos funkcionalitással bírnak, és tetszőleges mélységben egymásba ágyazhatóak. Az alacsonyabb szinten lévő környezetben történő változások egyáltalán nincsenek kihatással a magasabb szinten lévő környezetre, így azonos környezetet biztosíthatunk több különböző, egymás után végrehajtandó teszt számára, ha az előkészítést magasabb szinten, az egyes tesztesetek vizsgálatát alacsonyabb szinten végezzük el. Megadhatunk továbbá a programra vonatkozó logikai állításokat a REQUIRE makró paramétereként, ezek igaz volta kerül ellenőrzésre a teszt futtatása során.
 
 A SCENARIO, GIVEN, THEN, WHEN makrók célja a Catch rendszerben a tesztvezérelt fejlesztés lehetővé tétele. Amennyiben erre nincs szükség, a Catch használata még egyszerűbb lehet. A SCENARIO makró helyett használható az azonos funkcionalitású TEST\_CASE makró, és a GIVEN, THEN, WHEN makrók helyettesíthetőek a SECTION makróval, amely tetszőleges mélységben tartalmazhat további SECTION makrókat. További tesztek készítéséhez ezt az egyszerűbb megközelítést javaslom.
 
@@ -262,9 +283,24 @@ Az agilis fejlesztési módszerek alkalmazásában nagyon nagy hatással volt r�
 
 \section{A program logikai szerkezete}
 
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{modules}
+	\end{center}
+	\caption{A program logikai szerkezete}
+\end{figure}
+
+
 A Spacechess program megvalósításához a Modell-Nézet-Vezérlő architektúrát választottam. A három modul kezdetben nagyon elvált egymástól, a Nézet csak a Vezérlőn keresztül kommunikált a Modellel. Ez nehézkesnek bizonyult, ezért létrehoztam a Modell számára egy csak olvasható interfészt, és a Nézet immár ezen keresztül közvetlenül is lekérheti a Modell állapotának részleteit. A három modul három különböző névtérben helyezkedik el.
 
 \subsection{A vezérlés}
+
+\begin{figure}[b]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{controller}
+	\end{center}
+	\caption{A vezérlés szerkezete}
+\end{figure}
 
 A {\tt main} függvény és az alkalmazás osztály kivételével az összes vezérlési osztály a Controller névtérben kapott helyet.
 
@@ -296,13 +332,21 @@ A LocalGameController osztály a helyi játék lebonyolításáért felelős. A 
 
 A NetworkGameController a hálózati játék működtetéséért felelős. Mivel sok átfedést tartalmaz a LocalGameController funkcionalitásával, annak leszármazottja. A NetworkGameController konstruktorban megkapja, hogy kiszolgáló vagy kliens üzemmódban működik-e, valamint a hálózati paramétereket. 
 
-A hálózati kapcsolat felépítését a ConnectionBuilder osztálynak delegálja, amely szintén konstruktorparamétereken keresztül kapja meg a működési módot és a hálózati paramétereket. A ConnectionBuilder kiszolgáló oldalon várakozni kezd ({\tt startListening}), majd a csatlakozási kérelmet fogadja ({\tt acceptConnection}). Kliens oldalon az osztály csatlakozni próbál egy kiszolgálóhoz ({\tt connectToServer} metódus). A csatlakozás kétféle menetét elfedi az {\tt establishConnection} metódus. A {\tt getInfoMessage} függvény egy sztringben tájékoztatást ad a csatlakozás aktuális állapotáról. A sikeres csatlakozás eredménye mindkét üzemmódban egy kommunikációra kész, az SFML által biztosított sf::TcpSocket objektum.
+A hálózati kapcsolat felépítését a ConnectionBuilder osztálynak delegálja, amely szintén konstruktorparamétereken keresztül kapja meg a működési módot és a hálózati paramétereket. A ConnectionBuilder kiszolgáló oldalon várakozni kezd \break ({\tt startListening}), majd a csatlakozási kérelmet fogadja ({\tt acceptConnection}). Kliens oldalon az osztály csatlakozni próbál egy kiszolgálóhoz ({\tt connectToServer} metódus). A csatlakozás kétféle menetét elfedi az {\tt establishConnection} metódus. A {\tt getInfoMessage} függvény egy sztringben tájékoztatást ad a csatlakozás aktuális állapotáról. A sikeres csatlakozás eredménye mindkét üzemmódban egy kommunikációra kész, az SFML által biztosított sf::TcpSocket objektum.
 
 A NetworkGameController osztály a NetworkPhase enumeráció segítségével nyomon követi a hálózati kapcsolat állapotát. A {\tt mainLoop} metódusa a rendszeresemények kezelésén túl kiegészül a {\tt handleConnections} metódus hívásával, ami a kapcsolat kezeléséért felelős. A {\tt handleConnections} kommunikál a ConnectionBuilder objektummal, valamint működő kapcsolat esetén továbbadja a vezérlést az üzeneteket fogadó és feldolgozó {\tt handleCommunication} metódusnak, ami lefordítja a hálózati üzeneteket a Modell metódusainak hívásaira. A belső üzenetsor feldolgozását végző {\tt handleGameEvents} metódus kiegészül a {\tt sendMove} metódus hívásával, amennyiben helyi lépésre kerül sor. A {\tt sendMove} elküldi a lépést a hálózati kapcsolaton keresztül a másik fél számára. 
 
 A NetworkGameController tudja, hogy melyik játékos a helyi játékos (localPlayer attribútum), és a helyi események feldolgozását csak akkor végzi el, ha a helyi játékos van soron ({\tt localPlayerIsNextPlayer}). Ellenkező esetben a hálózatról várja a következő lépést. Kilépés előtt ez az osztály is elmenti a játszmatörténetet.
 
 \subsection {A játékmodell}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{model}
+	\end{center}
+	\caption{A Modell főbb osztályai}
+\end{figure}
+
 
 A játszmák logikai működését szimuláló Modell osztályai a Model névtérbe kerültek. A Modell a következő alapfogalmakkal dolgozik.
 
@@ -421,6 +465,13 @@ A Vezérlő osztályai a Game osztály {\tt move} metódusával kezdeményezhetn
 
 A program fejlesztése során először a Modell egy kezdeti megvalósítását készítettem el, amihez ,,karakteres'' nézet tartozott. Ebben a kezdeti modellben még nem szerepelt sem játszmatörténet, sem lépésellenőrzés, ellenben a játszma aktuális állapotát egy GameState struktúra írta le. Ehhez a kezdeti Modellhez készült a Nézetet megvalósító Render2D modul, amely egy GameState struktúra alapján készíti el a megjelenítendő grafikus képet. Később a Modell jelentős újratervezésre és átdolgozásra került, a játszma belső állapotát immár a Game, a Board és a History osztályok együttműködő példányai reprezentálják. Hogy ne kelljen a már elkészült Render2D modult jelentősen átalakítani, az új Game osztály rendelkezik egy {\tt getGameState} metódussal, amely a Modell állapotát egy GameState struktúrába kinyeri.
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{legacy}
+	\end{center}
+	\caption{A GameState struktúra}
+\end{figure}
+
 A GameState struktúra tartalmazza a soron következő játékost, valamint egy FullBoard struktúrát. A FullBoard struktúra a táblát leíró struktúra, és három egymásba ágyazott std::vector-ból áll, amelyek a tábla három tengelyét reprezentálják. A FullBoard struktúra a tábla egyes mezőit Field struktúrákkal írja le. A Field struktúra megadja a játékost (Player, ami felveheti a Nobody értéket is), a mezőn álló figurát (Figure, ami felveheti a None értéket is), és egy Position objektumot, amely megadja, hogy a mező hol helyezkedik el a táblán belül. A FullBoard struktúra továbbá tartalmaz egy {\tt at} függvényt, amely egy pozíciót kapva paraméterként visszaadja a pozícióhoz tartozó Field objektumot. Az {\tt at} művelet a szabvány könyvtár {\tt at} műveleteihez hasonlóan kivételt vált ki, ha a pozíció a táblán kívülre esik.
 
 A GameState, FullBoard és Field struktúrákhoz tartozik $<<$ és $>>$ operátor, melyeket a korábbi karakteres megjelenítés során alkalmaztam. Ezeket az operátorokat jelenleg a program nem használja.
@@ -429,11 +480,18 @@ A GameState, FullBoard és Field struktúrákhoz tartozik $<<$ és $>>$ operáto
 
 A Nézet osztályait a View névtér tartalmazza.
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{view}
+	\end{center}
+	\caption{A nézet szerkezete}
+\end{figure}
+
 \subsubsection{A Render2D osztály}
 
-A Nézet osztályait a Render2D osztály fogja össze. A nézet az IGameInfo interfészen keresztül ismeri a Game osztály egy példányát, amelytől a játszma aktuális állapotát igény ({\tt update} metódus) esetén lekéri. Megjelenítésre kerül a tábla (BoardPainter osztály), illetve további információk a játékról (PanelPainter osztály). A Nézet meg tudja állapítani, hogy az egérmutató a tábla mely része fölött tartózkodik ({\tt setAndGetBoardCursorFromScreenPosition} metódus), valamint hogy egy kattintás milyen megjelenített objektum fölött történt ({\tt handleClick} metódus). A mutatóeszköz kezelését azonban nem a Nézet végzi, hanem a Vezérlőtől kapja meg a mutatóeszköz koordinátáit. A Render2D osztály a Vezérlővel való kommunikációhoz megkapja a Vezérlő EventQueue objektumát.
+A Nézet osztályait a Render2D osztály fogja össze. A nézet az IGameInfo interfészen keresztül ismeri a Game osztály egy példányát, amelytől a játszma aktuális állapotát igény ({\tt update} metódus) esetén lekéri. Megjelenítésre kerül a tábla (BoardPainter osztály), illetve további információk a játékról (PanelPainter osztály). A Nézet meg tudja állapítani, hogy az egérmutató a játéktábla mely mezője fölött tartózkodik \break ({\tt setAndGetBoardCursorFromScreenPosition} metódus), valamint hogy egy kattintás milyen megjelenített objektum fölött történt ({\tt handleClick} metódus). A mutatóeszköz kezelését azonban nem a Nézet végzi, hanem a Vezérlőtől kapja meg a mutatóeszköz koordinátáit. A Render2D osztály a Vezérlővel való kommunikációhoz megkapja a Vezérlő EventQueue objektumát.
 
-A Render2D osztály a {\tt setSelectedField}, {\tt clearSelectedField}, {\tt setHighlightedFields} és {\tt clearHighlightedFields} műveleteket kínálja a Vezérlő számára, melyekkel a lépni kívánó bábu mezője, valamint a bábu által szabályszerűen elérhető mezők kiemelhetőek, illetve a kiemelések megszüntethetőek. A {\tt setMessage} metódus segítségével megadható egy sztring, amelyet a Nézet megjelenít. A {\tt setLocalPlayers} metódusnak hálózati játéknál van szerepe, ez biztosítja, hogy a Nézet csak akkor kezelje a mutatóeszköz műveleteit, amikor a helyi játékos van soron.
+A Render2D osztály a {\tt setSelectedField}, {\tt clearSelectedField}, \break {\tt setHighlightedFields} és {\tt clearHighlightedFields} műveleteket kínálja a Vezérlő számára, melyekkel a lépni kívánó bábu mezője, valamint a bábu által szabályszerűen elérhető mezők kiemelhetőek, illetve a kiemelések megszüntethetőek. A {\tt setMessage} metódus segítségével megadható egy sztring, amelyet a Nézet üzenetként megjelenít. A {\tt setLocalPlayers} metódusnak hálózati játéknál van szerepe, ez biztosítja, hogy a Nézet csak akkor kezelje a mutatóeszköz műveleteit, amikor a helyi játékos van soron.
 
 A Render2D osztály tartalmaz még egy StyleSheet struktúrát is.
 
@@ -466,15 +524,15 @@ A PanelPainter osztály fel van készítve arra, hogy egy, a mutatóeszköz ált
 
 \section{A tesztelés}
 
-A tesztelést két fronton végeztem. A használati esetek viszonylag kis száma folytán az integrációs tesztek elvégzését a program kézi kipróbálása jelentette. Ez magába foglalta a felhasználói felület tesztelését (kijelölés, kijelölés törlése, a lépési lehetőségek megjelenítésének ellenőrzése, a lépés, a tábla különböző színezéseinek ellenőrzése, az információs panel információtartalmának ellenőrzése), a hálózati játék tesztelését (csatlakozás különböző hálózati portokon, a lépések sorrendjének biztosítása, a hálózati kommunikáció eredményessége, kapcsolat elvesztése), valamint a szándékosan hibát eredményező helyzetek tesztelését (hiányzó állományok).
+A tesztelést két fronton végeztem. A használati esetek viszonylag kis száma folytán az integrációs tesztek elvégzését a program kézi kipróbálása jelentette. Ez magába foglalta a felhasználói felületnek, a hálózati játéknak, a szabályok betartásának és a hibatűrésnek a tesztelését. A felhasználói felület tesztelésekor ellenőrzésre került a kijelölés, a kijelölés törlése, a lépési lehetőségek megjelenítése, a lépés, a tábla különböző színezései, az információs panel információtartalma különböző helyzetekben, stb. A hálózati játék tesztelése során vizsgáltam a csatlakozást különböző hálózati portokon, a hálózati kommunikáció eredményességét, a kapcsolat elvesztését mind kiszolgáló, mind kliens oldalról, továbbá ellenőrzésre került GNU/Linux alatt futó példány kapcsolódása Microsoft Windows alatt futó példányhoz\footnote{Ehhez a Windows tűzfalán engedélyezni kellett a program hálózati kommunikációját.}. A szabályok betartásának ellenőrzése magába foglalta a különböző bábuk lépési lehetőségeinek vizsgálatát, a sakkszabály betartását, a matt és a patt felismerésének ellenőrzését. A szándékosan hibát eredményező helyzetek tesztelése során kipróbáltam a program elindítását hiányzó állományok (a bábuk képe, a betűtípust tartalmazó fájl) mellett, hibás parancssori paraméterezéssel, hiányzó, illetve hibás játszmafájl betöltésével. 
 
-A tesztelés izgalmasabb részét a Modell automatikus tesztelése jelentette. A Modell elemi részeit (Position, a Piece leszármazottjai, Board, History) részletes, minden nem triviális metódusra kiterjedő egységtesztekkel vizsgáltam. A History teszteléséhez létrehoztam egy MockGameEvent osztályt, amely az absztrakt GameEvent leszármazottja, és a GameEvent osztály funkciótól független működését szimulálja. A tesztelés során 15 tesztesetben 118 vizsgálat történik. A fejlesztés során az egységtesztek sikeres futtatása biztosította, hogy az alacsonyabb szinten lévő osztályok működése felől biztonságban érezhettem magam. Ez óriási segítség volt a refaktorálás során, mivel megbizonyosodhattam róla, hogy az egyes osztályok a refaktorálás után is ugyanúgy ellátják feladataikat, mint előtte. Feltehetően az egységteszteknek köszönhetem, hogy a magasabb szintű funkciók megvalósítása során csak kevés időt kellett a debugger használatával töltenem.
+A tesztelés izgalmasabb részét a Modell automatikus tesztelése jelentette. A tesztelés során 15 tesztesetben 118 vizsgálat történik. Ezekben a Modell elemi részeinek funkcionalitását (Position, a Piece leszármazottjai, Board, History, Move) részletes, lehetőség szerint minden nem triviális metódusra kiterjedő egységtesztekkel vizsgáltam. A History teszteléséhez létrehoztam egy MockGameEvent osztályt, amely az absztrakt GameEvent leszármazottja, és a GameEvent osztály funkciótól független működését szimulálja. A fejlesztés során az egységtesztek sikeres futtatása biztosította, hogy az alacsonyabb szinten lévő osztályok működése felől biztonságban érezhettem magam. Ez óriási segítség volt a refaktorálás során, mivel megbizonyosodhattam róla, hogy az egyes osztályok a refaktorálás után is ugyanúgy ellátják feladataikat, mint előtte. Feltehetően az egységteszteknek köszönhetem, hogy a magasabb szintű funkciók megvalósítása során csak kevés időt kellett a debugger használatával töltenem.
 
 \section{Továbbfejlesztési lehetőségek}
 
 A program tervezési, kódolási és tesztelési szakaszok többszöri iterációjának eredménye. Ennek mellékhatásaként néhány, korábban érthető, célszerű, feladatának pontosan megfelelő struktúra veszített érthetőségéből és célszerűségéből. A szoftver jelenlegi formájában a kitűzött célokat megvalósítja, azonban komolyabb továbbfejlesztés előtt alapos refaktorálást igényel.
 
-A refaktorálást a tesztek átdolgozásával kezdeném. Egyelőre csak a Modell osztályaihoz tartoznak egységtesztek, ezt célszerűnek látom egyrészt felfrissíteni, másrészt a Vezérlő modul osztályaira kiterjeszteni. Sajnos a Nézet általános működése jellegénél fogva nehezen tesztelhető automatikus eszközökkel, azonban ahol összetettebb funkció van megvalósítva, ott a Nézet elemeihez is célszerű egységteszteket készíteni.
+A refaktorálást a tesztek kibővítésével kezdeném. Egyelőre csak a Modell osztályaihoz tartoznak egységtesztek, ezt célszerűnek látom egyrészt felfrissíteni, másrészt a Vezérlő modul osztályaira kiterjeszteni. Sajnos a Nézet általános működése jellegénél fogva nehezen tesztelhető automatikus eszközökkel, azonban ahol összetettebb funkció van megvalósítva, ott a Nézet elemeihez is célszerű egységteszteket készíteni.
 
 A tesztlefedettség alapos kiterjesztése után megnyílik a lehetőség a szerkezeti refaktorálásra. Érzésem szerint a Vezérlő osztályaira kisebb tisztázás vár. Sokkal jelentősebb fejlesztési lehetőségek akadnak a Nézeten belül. Ami a 2D megjelenítőt illeti, célszerűnek látnám egy erősebben objektum-orientált szemlélet alkalmazását. Logikailag a BoardPainter osztály funkciója (egy bizonyos információ közvetítése a játszma állapotáról) beleillik a Widget osztály feladataiba. Másrészt a Widget osztály leszármazottjait erőteljesen függetleníteném a PanelPainter osztálytól, és a Vezérlővel való kommunikácót sokkal jobban a belső üzenetküldő szolgálat (jelenleg EventQueue) funkcióira bíznám. Amennyiben a megjelenített Nézet elemei jobban kihasználnák az objektum-orientált programozás előnyeit, megnyílna a lehetőség az ablak dinamikus átméretezése illetve a különböző képfelbontásokban hasonló eredményt adó teljes képernyős megjelenítés előtt. A Widget osztály további leszármazottja lehet egy Button osztály, amellyel különböző funkciók válnának kezdeményezhetővé a felhasználói felületről.
 
@@ -506,6 +564,8 @@ Végül, ha sikerül 3D megjelenítést implementálni, nincs semmi akadálya an
 	\bibitem[SFML]{sfml} Simple and Fast Multimedia Library, www.sfml-dev.org, 2014.12.01.
 	
 	\bibitem[SM]{smart} SMART criteria, Wikipedia, en.wikipedia.org/wiki/SMART\_criteria, 2015.01.15.
+	
+	\bibitem[Zold]{zold} Uray Marcell János: A sakk szabályai, Zöld Sakk, zoldsakk.hu/rules.php, 2015.04.10.
 \end{thebibliography}
 
 \end{document}          
