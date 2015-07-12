@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef EVENT_H
 #define EVENT_H
 

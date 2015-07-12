@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef BOARD_H
 #define BOARD_H
 

@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef UNICORN_H
 #define UNICORN_H
 

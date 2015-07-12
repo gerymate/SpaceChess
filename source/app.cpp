@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "app.h"
 #include <iostream>
 #include <fstream>
@@ -28,7 +29,7 @@ void App::setUpWindow()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    window.create( sf::VideoMode {1200, 400}, "SpaceChess", sf::Style::Default, settings );
+    window.create( sf::VideoMode {1200, 400}, "SpaceChess", sf::Style::Titlebar|sf::Style::Close, settings );
 }
 
 void App::setUpAGameController()

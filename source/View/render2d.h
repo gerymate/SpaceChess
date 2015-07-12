@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef RENDER2D_H
 #define RENDER2D_H
 

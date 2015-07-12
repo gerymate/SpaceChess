@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef MOVE_H
 #define MOVE_H
 

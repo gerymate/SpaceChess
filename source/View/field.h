@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef VIEW_FIELD_H
 #define VIEW_FIELD_H
 

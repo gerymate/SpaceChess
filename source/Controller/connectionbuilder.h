@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef CONNECTIONBUILDER_H
 #define CONNECTIONBUILDER_H
 

@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "localgamecontroller.h"
 #include <iostream>
 #include <fstream>

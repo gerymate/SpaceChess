@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "panelpainter.h"
 
 #include "View/cursorinfo.h"

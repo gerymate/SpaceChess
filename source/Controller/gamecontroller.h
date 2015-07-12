@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 

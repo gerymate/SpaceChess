@@ -1,3 +1,4 @@
+// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #ifndef CURSORINFO_H
 #define CURSORINFO_H
 
