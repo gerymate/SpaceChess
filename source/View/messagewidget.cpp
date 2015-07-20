@@ -14,7 +14,7 @@ void MessageWidget::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     std::string message {MessageWidget::message};
     if (message.length() > (size_t)MAXCHARS) message.erase(MAXCHARS);
 
-    sf::Text messageText(message, style->font, style->FONTSIZE);
+    sf::Text messageText(message, style->fontManager->font, style->FONTSIZE);
     messageText.setColor(sf::Color::Yellow);
     messageText.setStyle(sf::Text::Bold);
     messageText.setPosition(position);

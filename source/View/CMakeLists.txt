@@ -3,12 +3,12 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create a variable called helloworld_SOURCES containing all .cpp files:
 set(SOURCES render25d.cpp 
-	    stylesheet.cpp 
+	    stylesheet.cpp texturemanager.cpp fontmanager.cpp
 	    boardpainter.cpp rank.cpp field.cpp fieldcontent.cpp
 	    panelpainter.cpp widget.cpp cursorinfo.cpp nextplayerinfo.cpp messagewidget.cpp)
 
 set(TEST_SOURCES viewtests.cpp
-    ranktest.cpp
+    fieldcontenttest.cpp ranktest.cpp
     )
 
 # For a large number of source files you can create it in a simpler way

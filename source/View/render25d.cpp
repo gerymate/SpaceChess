@@ -5,7 +5,8 @@ namespace View {
 
 Render25D::Render25D(sf::RenderWindow* theWindow, 
 	Model::IGameInfo* theGame, EventQueue* theEventQueue) 
-	: game{theGame}, eventQueue {theEventQueue}, window(theWindow)
+	: window{theWindow}, game{theGame}, eventQueue {theEventQueue}
+	, style{&textureManager, &fontManager}
 	, boardPainter(theWindow, &style, theGame, theEventQueue)
 	, panelPainter(theWindow, &style)
 {

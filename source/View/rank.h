@@ -20,7 +20,7 @@ class Rank : public sf::Drawable
     int rank;
     Model::IBoardInfo* board;
     std::vector<Field> drawableFields;
-    
+        
     int currentRow, currentColumn;
     
 public:

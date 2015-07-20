@@ -5,16 +5,19 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include "texturemanager.h"
+#include "fontmanager.h"
 
 namespace View {
 
 struct StyleSheet
 {
-    std::vector<std::vector<sf::Texture> > pieces;
-    sf::Font font;
-	const std::string XNotation = std::string{ "abcde" };
-	const std::string YNotation = std::string{ "ABCDE" };
-	const std::string ZNotation = std::string{ "12345" };
+    const TextureManager* textureManager;
+    const FontManager* fontManager;
+
+    const std::string XNotation = std::string{ "abcde" };
+    const std::string YNotation = std::string{ "ABCDE" };
+    const std::string ZNotation = std::string{ "12345" };
   
     // our layout constants are in pixels for now
     const float MARGINSIZE = 30.f;
@@ -30,9 +33,8 @@ struct StyleSheet
     const sf::Color TouchHighlightColor {0, 128, 255};
     const sf::Color HighlightColor {255, 128, 200};
 public:
-    StyleSheet();
+    StyleSheet(TextureManager* theTextureManager, FontManager* theFontManager);
     ~StyleSheet();
-    const sf::Texture* getPieceFor(int owner, int figure) const;
 };
 
 }

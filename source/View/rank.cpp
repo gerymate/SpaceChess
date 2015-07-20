@@ -100,7 +100,7 @@ void Rank::buildRow(sf::Vector2f thePosition)
 void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const
 {
     // draw notation to the upper left corner
-    sf::Text notation(style->ZNotation[rank], style->font, 0.5f * style->MARGINSIZE);
+    sf::Text notation(style->ZNotation[rank], style->fontManager->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Yellow);
     notation.setStyle(sf::Text::Bold);
     notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));
@@ -127,7 +127,7 @@ void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition
 void Rank::drawRowDecoration(sf::RenderTarget& target, sf::Vector2f thePosition, int row) const
 {
     // draw notation beside the plane
-    sf::Text notation(style->YNotation[4 - row], style->font, 0.5f * style->MARGINSIZE);
+    sf::Text notation(style->YNotation[4 - row], style->fontManager->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Red);
     notation.setPosition(thePosition + sf::Vector2f(-0.5f * style->MARGINSIZE, 1.f * (style->FIELDSIZE - style->MARGINSIZE)));
     target.draw(notation);

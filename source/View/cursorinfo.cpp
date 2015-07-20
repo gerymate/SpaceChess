@@ -10,7 +10,7 @@ CursorInfo::CursorInfo(const sf::Vector2f& thePosition, StyleSheet* theStyle, Mo
 
 void CursorInfo::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::Text cursorInfo(cursor.getNotation(), style->font, style->FONTSIZE);
+    sf::Text cursorInfo(cursor.getNotation(), style->fontManager->font, style->FONTSIZE);
     cursorInfo.setColor(sf::Color::Yellow);
     cursorInfo.setStyle(sf::Text::Bold);
     cursorInfo.setPosition(position);

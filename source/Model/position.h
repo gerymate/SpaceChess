@@ -11,7 +11,7 @@ class Position
 {
     int level, file, rank;
 public:
-    Position(int theLevel = 0, int theFile = 0, int theRank = 0);
+    Position(int theLevel = -1, int theFile = -1, int theRank = -1);
     Position(const std::string& positionDesc); 
     const int getLevel() const { return level; }
     const int getFile() const { return file; }

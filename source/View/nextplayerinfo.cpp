@@ -18,7 +18,7 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
     
     if (nextPlayerText.length() > (size_t)MAXCHARS) nextPlayerText.erase(MAXCHARS);
 
-    sf::Text nextPlayerInfo(nextPlayerText, style->font, style->FONTSIZE);
+    sf::Text nextPlayerInfo(nextPlayerText, style->fontManager->font, style->FONTSIZE);
     nextPlayerInfo.setColor(sf::Color::Red);
     nextPlayerInfo.setStyle(sf::Text::Bold);
     nextPlayerInfo.setPosition(position);
@@ -30,7 +30,7 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	if (localPlayer == Model::Player::White) localPlayerText = "You play White.";
 	if (localPlayer == Model::Player::Black) localPlayerText = "You play Black.";
 
-	sf::Text localPlayerInfo(localPlayerText, style->font, style->FONTSIZE);
+	sf::Text localPlayerInfo(localPlayerText, style->fontManager->font, style->FONTSIZE);
 	localPlayerInfo.setColor(sf::Color::Yellow);
 	localPlayerInfo.setStyle(sf::Text::Bold);
 	sf::Vector2f offset {(MAXCHARS * (float)style->FONTSIZE) + 5 * style->MARGINSIZE, 0};

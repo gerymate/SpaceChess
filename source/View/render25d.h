@@ -13,9 +13,11 @@ namespace View {
 
 class Render25D : public IRenderer
 {
+    sf::RenderWindow* window;
     Model::IGameInfo* game;
     EventQueue* eventQueue;
-    sf::RenderWindow* window;
+    TextureManager textureManager;
+    FontManager fontManager;
     StyleSheet style;
     BoardPainter boardPainter;
     PanelPainter panelPainter;
