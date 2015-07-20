@@ -2,7 +2,7 @@
 #ifndef CURSORINFO_H
 #define CURSORINFO_H
 
-#include "View/widget.h"
+#include "widget.h"
 #include "Model/position.h"
 
 namespace View {

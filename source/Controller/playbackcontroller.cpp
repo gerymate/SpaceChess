@@ -8,12 +8,12 @@ using namespace std;
 namespace Controller
 {
 
-PlaybackController::PlaybackController(sf::RenderWindow* theWindow, const std::string& fileName)
-    : GameController(theWindow)
+PlaybackController::PlaybackController(std::shared_ptr<Core> theCore, const std::string& fileName)
+    : GameController(theCore)
 {
-    renderer.setLocalPlayers(Model::Player::Nobody);
+    core->getRenderer()->setLocalPlayers(Model::Player::Nobody);
     helpText = std::string{"Playback mode: left click for previous move, right click for next."};
-    renderer.setMessage(helpText);
+    core->getRenderer()->setMessage(helpText);
     loadGame(fileName);
 }
 
@@ -23,11 +23,11 @@ PlaybackController::~PlaybackController()
 
 void PlaybackController::mainLoop()
 {
-    while (window->isOpen())
+    while (core->getRenderer()->getWindow()->isOpen())
     {    
 	handleSystemEvents();
 	handleGameEvents();
-	renderer.update();
+	core->getRenderer()->update();
     }
 }
 
@@ -40,7 +40,7 @@ void PlaybackController::loadGame(const std::string& fileName)
 	    std::cerr << "Error during opening file " << fileName << " !\nMaybe in a wrong directory?\n";
 	    exit(1);	    
 	}
-	inputFile >> game;
+	inputFile >> *(core->getGame());
 	inputFile.close();
     } catch (std::exception& e) {
 	std::cerr << e.what() << "\n";
@@ -51,6 +51,7 @@ void PlaybackController::loadGame(const std::string& fileName)
 void PlaybackController::handleSystemEvents()
 {       
     sf::Event event;
+    sf::Window* window { core->getRenderer()->getWindow() };
     while (window->pollEvent(event))
     {
 	switch (event.type)
@@ -82,7 +83,7 @@ void PlaybackController::emitStepForwardEvent()
     std::string message { "Forward" };
     std::string params { "" };
     PointerToEvent event {new Event {sender, message, params} };
-    eventQueue.push(event);
+    core->getEventQueue()->push(event);
 }
 
 void PlaybackController::emitStepBackwardEvent()
@@ -91,11 +92,12 @@ void PlaybackController::emitStepBackwardEvent()
     std::string message { "Backward" };
     std::string params { "" };
     PointerToEvent event {new Event {sender, message, params} };
-    eventQueue.push(event);
+    core->getEventQueue()->push(event);
 }
 
 void PlaybackController::handleGameEvents()
 {
+    EventQueue& eventQueue { *(core->getEventQueue()) };
     while (!eventQueue.empty())
     {
 	PointerToEvent event = eventQueue.front();
@@ -108,12 +110,12 @@ void PlaybackController::handleGameEvents()
 	{
 	    if (message == "Forward")
 	    {
-		helpMessage = game.stepForward();
+		helpMessage = core->getGame()->stepForward();
 	    } else if (message == "Backward") {
-		helpMessage = game.stepBackward();
+		helpMessage = core->getGame()->stepBackward();
 	    }
 	}
-	renderer.setMessage(helpMessage.empty() ? helpText : helpMessage);
+	core->getRenderer()->setMessage(helpMessage.empty() ? helpText : helpMessage);
     }
 }
 

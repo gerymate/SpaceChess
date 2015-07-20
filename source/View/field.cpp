@@ -1,12 +1,13 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "field.h"
+#include "Model/Pieces/piece.h"
 
 namespace View {
 
-Field::Field(const sf::Vector2f& theTopLeft, StyleSheet *theStyle, const Model::Field& theContent) 
-    : topLeft(theTopLeft), style(theStyle), content(theContent)
+Field::Field(const sf::Vector2f& theTopLeft, StyleSheet* theStyle, 
+	     const Model::PointerToPiece theContent, const Model::Position thePosition) 
+    : topLeft(theTopLeft), style(theStyle), content(theContent, thePosition)
 {
-
 }
     
 Field::~Field()
@@ -39,7 +40,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
 	sf::RectangleShape figureImage(style->FieldSize);
 	figureImage.setPosition(topLeft);
-	figureImage.setTexture(style->getPieceFor(content.owner, static_cast<int>(content.figure)));
+	figureImage.setTexture(style->getPieceFor(content.owner, static_cast<int>(content.owner)));
 	target.draw(figureImage, states);
     }
 }
@@ -77,6 +78,11 @@ void Field::notHighlighted()
 bool Field::isWhiteField(const Model::Position& position)
 {
     return !((position.getFile() + position.getLevel() + position.getRank()) % 2);
+}
+
+Model::Position Field::getPosition()
+{
+    return content.position;
 }
 
 

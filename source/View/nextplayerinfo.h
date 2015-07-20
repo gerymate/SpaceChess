@@ -2,7 +2,7 @@
 #ifndef NEXTPLAYERINFO_H
 #define NEXTPLAYERINFO_H
 
-#include "View/widget.h"
+#include "widget.h"
 #include "Model/player.h"
 
 namespace View {

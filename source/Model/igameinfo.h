@@ -6,7 +6,7 @@
 #include "gamestate.h"
 #include "history.h"
 #include "judge.h"
-#include "board.h"
+#include "iboardinfo.h"
 
 namespace Model
 {
@@ -20,7 +20,7 @@ public:
     virtual Player getNextPlayer() const = 0;
     virtual History* getHistory() const = 0;
     virtual Judge* getJudge() const = 0;
-    virtual Board* getBoard() const = 0;
+    virtual IBoardInfo* getBoardInfo() const = 0;
 };
 
 }

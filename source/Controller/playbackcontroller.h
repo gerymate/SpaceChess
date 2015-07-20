@@ -20,7 +20,7 @@ class PlaybackController : public GameController
     void emitStepBackwardEvent();
     
 public:
-    PlaybackController(sf::RenderWindow* theWindow, 
+    PlaybackController(std::shared_ptr<Core> theCore, 
 		       const std::string& fileName);
     virtual ~PlaybackController();
     void mainLoop();

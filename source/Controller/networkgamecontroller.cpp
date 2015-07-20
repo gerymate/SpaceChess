@@ -2,31 +2,32 @@
 #include "networkgamecontroller.h"
 #include <iostream>
 #include <fstream>
+#include "irenderer.h"
 
 using namespace std;
 
 namespace Controller
 {
 
-NetworkGameController::NetworkGameController(sf::RenderWindow* theWindow, 
+NetworkGameController::NetworkGameController(std::shared_ptr<Core> theCore, 
 					     bool isServer, 
 					     const string& theParams)
-    : LocalGameController{theWindow}
+    : LocalGameController{theCore}
     , connectionBuilder{&client, isServer, theParams}
 {
     client.setBlocking(false);
     localPlayer = isServer ? Model::Player::White : Model::Player::Black;
-    renderer.setLocalPlayers(localPlayer);
+    core->getRenderer()->setLocalPlayers(localPlayer);
 }
 
 void NetworkGameController::mainLoop()
 {
-    while (window->isOpen())
+    while (core->getRenderer()->getWindow()->isOpen())
     {    
 	handleSystemEvents();
 	handleConnections();
 	handleGameEvents();
-	renderer.update();
+	core->getRenderer()->update();
     }
     saveGame();
 }
@@ -34,6 +35,7 @@ void NetworkGameController::mainLoop()
 void NetworkGameController::handleSystemEvents()
 {
     sf::Event event;
+    sf::Window* window { core->getRenderer()->getWindow() };
     while (window->pollEvent(event))
     {
 	switch (event.type)
@@ -46,7 +48,7 @@ void NetworkGameController::handleSystemEvents()
 		    if (localPlayerIsNextPlayer() && connected)
 		    {
 			sf::Vector2f mousePosition { sf::Mouse::getPosition(*window) };
-			renderer.handleClick(mousePosition);
+			core->getRenderer()->handleClick(mousePosition);
 		    }
 		}
 		break;
@@ -58,15 +60,16 @@ void NetworkGameController::handleSystemEvents()
 
 bool NetworkGameController::localPlayerIsNextPlayer()
 {
-    return localPlayer == game.getNextPlayer();
+    return localPlayer == core->getGame()->getNextPlayer();
 }
 
 void NetworkGameController::handleConnections()
 {
+    View::IRenderer* renderer { core->getRenderer() };
     switch (connectionStatus)
     {
 	case NetworkPhase::Init:
-	    renderer.setMessage(connectionBuilder.getInfoMessage());
+	    renderer->setMessage(connectionBuilder.getInfoMessage());
 	    connectionBuilder.startListening();
 	    connectionStatus = NetworkPhase::Connecting;
 	case NetworkPhase::Connecting:
@@ -75,14 +78,14 @@ void NetworkGameController::handleConnections()
 	    break;
 	case NetworkPhase::Established:
 	    connected = true;
-	    renderer.setMessage("Connection established.");
+	    renderer->setMessage("Connection established.");
 	    connectionStatus = NetworkPhase::Connected;
 	case NetworkPhase::Connected:
 	    handleCommunication();
 	    break;
 	case NetworkPhase::Disconnected:
 	    connected = false;
-	    renderer.setMessage("Connection ended.");
+	    renderer->setMessage("Connection ended.");
 	default:
 	    break;
     }
@@ -91,7 +94,7 @@ void NetworkGameController::handleConnections()
 void NetworkGameController::handleCommunication()
 {
     try {
-	if (localPlayer != game.getHistory()->getNextPlayer())
+	if (localPlayer != core->getGame()->getHistory()->getNextPlayer())
 	{
 	    sf::Packet packet;
 	    sf::Socket::Status status = client.receive(packet);
@@ -108,22 +111,22 @@ void NetworkGameController::handleCommunication()
 		// make move
 		Model::Position from {moveDesc.substr(0,3)};
 		Model::Position to {moveDesc.substr(4, 3)};
-		std::string message = game.move(from, to);
-		renderer.setMessage(message);
+		std::string message = core->getGame()->move(from, to);
+		core->getRenderer()->setMessage(message);
 	    }
 	}
     } catch (std::exception& e) {
-	renderer.setMessage("Network error. Sorry. Game will be saved on exit.");
+	core->getRenderer()->setMessage("Network error. Sorry. Game will be saved on exit.");
 	std::cerr << e.what();
     }
 }
 
 void NetworkGameController::handleGameEvents()
 {    
-    while (!eventQueue.empty())
+    while (!core->getEventQueue()->empty())
     {
-	PointerToEvent event = eventQueue.front();
-	eventQueue.pop();
+	PointerToEvent event = core->getEventQueue()->front();
+	core->getEventQueue()->pop();
 	std::string sender = event->getSender();
 	
 	if (sender == "Board")
@@ -151,7 +154,7 @@ void NetworkGameController::sendMove(const string& moveDesc)
 	connectionStatus = NetworkPhase::Disconnected;
     } else if (status == sf::Socket::Error) {
 	connectionStatus = NetworkPhase::Disconnected;
-	renderer.setMessage("Network error. Sorry.");
+	core->getRenderer()->setMessage("Network error. Sorry.");
     }
 }
 

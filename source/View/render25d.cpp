@@ -1,9 +1,9 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
-#include "render2d.h"
+#include "render25d.h"
 
 namespace View {
 
-Render2D::Render2D(sf::RenderWindow* theWindow, 
+Render25D::Render25D(sf::RenderWindow* theWindow, 
 	Model::IGameInfo* theGame, EventQueue* theEventQueue) 
 	: game{theGame}, eventQueue {theEventQueue}, window(theWindow)
 	, boardPainter(theWindow, &style, theGame, theEventQueue)
@@ -14,7 +14,7 @@ Render2D::Render2D(sf::RenderWindow* theWindow,
     panelPainter.setTopLeft(sf::Vector2f{20, 300});    
 }
 
-void Render2D::update()
+void Render25D::update()
 {
     auto newState = game->getGameState();
     window->clear();
@@ -22,6 +22,7 @@ void Render2D::update()
     setAndGetBoardCursorFromScreenPosition(sf::Vector2f{ sf::Mouse::getPosition(*window) });
     
     boardPainter.setGameState(&newState);
+    boardPainter.update();
     boardPainter.draw();
 
     panelPainter.setGameState(&newState);
@@ -31,18 +32,18 @@ void Render2D::update()
     window->display();        
 }
 
-void Render2D::setLocalPlayers(Model::Player theLocalPlayers)
+void Render25D::setLocalPlayers(Model::Player theLocalPlayers)
 {
     boardPainter.setLocalPlayers(theLocalPlayers);
     panelPainter.setLocalPlayer(theLocalPlayers);
 }
 
-void Render2D::setMessage(const std::string& theMessage)
+void Render25D::setMessage(const std::string& theMessage)
 {
     panelPainter.setMessage(theMessage);
 }
 
-void Render2D::handleClick(sf::Vector2f& mousePosition)
+void Render25D::handleClick(sf::Vector2f& mousePosition)
 {
     if (boardPainter.getRect().contains(mousePosition))
     {
@@ -54,12 +55,37 @@ void Render2D::handleClick(sf::Vector2f& mousePosition)
     }
 }
 
-Model::Position Render2D::setAndGetBoardCursorFromScreenPosition(sf::Vector2f position)
+Model::Position Render25D::setAndGetBoardCursorFromScreenPosition(sf::Vector2f position)
 {
     return cursor = boardPainter.setAndGetBoardCursorFromScreenPosition(position);
 }
 
-Render2D::~Render2D()
+void Render25D::setSelectedField(Model::Position theSelectedField)
+{ 
+    boardPainter.setSelectedField(theSelectedField); 
+}
+
+void Render25D::clearSelectedField()
+{ 
+    boardPainter.clearSelectedField(); 
+}
+
+void Render25D::setHighlightedFields(Model::PointerToPositionList thePositions)
+{ 
+    boardPainter.setHighlightedFields(thePositions); 
+}
+
+void Render25D::clearHighlightedFields()
+{ 
+    setHighlightedFields(nullptr); 
+}
+
+sf::Window* Render25D::getWindow()
+{ 
+    return window; 
+}
+
+Render25D::~Render25D()
 {
 }    
 

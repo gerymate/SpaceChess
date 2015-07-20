@@ -7,21 +7,23 @@
 #include "position.h"
 #include "fullboard.h"
 #include "piece.h"
+#include "iboardinfo.h"
 
 namespace Model{
 
-class Board
+class Board : public IBoardInfo
 {
     std::map<Position, PointerToPiece > piecesOnBoard;
 public:
     Board(std::string boardDesc = "");
+    virtual ~Board();
     bool addPiece(const Position& atField, PointerToPiece piece);
     bool removePiece(const Position& atField);
-    PointerToPiece getPiece(const Position& atField) const;
-    bool isOccupied(const Position& atField);
-    FullBoard getFullBoard() const;
-    Position find(Player player, Figure figure);
-    PointerToPointerToPieceList getAllPiecesFor(Player player);
+    PointerToPiece getPiece(const Position& atField) const override;
+    bool isOccupied(const Position& atField) override;
+    FullBoard getFullBoard() const override;
+    Position find(Player player, Figure figure) override;
+    PointerToPointerToPieceList getAllPiecesFor(Player player) override;
 
     friend std::ostream& operator<<(std::ostream& outputStream, const Model::Board& board);
     friend std::istream& operator>>(std::istream& inputStream, Model::Board& board);

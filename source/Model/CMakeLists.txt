@@ -5,7 +5,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCES position.cpp figure.cpp board.cpp history.cpp judge.cpp game.cpp
 	    field.cpp figure.cpp fullboard.cpp gamestate.cpp 
     )
-	    
+    
+set(TEST_SOURCES boardtest.cpp
+    )
 # For a large number of source files you can create it in a simpler way
 # using file() function:
 # file(GLOB hellworld_SOURCES *.cpp)
@@ -22,6 +24,9 @@ set(SOURCES position.cpp figure.cpp board.cpp history.cpp judge.cpp game.cpp
 
 add_library(SpaceChessModel ${SOURCES})
 target_link_libraries(SpaceChessModel SpaceChessPieces SpaceChessGameEvents)
+
+add_library(SpaceChessModelTests ${TEST_SOURCES})
+target_link_libraries(SpaceChessModelTests SpaceChessPiecesTests)
 
 add_subdirectory(Pieces)
 add_subdirectory(GameEvents)

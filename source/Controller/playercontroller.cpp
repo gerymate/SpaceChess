@@ -4,9 +4,8 @@
 namespace Controller 
 {
 
-PlayerController::PlayerController(Model::Game* theGame, 
-				   View::Render2D* theRenderer, EventQueue* theEventQueue)
-    : game {theGame}, renderer {theRenderer}, eventQueue{theEventQueue}
+PlayerController::PlayerController(std::shared_ptr<Core> theCore)
+    : core{ theCore }
 {
 }
 
@@ -26,13 +25,13 @@ void PlayerController::handleSelection(PointerToEvent event)
 
 void PlayerController::handleFirstSelection(Model::Position theClickPosition)
 {
-    auto possibleMoves = game->getCurrentlyPossibleMovesFrom(theClickPosition);
+    auto possibleMoves = core->getGame()->getCurrentlyPossibleMovesFrom(theClickPosition);
     
     if ( possibleMoves != nullptr ) // if there is a figure on that field
     {
-	firstSelection = theClickPosition;	
-	renderer->setSelectedField(firstSelection);
-	renderer->setHighlightedFields(possibleMoves);
+	firstSelection = theClickPosition;
+	core->getRenderer()->setSelectedField(firstSelection);
+	core->getRenderer()->setHighlightedFields(possibleMoves);
     }
 }
 
@@ -41,13 +40,13 @@ void PlayerController::handleSecondSelection(Model::Position theClickPosition)
     if ( firstSelection == theClickPosition )
     {
 	firstSelection = Model::Position::Invalid;
-	renderer->clearSelectedField();
-	renderer->clearHighlightedFields();
+	core->getRenderer()->clearSelectedField();
+	core->getRenderer()->clearHighlightedFields();
 	return;
     }
     
-    std::string moveResult = game->move(firstSelection, theClickPosition);
-    renderer->setMessage(moveResult);
+    std::string moveResult = core->getGame()->move(firstSelection, theClickPosition);
+    core->getRenderer()->setMessage(moveResult);
     
     if (moveResult != "Invalid move")
     {
@@ -55,11 +54,11 @@ void PlayerController::handleSecondSelection(Model::Position theClickPosition)
 	std::string message { "Move" };
 	std::string params { moveResult };
 	PointerToEvent event {new Event {sender, message, params} };
-	eventQueue->push(event);
+	core->getEventQueue()->push(event);
 
 	firstSelection = Model::Position::Invalid;
-	renderer->clearSelectedField();
-	renderer->clearHighlightedFields();
+	core->getRenderer()->clearSelectedField();
+	core->getRenderer()->clearHighlightedFields();
     }
 }
 

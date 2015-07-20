@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "gameevent.h"
 #include "game.h"
+#include "board.h"
 
 namespace Model 
 {

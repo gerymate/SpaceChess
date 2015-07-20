@@ -2,13 +2,14 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+#include "common.h"
 #include "gameevent.h"
 #include "position.h"
-#include "piece.h"
-#include "common.h"
+// #include "piece.h"
 #include "game.h"
-#include "history.h"
-#include "judge.h"
+// #include "history.h"
+// #include "judge.h"
+#include "board.h"
 
 namespace Model
 {

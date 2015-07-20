@@ -100,6 +100,11 @@ PointerToPointerToPieceList Board::getAllPiecesFor(Player player)
     return allPiecesForPlayer;
 }
 
+Board::~Board()
+{
+
+}
+
 
 std::ostream& operator<<(std::ostream& outputStream, const Model::Board& board)
 {

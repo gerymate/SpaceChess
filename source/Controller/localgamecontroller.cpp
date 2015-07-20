@@ -1,4 +1,4 @@
-// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
+// (C) Máté Gergely - gerymate@gmail.com
 #include "localgamecontroller.h"
 #include <iostream>
 #include <fstream>
@@ -8,8 +8,8 @@ using namespace std;
 namespace Controller
 {
 
-LocalGameController::LocalGameController(sf::RenderWindow* theWindow) 
-    : GameController{theWindow}, playerController{&game, &renderer, &eventQueue}
+LocalGameController::LocalGameController(shared_ptr<Core> theCore)
+    : GameController{theCore}, playerController{theCore}
 {
 }
 
@@ -19,21 +19,22 @@ LocalGameController::~LocalGameController()
 
 void LocalGameController::mainLoop()
 {
-    while (window->isOpen())
+    while (core->getRenderer()->getWindow()->isOpen())
     {    
 	handleSystemEvents();
 	handleGameEvents();
-	renderer.update();
+	core->getRenderer()->update();
     }
     saveGame();
 }
 
 void LocalGameController::handleGameEvents()
 {
-    while (!eventQueue.empty())
+    EventQueue* eventQueue = core->getEventQueue();
+    while (!eventQueue->empty())
     {
-	PointerToEvent event = eventQueue.front();
-	eventQueue.pop();
+	PointerToEvent event = eventQueue->front();
+	eventQueue->pop();
 	std::string sender = event->getSender();
 	
 	if (sender == "Board")
@@ -46,17 +47,17 @@ void LocalGameController::handleGameEvents()
 void LocalGameController::handleSystemEvents()
 {
     sf::Event event;
-    while (window->pollEvent(event))
+    while (core->getRenderer()->getWindow()->pollEvent(event))
     {
 	switch (event.type)
 	{
 	    case sf::Event::Closed:
-		window->close();
+		core->getRenderer()->getWindow()->close();
 		break;
 	    case sf::Event::MouseButtonPressed:
 		{
-		    sf::Vector2f mousePosition { sf::Mouse::getPosition(*window) };
-		    renderer.handleClick(mousePosition);
+		    sf::Vector2f mousePosition { sf::Mouse::getPosition(*(core->getRenderer()->getWindow())) };
+		    core->getRenderer()->handleClick(mousePosition);
 		}
 		break;
 	    default:
@@ -68,7 +69,7 @@ void LocalGameController::handleSystemEvents()
 void LocalGameController::setCursor(sf::Event event)
 {
     sf::Vector2f position(event.mouseMove.x, event.mouseMove.y);    
-    cursor = renderer.setAndGetBoardCursorFromScreenPosition(position);
+    cursor = core->getRenderer()->setAndGetBoardCursorFromScreenPosition(position);
 }
 
 void LocalGameController::saveGame(string fileName)
@@ -76,7 +77,7 @@ void LocalGameController::saveGame(string fileName)
     try 
     {
 	ofstream outputStream {fileName};
-	outputStream << game;
+	outputStream << *(core->getGame());
 	outputStream.close();
     } catch (...) {
 	std::cerr << "Error while saving the game to the file " << fileName << " !\n";

@@ -1,5 +1,6 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "game.h"
+#include "board.h"
 
 #include "gameevent.h"
 
@@ -102,6 +103,11 @@ Player Game::getNextPlayer() const
 }
 
 Board* Game::getBoard() const
+{
+    return board;
+}
+
+IBoardInfo* Game::getBoardInfo() const
 {
     return board;
 }

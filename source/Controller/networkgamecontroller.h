@@ -30,7 +30,7 @@ class NetworkGameController : public LocalGameController
     bool localPlayerIsNextPlayer();
     
 public:
-    NetworkGameController(sf::RenderWindow* theWindow, bool isServer = true, 
+    NetworkGameController(std::shared_ptr<Core> theCore, bool isServer = true, 
 			  const std::string& theParams = "");
     virtual ~NetworkGameController();
     virtual void mainLoop();

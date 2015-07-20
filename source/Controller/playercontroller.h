@@ -4,24 +4,23 @@
 
 #include "common.h"
 #include "event.h"
+#include "core.h"
 #include "Model/game.h"
 #include "Model/position.h"
-#include "View/render2d.h"
+#include "View/render25d.h"
 
 namespace Controller
 {
 
 class PlayerController
 {
-    Model::Game* game;
-    View::Render2D* renderer;
-    EventQueue* eventQueue;
+    std::shared_ptr<Core> core;
     Model::Position firstSelection {Model::Position::Invalid};
     
     void handleFirstSelection(Model::Position theClickPosition);
     void handleSecondSelection(Model::Position theClickPosition);
 public:
-    PlayerController(Model::Game* theGame, View::Render2D* theRenderer, EventQueue* theEventQueue);
+    PlayerController(std::shared_ptr<Core> theCore);
     void handleSelection(PointerToEvent event);
 };
 

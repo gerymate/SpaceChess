@@ -5,9 +5,9 @@
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "View/stylesheet.h"
+#include "stylesheet.h"
 #include "Model/gamestate.h"
-#include "View/widget.h"
+#include "widget.h"
 
 namespace View {
 

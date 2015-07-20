@@ -5,6 +5,7 @@
 #include "Controller/localgamecontroller.h"
 #include "Controller/networkgamecontroller.h"
 #include "Controller/playbackcontroller.h"
+#include "View/render25d.h"
 using namespace std;
 using namespace Controller;
 
@@ -16,6 +17,8 @@ int App::run()
 {    
     try {
 	setUpWindow();
+	setUpRenderer();
+	setUpCore();
 	setUpAGameController();
 	gameController->mainLoop();
     } catch (std::exception& e) {
@@ -28,8 +31,18 @@ int App::run()
 void App::setUpWindow()
 {
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    settings.antialiasingLevel = 4;
     window.create( sf::VideoMode {1200, 400}, "SpaceChess", sf::Style::Titlebar|sf::Style::Close, settings );
+}
+
+void App::setUpRenderer()
+{
+    renderer.reset(new View::Render25D(&window, &game, &eventQueue));
+}
+
+void App::setUpCore()
+{
+    core.reset(new Core(&game, &eventQueue, renderer.get() ));
 }
 
 void App::setUpAGameController()
@@ -37,13 +50,13 @@ void App::setUpAGameController()
     if (mode == "-r")
     {
 	if (params.empty()) params = "lastspacechessgame.txt";
-	gameController.reset(new PlaybackController(&window, params));
+	gameController.reset(new PlaybackController(core, params));
     } else if (mode == "-s") {
-	gameController.reset(new NetworkGameController(&window, true, params));
+	gameController.reset(new NetworkGameController(core, true, params));
     } else if (mode == "-c") {
-	gameController.reset(new NetworkGameController(&window, false, params));	
+	gameController.reset(new NetworkGameController(core, false, params));	
     } else if (mode.empty()) {
-	gameController.reset(new LocalGameController(&window));
+	gameController.reset(new LocalGameController(core));
     } else {
 	showUsage("SpaceChess");
 	exit(0);

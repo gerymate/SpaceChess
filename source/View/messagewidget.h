@@ -2,7 +2,7 @@
 #ifndef MESSAGEWIDGET_H
 #define MESSAGEWIDGET_H
 
-#include "View/widget.h"
+#include "widget.h"
 #include <string>
 
 namespace View {

@@ -1,9 +1,9 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "panelpainter.h"
 
-#include "View/cursorinfo.h"
-#include "View/nextplayerinfo.h"
-#include "View/messagewidget.h"
+#include "cursorinfo.h"
+#include "nextplayerinfo.h"
+#include "messagewidget.h"
 
 
 namespace View {

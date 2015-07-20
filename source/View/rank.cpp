@@ -1,0 +1,151 @@
+// (C) Máté Gergely - gerymate@gmail.com
+#include "rank.h"
+
+namespace View {
+
+Rank::Rank(const sf::Vector2f& theTopLeft, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
+    : topLeft{theTopLeft}, style{theStyle}, rank{theRank}, board{theBoard}
+{
+
+}
+    
+Rank::~Rank()
+{
+
+}
+
+sf::FloatRect Rank::getBoundaries()
+{
+    static const int numberOfFieldsInARow {5};
+    sf::Vector2f bottomRight = style->FieldSize;
+    bottomRight.x *= numberOfFieldsInARow;
+    bottomRight.y *= numberOfFieldsInARow;
+    sf::FloatRect boundaries {topLeft, bottomRight};
+    return boundaries;
+}
+
+void Rank::highlight(Model::Position position, Highlight type)
+{
+    if (position.getRank() == rank)
+    {
+	for (Field& field : drawableFields)
+	{
+	    if (field.getPosition() == position)
+	    {
+		switch (type)
+		{
+		    case Highlight::Cursor:
+			field.setUnderCursor(); break;
+		    case Highlight::Touched:	
+			field.setTouched(); break;
+		    case Highlight::PossibleMove:
+			field.setHighlighted(); break;
+		}
+		break; // out of the for loop
+	    }
+	}
+    }
+}
+
+void Rank::update(sf::Vector2f thePosition)
+{
+    topLeft = thePosition;
+    
+    drawableFields.clear();
+
+    //ugly hell
+    float xOffset = style->MARGINSIZE + rank * (style->MARGINSIZE + style->PLANESIZE);
+    topLeft += sf::Vector2f(xOffset, style->MARGINSIZE);
+
+    buildRank(topLeft);
+    
+    // highlight fields after this !
+}
+
+
+void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{    
+    drawRankDecoration(target, topLeft);
+    
+    for (auto& field : drawableFields)
+    {
+	target.draw(field);
+    }   
+}
+
+void Rank::buildRank(sf::Vector2f thePosition)
+{    
+    for (int j = 0; j != 5; ++j)
+    {
+	currentRow = j;
+	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
+	buildRow(position);
+    }
+}
+
+void Rank::buildRow(sf::Vector2f thePosition)
+{    
+    for (int k = 0; k != 5; ++k)
+    {
+	currentColumn = k;
+	sf::Vector2f position(thePosition + sf::Vector2f(k * style->FIELDSIZE, 0.f));
+	Model::Position fieldPosition { 4 - currentRow ,currentColumn, rank };
+		
+	const Model::PointerToPiece content {board->getPiece(fieldPosition)};
+
+	drawableFields.emplace_back(position, style, content, fieldPosition);
+    }
+}
+
+void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const
+{
+    // draw notation to the upper left corner
+    sf::Text notation(style->ZNotation[rank], style->font, 0.5f * style->MARGINSIZE);
+    notation.setColor(sf::Color::Yellow);
+    notation.setStyle(sf::Text::Bold);
+    notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));
+    target.draw(notation);
+
+    for (int j = 0; j != 5; ++j)
+    {
+	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
+	drawRowDecoration(target, position, j);
+    }
+
+    // draw notation under the plane
+    notation.setColor(sf::Color::Red);
+    notation.setStyle(sf::Text::Regular);
+    for (int i = 0; i != 5; ++i)
+    {
+	notation.setString(style->XNotation[i]);
+	sf::Vector2f offset(thePosition.x + i * style->FIELDSIZE, thePosition.y);
+	notation.setPosition(offset + sf::Vector2f(0.4f * style->FIELDSIZE, 5.f * style->FIELDSIZE));
+	target.draw(notation);
+    }    
+}
+
+void Rank::drawRowDecoration(sf::RenderTarget& target, sf::Vector2f thePosition, int row) const
+{
+    // draw notation beside the plane
+    sf::Text notation(style->YNotation[4 - row], style->font, 0.5f * style->MARGINSIZE);
+    notation.setColor(sf::Color::Red);
+    notation.setPosition(thePosition + sf::Vector2f(-0.5f * style->MARGINSIZE, 1.f * (style->FIELDSIZE - style->MARGINSIZE)));
+    target.draw(notation);
+}
+
+Model::Position Rank::getFieldPositionFromScreenPosition(sf::Vector2f screenPosition)
+{
+    Model::Position cursor {Model::Position::Invalid};
+
+    for (auto& field : drawableFields)
+    {
+	if (field.getBoundaries().contains(screenPosition))
+	{
+	    cursor = field.getPosition();
+	    break;
+	}
+    }
+    return cursor;
+}
+
+}

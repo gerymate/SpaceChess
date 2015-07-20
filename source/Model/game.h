@@ -28,7 +28,8 @@ public:
     GameState getGameState() const override;
     PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from) const override;
     Player getNextPlayer() const override;
-    Board* getBoard() const override;
+    Board* getBoard() const;
+    IBoardInfo* getBoardInfo() const;
     History* getHistory() const override;
     Judge* getJudge() const override;
     

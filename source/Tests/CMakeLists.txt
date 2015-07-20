@@ -1,11 +1,11 @@
-set(TEST_SOURCES tests.cpp 
+set(TEST_SOURCES misctests.cpp
     piecetest.cpp
-    kingtest.cpp queentest.cpp rooktest.cpp bishoptest.cpp knighttest.cpp unicorntest.cpp pawntest.cpp movetest.cpp
-    positiontest.cpp boardtest.cpp historytest.cpp
+    kingtest.cpp queentest.cpp rooktest.cpp knighttest.cpp unicorntest.cpp pawntest.cpp movetest.cpp
+    positiontest.cpp historytest.cpp
     )
 
-add_executable(Tests ${TEST_SOURCES})
+add_executable(MiscTests ${TEST_SOURCES})
 
-add_test(All_tests Tests)
+target_link_libraries(MiscTests SpaceChessModel SpaceChessView2D SpaceChessController )
 
-target_link_libraries(Tests SpaceChessModel SpaceChessView2D SpaceChessController )
+add_test(Misc_tests MiscTests)

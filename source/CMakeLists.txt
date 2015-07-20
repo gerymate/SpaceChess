@@ -14,8 +14,8 @@ set (CMAKE_CXX_FLAGS    "-W4")
 ENDIF ()
 
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/build)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../whole)
 
 if (WIN32)
 set(SFML_ROOT ${PROJECT_BINARY_DIR}/../SFML-2.2)
@@ -26,18 +26,26 @@ endif ()
 # Include the directory itself as a path to include directories
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(SOURCES app.cpp main.cpp event.cpp)
+set(SOURCES app.cpp main.cpp event.cpp core.cpp)
+set (TEST_SOURCES apptests.cpp apptest.cpp)
+
 
 set (INCLUDE_DIRECTORIES . 
     Model Model/Pieces Model/GameEvents 
     View 
     Controller
     Tests
-	${SFML_INCLUDE_DIR}
-	)
+    ${SFML_INCLUDE_DIR}
+    )
 include_directories(${INCLUDE_DIRECTORIES})
 
 add_executable(SpaceChess ${SOURCES})
+
+add_executable(AppTests ${TEST_SOURCES})
+add_test(App_tests AppTests)
+
+#target_link_libraries(AppTests SpaceChessModelTests SpaceChessModel SpaceChessView2D SpaceChessController )
+
 
 if (WIN32)
 SET(SFML_LIBRARIES_DEBUG ${SFML_SYSTEM_LIBRARY_DEBUG} ${SFML_WINDOW_LIBRARY_DEBUG} ${SFML_GRAPHICS_LIBRARY_DEBUG} ${SFML_NETWORK_LIBRARY_DEBUG})

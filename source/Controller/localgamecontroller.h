@@ -21,7 +21,7 @@ protected:
     void saveGame(std::string fileName = "lastspacechessgame.txt");
     
 public:
-    LocalGameController(sf::RenderWindow* theWindow);
+    LocalGameController(std::shared_ptr<Core> theCore);
     virtual ~LocalGameController();
     virtual void mainLoop();
 };

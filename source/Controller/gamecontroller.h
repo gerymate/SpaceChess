@@ -4,8 +4,9 @@
 
 #include <SFML/Window.hpp>
 #include "common.h"
+#include "core.h"
 #include "Model/game.h"
-#include "View/render2d.h"
+#include "View/irenderer.h"
 #include "event.h"
 
 namespace Controller
@@ -14,17 +15,15 @@ namespace Controller
 class GameController
 {
 protected:
-    sf::RenderWindow* window;
-    Model::Game game;
-    EventQueue eventQueue;
-    View::Render2D renderer;
+    std::shared_ptr<Core> core;
 
     virtual void handleSystemEvents() = 0;
     virtual void handleGameEvents() = 0;    
 public:
-    GameController(sf::RenderWindow* theWindow);
+    GameController(std::shared_ptr<Core> theCore);
     virtual ~GameController();
     virtual void mainLoop();
+    std::shared_ptr<Core> getCore() const { return core; }
 };
 
 }

@@ -7,8 +7,9 @@
 #include "common.h"
 #include "event.h"
 #include "Model/igameinfo.h"
-#include "View/stylesheet.h"
-#include "View/field.h"
+#include "stylesheet.h"
+#include "field.h"
+#include "rank.h"
 
 namespace View {
 
@@ -24,7 +25,8 @@ class BoardPainter
     int currentPlane;
     int currentRow;
     int currentColumn;
-    std::vector<Field> drawableFields;
+    static const int numberOfRanks;
+    std::vector<Rank> drawableRanks;
     Model::Position cursor {Model::Position::Invalid};
     sf::Vector2f topLeft {0, 0};
     Model::Position selectedField {Model::Position::Invalid};
@@ -36,6 +38,7 @@ public:
     void setGameState(const Model::GameState* theGameState);
     void setLocalPlayers(Model::Player theLocalPlayers);
     void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
+    void update();
     void draw();
     sf::FloatRect getRect() const;
     void handleClick(sf::Vector2f &mousePosition);
@@ -48,10 +51,7 @@ public:
     Model::Position setAndGetBoardCursorFromScreenPosition(sf::Vector2f screenPosition);
 
 private:
-    void buildPlane(sf::Vector2f thePosition);
-    void buildRow(sf::Vector2f thePosition);
-    void drawRowDecoration(sf::Vector2f thePosition);
-    void drawPlaneDecoration(sf::Vector2f thePosition);
+    void buildRanks();
     void highlightFieldUnderCursor();
     void highlightTouchedField(); 
     void highlightPossibleMoves();

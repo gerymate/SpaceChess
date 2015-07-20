@@ -1,15 +1,11 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "gamecontroller.h"
-#include <iostream>
-#include <fstream>
-
-using namespace std;
 
 namespace Controller
 {
 
-GameController::GameController(sf::RenderWindow* theWindow) 
-    : window{theWindow}, renderer{theWindow, &game, &eventQueue}
+GameController::GameController(std::shared_ptr<Core> theCore)
+    : core{ theCore }
 {
 }
 
@@ -19,11 +15,12 @@ GameController::~GameController()
 
 void GameController::mainLoop() // is this used anywhere?
 {
-    while (window->isOpen())
+    
+    while (core->getRenderer()->getWindow()->isOpen())
     {    
 	handleSystemEvents();
 	handleGameEvents();
-	renderer.update();
+	core->getRenderer()->update();
     }
 }
 
