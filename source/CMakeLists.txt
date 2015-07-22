@@ -34,7 +34,6 @@ set (INCLUDE_DIRECTORIES .
     Model Model/Pieces Model/GameEvents 
     View 
     Controller
-    Tests
     ${SFML_INCLUDE_DIR}
     )
 include_directories(${INCLUDE_DIRECTORIES})
@@ -66,5 +65,3 @@ target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessCont
 add_subdirectory(Model)
 add_subdirectory(View)
 add_subdirectory(Controller)
-
-add_subdirectory(Tests)

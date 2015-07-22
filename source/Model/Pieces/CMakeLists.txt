@@ -3,12 +3,12 @@ set(SOURCES
     )
     
 set(TEST_SOURCES piecestest.cpp
-	bishoptest.cpp
+    piecetest.cpp kingtest.cpp queentest.cpp rooktest.cpp bishoptest.cpp knighttest.cpp unicorntest.cpp pawntest.cpp
 )
 
 add_library(SpaceChessPieces ${SOURCES})
 add_executable(SpaceChessPiecesTests ${TEST_SOURCES})
 
-target_link_libraries(SpaceChessPiecesTests SpaceChessModel SpaceChessView2D SpaceChessController )
+target_link_libraries(SpaceChessPiecesTests SpaceChessModel )
 
 add_test(Pieces_test SpaceChessPiecesTests)

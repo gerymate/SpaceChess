@@ -18,6 +18,7 @@ class Rank : public sf::Drawable
     sf::Vector2f topLeft;
     StyleSheet *style;
     int rankNumber;
+    int zDepth;
     Model::IBoardInfo* board;
     std::vector<Field> drawableFields;
         

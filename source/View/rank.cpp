@@ -4,7 +4,7 @@
 namespace View {
 
 Rank::Rank(const sf::Vector2f& theTopLeft, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
-    : topLeft{theTopLeft}, style{theStyle}, rankNumber{theRank}, board{theBoard}
+    : topLeft{theTopLeft}, style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
 {
 
 }
@@ -57,7 +57,8 @@ void Rank::update()
 
 
 void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{    
+{
+    
     drawRankDecoration(target, topLeft);
     
     for (auto& field : drawableFields)

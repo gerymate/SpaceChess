@@ -6,7 +6,8 @@ set(SOURCES position.cpp figure.cpp board.cpp history.cpp judge.cpp game.cpp
 	    field.cpp figure.cpp fullboard.cpp gamestate.cpp 
     )
     
-set(TEST_SOURCES modeltests.cpp boardtest.cpp positiontest.cpp
+set(TEST_SOURCES modeltests.cpp 
+	positiontest.cpp boardtest.cpp historytest.cpp
     )
 # For a large number of source files you can create it in a simpler way
 # using file() function:
