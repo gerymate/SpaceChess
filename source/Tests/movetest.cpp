@@ -15,8 +15,8 @@ SCENARIO("A King moves on the board", "[gameevents]")
     GIVEN("a King ")
     {
 	Game game;
-	Position src {3, 3, 3};
-	Position dest {3, 3, 4};
+	Position src {2, 2, 2};
+	Position dest {2, 2, 3};
 	std::string moveDesc { src.getNotation().append(" ").append(dest.getNotation()) };
 	PointerToPiece aKing {new King};
 	Board* board {game.getBoard()};
@@ -58,8 +58,8 @@ SCENARIO("A King moves on the board", "[gameevents]")
     {
 	Game game;
 	Board* board {game.getBoard()};
-	Position src {5, 3, 4};
-	Position dest {5, 3, 5};
+	Position src {4, 2, 3};
+	Position dest {4, 2, 4};
 	board->removePiece(src);
 	board->removePiece(dest);
 	
@@ -94,8 +94,8 @@ SCENARIO("A King moves on the board", "[gameevents]")
     {
 	Game game;
 	Board* board {game.getBoard()};
-	Position src {3, 3, 3};
-	Position dest {3, 3, 4};
+	Position src {2, 2, 2};
+	Position dest {2, 2, 3};
 	std::string moveDesc { src.getNotation().append(" ").append(dest.getNotation()) };
 
 	PointerToPiece aPawn {new Pawn};

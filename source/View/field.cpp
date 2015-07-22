@@ -40,7 +40,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
 	sf::RectangleShape figureImage(style->FieldSize);
 	figureImage.setPosition(topLeft);
-	figureImage.setTexture(style->textureManager->getPieceFor(content.owner, static_cast<int>(content.owner)));
+	figureImage.setTexture(style->textureManager->getPieceFor(content.owner, static_cast<int>(content.figure)));
 	target.draw(figureImage, states);
     }
 }
@@ -65,6 +65,12 @@ void Field::notUnderCursor()
     underCursor = false;
 }
 
+bool Field::isUnderCursor()
+{
+    return underCursor;
+}
+
+
 void Field::setHighlighted()
 {
     highlighted = true;
@@ -77,7 +83,7 @@ void Field::notHighlighted()
 
 bool Field::isWhiteField(const Model::Position& position)
 {
-    return !((position.getFile() + position.getLevel() + position.getRank()) % 2);
+    return ((position.getFile() + position.getLevel() + position.getRank()) % 2);
 }
 
 Model::Position Field::getPosition()

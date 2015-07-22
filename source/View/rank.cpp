@@ -4,7 +4,7 @@
 namespace View {
 
 Rank::Rank(const sf::Vector2f& theTopLeft, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
-    : topLeft{theTopLeft}, style{theStyle}, rank{theRank}, board{theBoard}
+    : topLeft{theTopLeft}, style{theStyle}, rankNumber{theRank}, board{theBoard}
 {
 
 }
@@ -16,7 +16,8 @@ Rank::~Rank()
 
 sf::FloatRect Rank::getBoundaries()
 {
-    static const int numberOfFieldsInARow {5};
+    static const int numberOfFieldsInARow {5}; // what is this here?
+    
     sf::Vector2f bottomRight = style->FieldSize;
     bottomRight.x *= numberOfFieldsInARow;
     bottomRight.y *= numberOfFieldsInARow;
@@ -26,7 +27,7 @@ sf::FloatRect Rank::getBoundaries()
 
 void Rank::highlight(Model::Position position, Highlight type)
 {
-    if (position.getRank() == rank)
+    if (position.getRank() == rankNumber)
     {
 	for (Field& field : drawableFields)
 	{
@@ -47,18 +48,10 @@ void Rank::highlight(Model::Position position, Highlight type)
     }
 }
 
-void Rank::update(sf::Vector2f thePosition)
-{
-    topLeft = thePosition;
-    
+void Rank::update()
+{    
     drawableFields.clear();
-
-    //ugly hell
-    float xOffset = style->MARGINSIZE + rank * (style->MARGINSIZE + style->PLANESIZE);
-    topLeft += sf::Vector2f(xOffset, style->MARGINSIZE);
-
-    buildRank(topLeft);
-    
+    buildRank();
     // highlight fields after this !
 }
 
@@ -73,12 +66,12 @@ void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }   
 }
 
-void Rank::buildRank(sf::Vector2f thePosition)
+void Rank::buildRank()
 {    
     for (int j = 0; j != 5; ++j)
     {
 	currentRow = j;
-	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
+	sf::Vector2f position(topLeft + sf::Vector2f(0.f, j * style->FIELDSIZE));
 	buildRow(position);
     }
 }
@@ -89,18 +82,18 @@ void Rank::buildRow(sf::Vector2f thePosition)
     {
 	currentColumn = k;
 	sf::Vector2f position(thePosition + sf::Vector2f(k * style->FIELDSIZE, 0.f));
-	Model::Position fieldPosition { 4 - currentRow ,currentColumn, rank };
+	Model::Position placeOnBoard { 4 - currentRow , currentColumn, rankNumber };
 		
-	const Model::PointerToPiece content {board->getPiece(fieldPosition)};
+	const Model::PointerToPiece content {board->getPiece(placeOnBoard)};
 
-	drawableFields.emplace_back(position, style, content, fieldPosition);
+	drawableFields.emplace_back(position, style, content, placeOnBoard);
     }
 }
 
 void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const
 {
     // draw notation to the upper left corner
-    sf::Text notation(style->ZNotation[rank], style->fontManager->font, 0.5f * style->MARGINSIZE);
+    sf::Text notation(style->ZNotation[rankNumber], style->fontManager->font, 0.5f * style->MARGINSIZE);
     notation.setColor(sf::Color::Yellow);
     notation.setStyle(sf::Text::Bold);
     notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));

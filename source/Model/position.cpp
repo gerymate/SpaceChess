@@ -1,4 +1,4 @@
-// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
+// (C) Máté Gergely - gerymate@gmail.com
 #include "position.h"
 #include <string>
 #include <sstream>
@@ -17,9 +17,9 @@ const Position Position::Invalid {-1, -1, -1};
 
 bool Position::isValid() const
 {
-    return 1 <= level && level <= 5
-	&& 1 <= file && file <= 5
-	&& 1 <= rank && rank <= 5;
+    return 0 <= level && level <= 4
+	&& 0 <= file && file <= 4
+	&& 0 <= rank && rank <= 4;
 }
 
 
@@ -44,9 +44,9 @@ std::ostream& operator<<(std::ostream& outputStream, const Model::Position& posi
 	const std::string rankNotation {"12345"};
 	
 	outputStream 
-	    << levelNotation.at(position.getLevel()-1) 
-	    << fileNotation.at(position.getFile()-1) 
-	    << rankNotation.at(position.getRank()-1);
+	    << levelNotation.at(position.getLevel()) 
+	    << fileNotation.at(position.getFile()) 
+	    << rankNotation.at(position.getRank());
     } else {
 	outputStream << "???";
     }
@@ -67,9 +67,9 @@ Position::Position(const std::string& positionDesc)
 	const std::string fileNotation {"abcde"};
 	const std::string rankNotation {"12345"};
 	
-	level = 1 + levelNotation.find(positionDesc.at(0));
-	file = 1 + fileNotation.find(positionDesc.at(1));
-	rank = 1 + rankNotation.find(positionDesc.at(2));
+	level = levelNotation.find(positionDesc.at(0));
+	file = fileNotation.find(positionDesc.at(1));
+	rank = rankNotation.find(positionDesc.at(2));
 
 	if( ! this->isValid() ) 
 	{

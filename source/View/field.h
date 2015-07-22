@@ -26,13 +26,14 @@ public:
     Model::Position getPosition();
     void setUnderCursor();
     void notUnderCursor();
+    bool isUnderCursor(); // for testing purposes
     void setTouched();
     void notTouched();
     void setHighlighted();
     void notHighlighted();
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-private:
+public:
     static bool isWhiteField(const Model::Position& position);
 };
 

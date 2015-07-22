@@ -61,9 +61,9 @@ FullBoard Board::getFullBoard() const
 	{
 	    for(int z = 0; z != 5; ++z) 
 	    {
-		if(auto piece = getPiece({y + 1, x + 1, z + 1}))
+		if(auto piece = getPiece({y, x, z}))
 		{
-		    fb.space.at(y).at(x).at(z) = Field{piece->getPlayer(), piece->getFigure(), Position(y+1, x+1, z+1)};
+		    fb.space.at(y).at(x).at(z) = Field{piece->getPlayer(), piece->getFigure(), Position(y, x, z)};
 		}
 	    }
 	}

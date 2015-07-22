@@ -21,7 +21,9 @@ void BoardPainter::buildRanks()
     drawableRanks.clear();
     for (int rank = 0; rank != numberOfRanks; ++rank)
     {
-	drawableRanks.emplace_back(topLeft, style, rank, game->getBoardInfo());
+	float xOffset = style->MARGINSIZE + rank * (style->MARGINSIZE + style->PLANESIZE);
+	sf::Vector2f rankTopLeft { topLeft + sf::Vector2f(xOffset, style->MARGINSIZE) };
+	drawableRanks.emplace_back(rankTopLeft, style, rank, game->getBoardInfo());
     }
 }
 
@@ -58,7 +60,7 @@ void BoardPainter::draw()
 {        
     for (int i = 0; i != numberOfRanks; ++i)
     {
-	drawableRanks.at(i).update(topLeft);
+	drawableRanks.at(i).update();
     }
     
     if (localPlayers == Model::Player::Both || localPlayers == gameState->nextPlayer)

@@ -49,9 +49,9 @@ bool GameEvent::isPromotion(const Position& from, const Position& to, Game* theG
 	const int rank = to.getRank();
 	if (piece->getPlayer() == Player::White)
 	{
-	    if (rank == 5 && (level == 4 || level == 5)) promotion = true;
+	    if (rank == 4 && (level == 3 || level == 4)) promotion = true;
 	} else if (piece->getPlayer() == Player::Black) {
-	    if (rank == 1 && (level == 1 || level == 2)) promotion = true;
+	    if (rank == 0 && (level == 0 || level == 1)) promotion = true;
 	}
     }
     return promotion;

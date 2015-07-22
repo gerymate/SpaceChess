@@ -17,7 +17,7 @@ FullBoard::FullBoard() : space(5, vector<vector<Field> >(5, vector<Field>(5)))
 }
 
 Field& FullBoard::at(const Position& position) {
-	return space.at(position.getLevel()-1).at(position.getFile()-1).at(position.getRank()-1);
+	return space.at(position.getLevel()).at(position.getFile()).at(position.getRank());
 	//[place.y][place.x][place.z];
 }
 
@@ -40,7 +40,7 @@ std::istream& operator>>(std::istream& is, Model::FullBoard& board) {
 	for(int y = 4; y >= 0; --y) {
 		for(int z = 0; z != 5; ++z) {
 			for(int x = 0; x != 5; ++x) {
-				board.space[y][x][z] = Field(Player::Nobody, Figure::None, Position(y+1, x+1, z+1));
+				board.space[y][x][z] = Field(Player::Nobody, Figure::None, Position(y, x, z));
 				is >> board.space[y][x][z];
 			}
 		}

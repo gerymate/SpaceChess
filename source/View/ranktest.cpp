@@ -11,9 +11,12 @@ TEST_CASE( "A rank is where we put it")
     Model::IBoardInfo * boardInfo {nullptr};
     View::Rank aRank {topLeftCorner, &styleSheet, rankNumber, boardInfo};
 
-    REQUIRE( aRank.getRank() == 3 );
-    REQUIRE( aRank.getBoundaries().left == 10.0 );
-    REQUIRE( aRank.getBoundaries().top == 20.0 );
+    REQUIRE( aRank.getRankNumber() == 3 );
+    sf::FloatRect boundaries { aRank.getBoundaries() };
+    REQUIRE( boundaries.left == 10.0 );
+    REQUIRE( boundaries.top == 20.0 );
+    REQUIRE( boundaries.width == styleSheet.PLANESIZE ); 
+    REQUIRE( boundaries.height == styleSheet.PLANESIZE ); 
         
 }
 

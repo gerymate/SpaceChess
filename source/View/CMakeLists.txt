@@ -8,7 +8,7 @@ set(SOURCES render25d.cpp
 	    panelpainter.cpp widget.cpp cursorinfo.cpp nextplayerinfo.cpp messagewidget.cpp)
 
 set(TEST_SOURCES viewtests.cpp
-    fieldcontenttest.cpp ranktest.cpp
+    fieldtest.cpp fieldcontenttest.cpp ranktest.cpp
     )
 
 # For a large number of source files you can create it in a simpler way

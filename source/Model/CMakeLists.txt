@@ -6,7 +6,7 @@ set(SOURCES position.cpp figure.cpp board.cpp history.cpp judge.cpp game.cpp
 	    field.cpp figure.cpp fullboard.cpp gamestate.cpp 
     )
     
-set(TEST_SOURCES boardtest.cpp
+set(TEST_SOURCES modeltests.cpp boardtest.cpp positiontest.cpp
     )
 # For a large number of source files you can create it in a simpler way
 # using file() function:
@@ -25,8 +25,10 @@ set(TEST_SOURCES boardtest.cpp
 add_library(SpaceChessModel ${SOURCES})
 target_link_libraries(SpaceChessModel SpaceChessPieces SpaceChessGameEvents)
 
-add_library(SpaceChessModelTests ${TEST_SOURCES})
-target_link_libraries(SpaceChessModelTests SpaceChessPiecesTests)
+add_executable(SpaceChessModelTests ${TEST_SOURCES})
+target_link_libraries(SpaceChessModelTests SpaceChessModel ) #SpaceChessPiecesTests
+add_test(Model_tests SpaceChessModelTests)
+
 
 add_subdirectory(Pieces)
 add_subdirectory(GameEvents)

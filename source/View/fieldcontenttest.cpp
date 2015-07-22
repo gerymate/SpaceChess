@@ -17,7 +17,7 @@ TEST_CASE( "Empty field content with position Aa1" )
     View::FieldContent fc {nullptr, Model::Position("Aa1")};
     REQUIRE( fc.owner == Model::Player::Nobody );
     REQUIRE( fc.figure == Model::Figure::None );
-    REQUIRE( fc.position == Model::Position(1, 1, 1) );
+    REQUIRE( fc.position == Model::Position(0, 0, 0) );
 }
 
 TEST_CASE( "Field content from a pointer to a king in the corner" )
