@@ -25,6 +25,7 @@ struct StyleSheet
     const sf::Vector2f FieldSize {FIELDSIZE, FIELDSIZE};
     const int PLANESIZE = FIELDSIZE * 5; // 5 is number of fields in a row
     const int FONTSIZE = 0.5f * MARGINSIZE;
+    const double SCALEFACTOR = 0.9f;
     const int BOARDHEIGHT = 300; // warning! estimation!
 
     const sf::Color WhiteFieldColor {255, 255, 255};

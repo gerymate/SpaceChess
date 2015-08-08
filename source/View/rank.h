@@ -15,17 +15,18 @@ enum class Highlight { Cursor, Touched, PossibleMove };
     
 class Rank : public sf::Drawable
 {
-    sf::Vector2f topLeft;
+    sf::Vector2f center;
     StyleSheet *style;
     int rankNumber;
     int zDepth;
+    double zoomLevel {0};
     Model::IBoardInfo* board;
     std::vector<Field> drawableFields;
         
     int currentRow, currentColumn;
     
 public:
-    Rank(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard);
+    Rank(const sf::Vector2f &theCenter, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard);
     ~Rank();
     sf::FloatRect getBoundaries();
     int getRankNumber() { return rankNumber; }
@@ -39,6 +40,10 @@ private:
     void buildRow(sf::Vector2f thePosition);
     void drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const;
     void drawRowDecoration(sf::RenderTarget& target, sf::Vector2f thePosition, int row) const;
+    sf::Vector2f topLeft() const;
+    float scaleFactor() const;
+    float width() const;
+    float height() const;
 };
 
 }

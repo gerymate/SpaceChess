@@ -23,7 +23,9 @@ void BoardPainter::buildRanks()
     {
 	float xOffset = style->MARGINSIZE + rank * (style->MARGINSIZE + style->PLANESIZE);
 	sf::Vector2f rankTopLeft { topLeft + sf::Vector2f(xOffset, style->MARGINSIZE) };
-	drawableRanks.emplace_back(rankTopLeft, style, rank, game->getBoardInfo());
+	double rankWidth { (double)style->PLANESIZE };
+	sf::Vector2f rankCenter { rankTopLeft + sf::Vector2f(rankWidth / 2.0, rankWidth / 2.0) };
+	drawableRanks.emplace_back(rankCenter, style, rank, game->getBoardInfo());
     }
 }
 

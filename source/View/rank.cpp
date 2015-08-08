@@ -3,10 +3,9 @@
 
 namespace View {
 
-Rank::Rank(const sf::Vector2f& theTopLeft, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
-    : topLeft{theTopLeft}, style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
+Rank::Rank(const sf::Vector2f& theCenter, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
+    : center{theCenter}, style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
 {
-
 }
     
 Rank::~Rank()
@@ -16,12 +15,8 @@ Rank::~Rank()
 
 sf::FloatRect Rank::getBoundaries()
 {
-    static const int numberOfFieldsInARow {5}; // what is this here?
-    
-    sf::Vector2f bottomRight = style->FieldSize;
-    bottomRight.x *= numberOfFieldsInARow;
-    bottomRight.y *= numberOfFieldsInARow;
-    sf::FloatRect boundaries {topLeft, bottomRight};
+    sf::Vector2f widthHeight { width(), height() };    
+    sf::FloatRect boundaries {topLeft(), widthHeight};
     return boundaries;
 }
 
@@ -59,7 +54,7 @@ void Rank::update()
 void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     
-    drawRankDecoration(target, topLeft);
+    drawRankDecoration(target, topLeft());
     
     for (auto& field : drawableFields)
     {
@@ -72,7 +67,7 @@ void Rank::buildRank()
     for (int j = 0; j != 5; ++j)
     {
 	currentRow = j;
-	sf::Vector2f position(topLeft + sf::Vector2f(0.f, j * style->FIELDSIZE));
+	sf::Vector2f position(topLeft() + sf::Vector2f(0.f, scaleFactor() * j * style->FIELDSIZE));
 	buildRow(position);
     }
 }
@@ -82,12 +77,12 @@ void Rank::buildRow(sf::Vector2f thePosition)
     for (int k = 0; k != 5; ++k)
     {
 	currentColumn = k;
-	sf::Vector2f position(thePosition + sf::Vector2f(k * style->FIELDSIZE, 0.f));
+	sf::Vector2f position(thePosition + sf::Vector2f(scaleFactor() * k * style->FIELDSIZE, 0.f));
 	Model::Position placeOnBoard { 4 - currentRow , currentColumn, rankNumber };
 		
 	const Model::PointerToPiece content {board->getPiece(placeOnBoard)};
 
-	drawableFields.emplace_back(position, style, content, placeOnBoard);
+	drawableFields.emplace_back(position, scaleFactor(), style, content, placeOnBoard);
     }
 }
 
@@ -141,5 +136,26 @@ Model::Position Rank::getFieldPositionFromScreenPosition(sf::Vector2f screenPosi
     }
     return cursor;
 }
+
+sf::Vector2f Rank::topLeft() const
+{
+    return center - sf::Vector2f(width()/2.0, height()/2.0);
+}
+
+float Rank::scaleFactor() const
+{
+    return pow(style->SCALEFACTOR, zDepth);
+}
+
+float Rank::width() const
+{
+    return style->PLANESIZE * scaleFactor();
+}
+
+float Rank::height() const
+{
+    return style->PLANESIZE * scaleFactor();
+}
+
 
 }

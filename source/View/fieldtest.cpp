@@ -8,12 +8,13 @@
 TEST_CASE( "A Field at Aa1 with a Bishop on it" )
 {
     const sf::Vector2f topLeft { 10.0, 20.0 };
+    const float scaleFactor { 1.0 };
     View::StyleSheet styleSheet {nullptr, nullptr};
     const Model::PointerToPiece aBishopInTheCorner = Model::Piece::generatePiece("bBAa1", nullptr);
     const Model::Position realPlaceOnBoard {"Aa1"};
     const Model::Position unusedParameter {"Cd4"};
 
-    View::Field aField (topLeft, &styleSheet, aBishopInTheCorner, unusedParameter);
+    View::Field aField (topLeft, scaleFactor, &styleSheet, aBishopInTheCorner, unusedParameter);
 
     REQUIRE ( aField.getPosition() == realPlaceOnBoard );
     REQUIRE ( aField.getPosition() != unusedParameter );
@@ -29,10 +30,11 @@ TEST_CASE( "A Field at Aa1 with a Bishop on it" )
 TEST_CASE( "Empty field on Cc3" )
 {
     const sf::Vector2f topLeft { 50.0, 100.0 };
+    const float scaleFactor { 1.0 };
     View::StyleSheet styleSheet {nullptr, nullptr};
     const Model::Position placeOnBoard {"Cc3"};
 
-    View::Field aField (topLeft, &styleSheet, nullptr, placeOnBoard);
+    View::Field aField (topLeft, scaleFactor, &styleSheet, nullptr, placeOnBoard);
 
     REQUIRE ( aField.getPosition() == placeOnBoard );
     

@@ -13,13 +13,14 @@ namespace View {
 class Field : public sf::Drawable
 {
     sf::Vector2f topLeft;
+    float scaleFactor;
     StyleSheet *style;
     FieldContent content;
     bool underCursor { false };
     bool touched { false };
     bool highlighted { false };
 public:
-    Field(const sf::Vector2f &theTopLeft, StyleSheet *theStyle, 
+    Field(const sf::Vector2f &theTopLeft, const float& theScaleFactor, StyleSheet *theStyle, 
 	  const Model::PointerToPiece theContent, const Model::Position thePosition = Model::Position());
     ~Field();
     sf::FloatRect getBoundaries();

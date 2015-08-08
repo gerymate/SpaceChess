@@ -4,9 +4,9 @@
 
 namespace View {
 
-Field::Field(const sf::Vector2f& theTopLeft, StyleSheet* theStyle, 
+Field::Field(const sf::Vector2f& theTopLeft, const float& theScaleFactor, StyleSheet* theStyle, 
 	     const Model::PointerToPiece theContent, const Model::Position thePosition) 
-    : topLeft(theTopLeft), style(theStyle), content(theContent, thePosition)
+    : topLeft(theTopLeft), scaleFactor(theScaleFactor), style(theStyle), content(theContent, thePosition)
 {
 }
     
@@ -17,13 +17,13 @@ Field::~Field()
 
 sf::FloatRect Field::getBoundaries()
 {
-    sf::FloatRect boundaries {topLeft, style->FieldSize};
+    sf::FloatRect boundaries {topLeft, scaleFactor * style->FieldSize};
     return boundaries;
 }
 
 void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::RectangleShape fieldShape(style->FieldSize);
+    sf::RectangleShape fieldShape(scaleFactor * style->FieldSize);
     fieldShape.setPosition(topLeft);
     sf::Color backgroundColor = (isWhiteField(content.position)) ?
 	style->WhiteFieldColor : style->BlackFieldColor;
@@ -38,7 +38,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
   
     if (content.owner != 0)
     {
-	sf::RectangleShape figureImage(style->FieldSize);
+	sf::RectangleShape figureImage(scaleFactor * style->FieldSize);
 	figureImage.setPosition(topLeft);
 	figureImage.setTexture(style->textureManager->getPieceFor(content.owner, static_cast<int>(content.figure)));
 	target.draw(figureImage, states);
