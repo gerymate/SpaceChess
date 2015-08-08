@@ -51,6 +51,25 @@ void BoardPainter::handleClick(sf::Vector2f& mousePosition)
     }
 }
 
+void BoardPainter::zoomIn()
+{
+    targetZoomLevel++;
+    if (targetZoomLevel > MAXZOOMLEVEL)
+    {
+	targetZoomLevel = MAXZOOMLEVEL;
+    }
+    Log::that("targetZoomLevel", targetZoomLevel);
+}
+
+void BoardPainter::zoomOut()
+{
+    targetZoomLevel--;
+    if (targetZoomLevel < MINZOOMLEVEL)
+    {
+	targetZoomLevel = MINZOOMLEVEL;
+    }
+    Log::that("targetZoomLevel", targetZoomLevel);    
+}
 
 void BoardPainter::update()
 {

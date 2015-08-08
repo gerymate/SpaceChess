@@ -8,9 +8,10 @@
 #include <stdexcept>
 #include <queue>
 #include <string>
+#include "log.h"
 
 namespace Model
-{
+{   
     class Position;
     using PositionList = std::list<Position>;
     using PointerToPositionList = std::shared_ptr<PositionList>;

@@ -56,6 +56,16 @@ void Render25D::handleClick(sf::Vector2f& mousePosition)
     }
 }
 
+void Render25D::zoomIn()
+{
+    boardPainter.zoomIn();
+}
+
+void Render25D::zoomOut()
+{
+    boardPainter.zoomOut();
+}
+
 Model::Position Render25D::setAndGetBoardCursorFromScreenPosition(sf::Vector2f position)
 {
     return cursor = boardPainter.setAndGetBoardCursorFromScreenPosition(position);

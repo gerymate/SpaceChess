@@ -28,6 +28,7 @@ public:
     int run();
     
     static void showUsage(std::string executable);
+    static void log(std::string logItem);
 };
 
 #endif // APP_H

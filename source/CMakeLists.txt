@@ -26,7 +26,7 @@ endif ()
 # Include the directory itself as a path to include directories
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(SOURCES app.cpp main.cpp event.cpp core.cpp)
+set(SOURCES app.cpp main.cpp event.cpp core.cpp log.cpp)
 set (TEST_SOURCES apptests.cpp apptest.cpp)
 
 

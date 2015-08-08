@@ -60,6 +60,20 @@ void LocalGameController::handleSystemEvents()
 		    core->getRenderer()->handleClick(mousePosition);
 		}
 		break;
+	    case sf::Event::KeyReleased:
+		switch (event.key.code)
+		{
+		    case sf::Keyboard::Key::PageDown:
+			core->getRenderer()->zoomIn();
+			break;
+		    case sf::Keyboard::Key::PageUp:
+			core->getRenderer()->zoomOut();
+			break;
+		    default:
+			Log::that("Unhandled key pressed.");
+			break;
+		}
+		break;
 	    default:
 		break;
 	}

@@ -71,3 +71,8 @@ void App::showUsage(std::string executable)
 	std::cout << "Run with '-s [PORTNUMBER]' for a networked game accepting a remote connection.\n";
 	std::cout << "Run with '-c IP_ADDRESS[:PORTNUMBER]' to connect to a remote game.\n\n";
 }
+
+void App::log(std::string logItem)
+{
+    std::cout << logItem << "\n";
+}

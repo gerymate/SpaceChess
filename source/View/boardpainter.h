@@ -31,6 +31,9 @@ class BoardPainter
     sf::Vector2f topLeft {0, 0};
     Model::Position selectedField {Model::Position::Invalid};
     Model::PointerToPositionList highlightedFields;
+    const double MINZOOMLEVEL {0};
+    const double MAXZOOMLEVEL {4};
+    double targetZoomLevel {MINZOOMLEVEL};
 
 public:
     BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 
@@ -42,6 +45,8 @@ public:
     void draw();
     sf::FloatRect getRect() const;
     void handleClick(sf::Vector2f &mousePosition);
+    void zoomIn();
+    void zoomOut();
     void setSelectedField(Model::Position theSelectedField) { selectedField = theSelectedField; }
     void clearSelectedField() { selectedField = Model::Position::Invalid; }
     void setHighlightedFields(Model::PointerToPositionList thePositions) 

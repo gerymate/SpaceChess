@@ -30,6 +30,8 @@ public:
     void update() override;
     void setLocalPlayers(Model::Player theLocalPlayers) override;
     void handleClick(sf::Vector2f &mousePosition) override;
+    void zoomIn() override;
+    void zoomOut() override;
     Model::Position setAndGetBoardCursorFromScreenPosition(sf::Vector2f position) override;
     void setSelectedField(Model::Position theSelectedField) override;
     void clearSelectedField() override;
