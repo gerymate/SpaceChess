@@ -33,7 +33,7 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	sf::Text localPlayerInfo(localPlayerText, style->fontManager->font, style->FONTSIZE);
 	localPlayerInfo.setColor(sf::Color::Yellow);
 	localPlayerInfo.setStyle(sf::Text::Bold);
-	sf::Vector2f offset {(MAXCHARS * (float)style->FONTSIZE) + 5 * style->MARGINSIZE, 0};
+	sf::Vector2f offset {(MAXCHARS * (float)style->FONTSIZE) + 5 * style->getMarginSize(), 0};
 	localPlayerInfo.setPosition(position + offset);
 	target.draw(localPlayerInfo);
     }
@@ -41,7 +41,7 @@ void NextPlayerInfo::draw(sf::RenderTarget& target, sf::RenderStates states) con
 
 sf::FloatRect NextPlayerInfo::getRect() const
 {
-    sf::Vector2f size { (float)style->FONTSIZE * (MAXCHARS + 15) + 5 * style->MARGINSIZE, (float)style->FONTSIZE };
+    sf::Vector2f size { (float)style->FONTSIZE * (MAXCHARS + 15) + 5 * style->getMarginSize(), (float)style->FONTSIZE };
     return sf::FloatRect( position, size );
 }
 

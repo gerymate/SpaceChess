@@ -8,6 +8,8 @@ set(SOURCES render25d.cpp
 	    panelpainter.cpp widget.cpp cursorinfo.cpp nextplayerinfo.cpp messagewidget.cpp)
 
 set(TEST_SOURCES viewtests.cpp
+    stylesheettest.cpp 
+    boardpaintertest.cpp 
     fieldtest.cpp fieldcontenttest.cpp ranktest.cpp
     )
 
@@ -30,4 +32,4 @@ target_link_libraries(ViewTests SpaceChessModel SpaceChessView2D SpaceChessContr
 #link_directories (${SPACECHESS_BINARY_DIR}/Hello)
 
 # Link with the required SFML modules
-target_link_libraries(SpaceChessView2D sfml-graphics sfml-window sfml-system)
+target_link_libraries(SpaceChessView2D SpaceChessCore sfml-graphics sfml-window sfml-system)

@@ -22,8 +22,8 @@ TEST_CASE( "A Field at Aa1 with a Bishop on it" )
     sf::FloatRect boundaries { aField.getBoundaries() };
     REQUIRE ( boundaries.top == topLeft.y );
     REQUIRE ( boundaries.left == topLeft.x );
-    REQUIRE ( boundaries.width == styleSheet.FIELDSIZE );
-    REQUIRE ( boundaries.height == styleSheet.FIELDSIZE );
+    REQUIRE ( boundaries.width == styleSheet.getFieldSize() );
+    REQUIRE ( boundaries.height == styleSheet.getFieldSize() );
  
 }
 
@@ -41,8 +41,8 @@ TEST_CASE( "Empty field on Cc3" )
     sf::FloatRect boundaries { aField.getBoundaries() };
     REQUIRE ( boundaries.top == topLeft.y );
     REQUIRE ( boundaries.left == topLeft.x );
-    REQUIRE ( boundaries.width == styleSheet.FIELDSIZE );
-    REQUIRE ( boundaries.height == styleSheet.FIELDSIZE );
+    REQUIRE ( boundaries.width == styleSheet.getFieldSize() );
+    REQUIRE ( boundaries.height == styleSheet.getFieldSize() );
     
     REQUIRE ( ! aField.isUnderCursor() ); //default
     aField.setUnderCursor();

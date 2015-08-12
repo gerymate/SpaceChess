@@ -32,7 +32,7 @@ void App::setUpWindow()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
-    window.create( sf::VideoMode {1200, 400}, "SpaceChess", sf::Style::Titlebar|sf::Style::Close, settings );
+    window.create( sf::VideoMode {600, 700}, "SpaceChess", sf::Style::Default, settings );
 }
 
 void App::setUpRenderer()

@@ -1,5 +1,6 @@
 // (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
 #include "render25d.h"
+#include <algorithm>
 
 namespace View {
 
@@ -10,9 +11,11 @@ Render25D::Render25D(sf::RenderWindow* theWindow,
 	, boardPainter(theWindow, &style, theGame, theEventQueue)
 	, panelPainter(theWindow, &style)
 {
+    int windowBoxSize = std::min(window->getSize().x, window->getSize().y);
+    style.setBoardSize(windowBoxSize * boardToWindowRatio);
     message = "";
     window->setVerticalSyncEnabled(true);
-    panelPainter.setTopLeft(sf::Vector2f{20, 300});    
+    panelPainter.setTopLeft(sf::Vector2f{style.getMarginSize(), style.getMarginSize() + boardPainter.getRect().height});    
 }
 
 void Render25D::update()

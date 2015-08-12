@@ -26,7 +26,8 @@ endif ()
 # Include the directory itself as a path to include directories
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(SOURCES app.cpp main.cpp event.cpp core.cpp log.cpp)
+set(CORESOURCES event.cpp core.cpp log.cpp)
+set(SOURCES app.cpp main.cpp)
 set (TEST_SOURCES apptests.cpp apptest.cpp)
 
 
@@ -37,6 +38,8 @@ set (INCLUDE_DIRECTORIES .
     ${SFML_INCLUDE_DIR}
     )
 include_directories(${INCLUDE_DIRECTORIES})
+
+add_library(SpaceChessCore ${CORESOURCES})
 
 add_executable(SpaceChess ${SOURCES})
 
@@ -60,7 +63,7 @@ endif ()
 # Make sure the linker can find the Hello library once it is built.
 #link_directories (${SPACECHESS_BINARY_DIR}/Hello)
 
-target_link_libraries(SpaceChess SpaceChessModel SpaceChessView2D SpaceChessController SpaceChessGameEvents SpaceChessPieces )
+target_link_libraries(SpaceChess SpaceChessCore SpaceChessModel SpaceChessView2D SpaceChessController SpaceChessGameEvents SpaceChessPieces )
 
 add_subdirectory(Model)
 add_subdirectory(View)

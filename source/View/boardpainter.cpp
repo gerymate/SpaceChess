@@ -2,6 +2,7 @@
 #include "boardpainter.h"
 
 #include <iostream>
+#include <math.h>
 
 namespace View {
 
@@ -21,11 +22,7 @@ void BoardPainter::buildRanks()
     drawableRanks.clear();
     for (int rank = 0; rank != numberOfRanks; ++rank)
     {
-	float xOffset = style->MARGINSIZE + rank * (style->MARGINSIZE + style->PLANESIZE);
-	sf::Vector2f rankTopLeft { topLeft + sf::Vector2f(xOffset, style->MARGINSIZE) };
-	double rankWidth { (double)style->PLANESIZE };
-	sf::Vector2f rankCenter { rankTopLeft + sf::Vector2f(rankWidth / 2.0, rankWidth / 2.0) };
-	drawableRanks.emplace_back(rankCenter, style, rank, game->getBoardInfo());
+	drawableRanks.emplace_back(style, rank, game->getBoardInfo());
     }
 }
 
@@ -79,9 +76,9 @@ void BoardPainter::update()
 
 void BoardPainter::draw()
 {        
-    for (int i = 0; i != numberOfRanks; ++i)
+    for (auto& rank : drawableRanks)
     {
-	drawableRanks.at(i).update();
+	rank.update();
     }
     
     if (localPlayers == Model::Player::Both || localPlayers == gameState->nextPlayer)
@@ -90,11 +87,13 @@ void BoardPainter::draw()
 	highlightTouchedField();
 	highlightPossibleMoves();
     }
-    
-    for (auto& rank : drawableRanks)
+
+    for (int i = numberOfRanks - 1; i >= 0; --i)
     {
-	canvas->draw(rank);
+	canvas->draw(drawableRanks.at(i));
     }
+
+    
 }
 
 void BoardPainter::highlightFieldUnderCursor()
@@ -131,7 +130,7 @@ Model::Position BoardPainter::getFieldPositionFromScreenPosition(sf::Vector2f sc
 
     for (auto& rank : drawableRanks)
     {
-	if (rank.getBoundaries().contains(screenPosition))
+	if (rank.getRect().contains(screenPosition))
 	{
 	    cursor = rank.getFieldPositionFromScreenPosition(screenPosition);
 	    break;
@@ -147,8 +146,17 @@ Model::Position BoardPainter::setAndGetBoardCursorFromScreenPosition(sf::Vector2
 
 sf::FloatRect BoardPainter::getRect() const
 {
-    sf::Vector2f size { (float)canvas->getSize().x, (float)style->BOARDHEIGHT };
-    return sf::FloatRect{ topLeft, size };
+    float width { 
+	std::max(std::abs(style->getUpperLeftNotationPosition().x), std::abs(style->getLeftNotationPosition().x))
+	+ style->getBoardSize()
+    };
+    float height { 
+	std::abs(style->getUpperLeftNotationPosition().y) 
+	+ std::abs(style->getBottomNotationPosition().y)
+	+ style->getFontSize()
+    };
+    sf::Vector2f size { width, height };
+    return sf::FloatRect{ style->getBoardTopLeft(), size };
 }
 
 

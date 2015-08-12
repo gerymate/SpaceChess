@@ -3,8 +3,8 @@
 
 namespace View {
 
-Rank::Rank(const sf::Vector2f& theCenter, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
-    : center{theCenter}, style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
+Rank::Rank(StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
+    : style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
 {
 }
     
@@ -13,7 +13,7 @@ Rank::~Rank()
 
 }
 
-sf::FloatRect Rank::getBoundaries()
+sf::FloatRect Rank::getRect()
 {
     sf::Vector2f widthHeight { width(), height() };    
     sf::FloatRect boundaries {topLeft(), widthHeight};
@@ -46,6 +46,7 @@ void Rank::highlight(Model::Position position, Highlight type)
 void Rank::update()
 {    
     drawableFields.clear();
+    center = style->getBoardCenter();
     buildRank();
     // highlight fields after this !
 }
@@ -63,11 +64,11 @@ void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 void Rank::buildRank()
-{    
+{   
     for (int j = 0; j != 5; ++j)
     {
 	currentRow = j;
-	sf::Vector2f position(topLeft() + sf::Vector2f(0.f, scaleFactor() * j * style->FIELDSIZE));
+	sf::Vector2f position(topLeft() + sf::Vector2f(0.f, scaleFactor() * j * style->getFieldSize()));
 	buildRow(position);
     }
 }
@@ -77,7 +78,7 @@ void Rank::buildRow(sf::Vector2f thePosition)
     for (int k = 0; k != 5; ++k)
     {
 	currentColumn = k;
-	sf::Vector2f position(thePosition + sf::Vector2f(scaleFactor() * k * style->FIELDSIZE, 0.f));
+	sf::Vector2f position(thePosition + sf::Vector2f(scaleFactor() * k * style->getFieldSize(), 0.f));
 	Model::Position placeOnBoard { 4 - currentRow , currentColumn, rankNumber };
 		
 	const Model::PointerToPiece content {board->getPiece(placeOnBoard)};
@@ -89,36 +90,46 @@ void Rank::buildRow(sf::Vector2f thePosition)
 void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const
 {
     // draw notation to the upper left corner
-    sf::Text notation(style->ZNotation[rankNumber], style->fontManager->font, 0.5f * style->MARGINSIZE);
-    notation.setColor(sf::Color::Yellow);
+    sf::Text notation(style->ZNotation[rankNumber], style->fontManager->font, scaleFactor() * style->getFontSize());
+    sf::Color numberColor { sf::Color::Yellow };
+    numberColor.a *= scaleFactor();
+    notation.setColor(numberColor);
     notation.setStyle(sf::Text::Bold);
-    notation.setPosition(thePosition + sf::Vector2f(-0.4f * style->MARGINSIZE, -0.6f * style->MARGINSIZE));
+    notation.setPosition(thePosition + scaleFactor() * style->getUpperLeftNotationPosition());
     target.draw(notation);
 
-    for (int j = 0; j != 5; ++j)
+    if (rankNumber == 0) 
     {
-	sf::Vector2f position(thePosition + sf::Vector2f(0.f, j * style->FIELDSIZE));
-	drawRowDecoration(target, position, j);
-    }
+	for (int j = 0; j != 5; ++j)
+	{
+	    sf::Vector2f position(thePosition + sf::Vector2f(0.f, scaleFactor() * j * style->getFieldSize()));
+	    drawRowDecoration(target, position, j);
+	}
 
-    // draw notation under the plane
-    notation.setColor(sf::Color::Red);
-    notation.setStyle(sf::Text::Regular);
-    for (int i = 0; i != 5; ++i)
-    {
-	notation.setString(style->XNotation[i]);
-	sf::Vector2f offset(thePosition.x + i * style->FIELDSIZE, thePosition.y);
-	notation.setPosition(offset + sf::Vector2f(0.4f * style->FIELDSIZE, 5.f * style->FIELDSIZE));
-	target.draw(notation);
-    }    
+	// draw notation under the plane
+	sf::Color letterColor { sf::Color::Red };
+	letterColor.a *= scaleFactor();
+	notation.setColor(letterColor);
+	notation.setStyle(sf::Text::Regular);
+	for (int i = 0; i != 5; ++i)
+	{
+	    notation.setString(style->XNotation[i]);
+	    sf::Vector2f offset { thePosition.x + i * style->getFieldSize(), thePosition.y };
+	    sf::Vector2f topLeft { offset + style->getBottomNotationPosition() };
+	    notation.setPosition(scaleFactor() * topLeft);
+	    target.draw(notation);
+	}    
+    }
 }
 
 void Rank::drawRowDecoration(sf::RenderTarget& target, sf::Vector2f thePosition, int row) const
 {
     // draw notation beside the plane
-    sf::Text notation(style->YNotation[4 - row], style->fontManager->font, 0.5f * style->MARGINSIZE);
-    notation.setColor(sf::Color::Red);
-    notation.setPosition(thePosition + sf::Vector2f(-0.5f * style->MARGINSIZE, 1.f * (style->FIELDSIZE - style->MARGINSIZE)));
+    sf::Text notation(style->YNotation[4 - row], style->fontManager->font, scaleFactor() * style->getFontSize());
+    sf::Color letterColor { sf::Color::Red };
+    letterColor.a *= scaleFactor();
+    notation.setColor(letterColor);
+    notation.setPosition(thePosition + scaleFactor() * style->getLeftNotationPosition());
     target.draw(notation);
 }
 
@@ -139,7 +150,9 @@ Model::Position Rank::getFieldPositionFromScreenPosition(sf::Vector2f screenPosi
 
 sf::Vector2f Rank::topLeft() const
 {
-    return center - sf::Vector2f(width()/2.0, height()/2.0);
+    float xOffset { width() / 2.0f };
+    float yOffset { height() / 2.0f };
+    return center - sf::Vector2f(xOffset, yOffset);
 }
 
 float Rank::scaleFactor() const
@@ -149,12 +162,12 @@ float Rank::scaleFactor() const
 
 float Rank::width() const
 {
-    return style->PLANESIZE * scaleFactor();
+    return style->getBoardSize() * scaleFactor();
 }
 
 float Rank::height() const
 {
-    return style->PLANESIZE * scaleFactor();
+    return style->getBoardSize() * scaleFactor();
 }
 
 

@@ -26,9 +26,9 @@ class Rank : public sf::Drawable
     int currentRow, currentColumn;
     
 public:
-    Rank(const sf::Vector2f &theCenter, StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard);
+    Rank(StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard);
     ~Rank();
-    sf::FloatRect getBoundaries();
+    sf::FloatRect getRect();
     int getRankNumber() { return rankNumber; }
     void highlight(Model::Position position, Highlight type);
     void update();
@@ -40,6 +40,7 @@ private:
     void buildRow(sf::Vector2f thePosition);
     void drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition) const;
     void drawRowDecoration(sf::RenderTarget& target, sf::Vector2f thePosition, int row) const;
+public: // for test purposes
     sf::Vector2f topLeft() const;
     float scaleFactor() const;
     float width() const;

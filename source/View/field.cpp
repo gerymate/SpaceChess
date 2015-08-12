@@ -17,19 +17,22 @@ Field::~Field()
 
 sf::FloatRect Field::getBoundaries()
 {
-    sf::FloatRect boundaries {topLeft, scaleFactor * style->FieldSize};
+    sf::Vector2f fieldSize {style->getFieldSize(), style->getFieldSize()};
+    sf::FloatRect boundaries {topLeft, scaleFactor * fieldSize};
     return boundaries;
 }
 
 void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::RectangleShape fieldShape(scaleFactor * style->FieldSize);
+    sf::Vector2f fieldSize {style->getFieldSize(), style->getFieldSize()};
+    sf::RectangleShape fieldShape(scaleFactor * fieldSize);
     fieldShape.setPosition(topLeft);
     sf::Color backgroundColor = (isWhiteField(content.position)) ?
 	style->WhiteFieldColor : style->BlackFieldColor;
     if (underCursor) backgroundColor *= style->CursorHighlightColor;
     if (touched) backgroundColor *= style->TouchHighlightColor;
     if (highlighted) backgroundColor *= style->HighlightColor;
+    backgroundColor.a = 64; // magic constant...
     fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  
@@ -38,7 +41,7 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
   
     if (content.owner != 0)
     {
-	sf::RectangleShape figureImage(scaleFactor * style->FieldSize);
+	sf::RectangleShape figureImage(scaleFactor * fieldSize);
 	figureImage.setPosition(topLeft);
 	figureImage.setTexture(style->textureManager->getPieceFor(content.owner, static_cast<int>(content.figure)));
 	target.draw(figureImage, states);

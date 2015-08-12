@@ -28,7 +28,6 @@ class BoardPainter
     static const int numberOfRanks;
     std::vector<Rank> drawableRanks;
     Model::Position cursor {Model::Position::Invalid};
-    sf::Vector2f topLeft {0, 0};
     Model::Position selectedField {Model::Position::Invalid};
     Model::PointerToPositionList highlightedFields;
     const double MINZOOMLEVEL {0};
@@ -40,7 +39,6 @@ public:
 		 Model::IGameInfo* theGame, EventQueue* theEventQueue);
     void setGameState(const Model::GameState* theGameState);
     void setLocalPlayers(Model::Player theLocalPlayers);
-    void setTopLeft(sf::Vector2f theTopLeft) { topLeft = theTopLeft; }
     void update();
     void draw();
     sf::FloatRect getRect() const;

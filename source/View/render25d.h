@@ -23,6 +23,7 @@ class Render25D : public IRenderer
     PanelPainter panelPainter;
     Model::Position cursor;
     std::string message;
+    const float boardToWindowRatio { 0.8f };
 public:
     Render25D(sf::RenderWindow* theWindow, Model::IGameInfo* theGame, 
 	     EventQueue* theEventQueue);
