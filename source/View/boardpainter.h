@@ -30,7 +30,7 @@ class BoardPainter
     Model::Position cursor {Model::Position::Invalid};
     Model::Position selectedField {Model::Position::Invalid};
     Model::PointerToPositionList highlightedFields;
-    const double MINZOOMLEVEL {0};
+    const double MINZOOMLEVEL {-0.75};
     const double MAXZOOMLEVEL {4};
     double targetZoomLevel {MINZOOMLEVEL};
 
@@ -58,6 +58,9 @@ private:
     void highlightFieldUnderCursor();
     void highlightTouchedField(); 
     void highlightPossibleMoves();
+    void drawBoardDecorations();
+    void drawRowDecoration(sf::Vector2f thePosition, int row);
+
 };
 
 }

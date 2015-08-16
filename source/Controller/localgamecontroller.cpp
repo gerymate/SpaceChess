@@ -74,6 +74,21 @@ void LocalGameController::handleSystemEvents()
 			break;
 		}
 		break;
+	    case sf::Event::MouseWheelMoved:
+		{
+		    int delta = event.mouseWheel.delta;
+		    while (delta > 0)
+		    {
+			core->getRenderer()->zoomIn();
+			--delta;
+		    }
+		    while (delta < 0)
+		    {
+			core->getRenderer()->zoomOut();
+			++delta;
+		    }
+		}
+		break;
 	    default:
 		break;
 	}

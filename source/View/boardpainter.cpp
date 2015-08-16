@@ -52,34 +52,34 @@ void BoardPainter::handleClick(sf::Vector2f& mousePosition)
 
 void BoardPainter::zoomIn()
 {
-    targetZoomLevel++;
+    targetZoomLevel += 0.25f ;
     if (targetZoomLevel > MAXZOOMLEVEL)
     {
 	targetZoomLevel = MAXZOOMLEVEL;
     }
-    Log::that("targetZoomLevel", targetZoomLevel);
 }
 
 void BoardPainter::zoomOut()
 {
-    targetZoomLevel--;
+    targetZoomLevel -= 0.25f;
     if (targetZoomLevel < MINZOOMLEVEL)
     {
 	targetZoomLevel = MINZOOMLEVEL;
     }
-    Log::that("targetZoomLevel", targetZoomLevel);    
 }
 
 void BoardPainter::update()
-{
+{    
+    for (auto& rank : drawableRanks)
+    {
+	rank.setZoomLevel(targetZoomLevel);
+	rank.update();
+    }
 }
 
 void BoardPainter::draw()
-{        
-    for (auto& rank : drawableRanks)
-    {
-	rank.update();
-    }
+{            
+    //drawBoardDecorations();
     
     if (localPlayers == Model::Player::Both || localPlayers == gameState->nextPlayer)
     {
@@ -130,7 +130,7 @@ Model::Position BoardPainter::getFieldPositionFromScreenPosition(sf::Vector2f sc
 
     for (auto& rank : drawableRanks)
     {
-	if (rank.getRect().contains(screenPosition))
+	if (rank.isClosestToViewer() && rank.getRect().contains(screenPosition))
 	{
 	    cursor = rank.getFieldPositionFromScreenPosition(screenPosition);
 	    break;
@@ -157,6 +157,44 @@ sf::FloatRect BoardPainter::getRect() const
     };
     sf::Vector2f size { width, height };
     return sf::FloatRect{ style->getBoardTopLeft(), size };
+}
+
+void BoardPainter::drawBoardDecorations()
+{
+    // draw notation to the upper left corner
+    sf::Text notation("", style->fontManager->font, style->getFontSize());
+    sf::Color numberColor { sf::Color::Yellow };
+    notation.setColor(numberColor);
+    notation.setStyle(sf::Text::Bold);
+
+    for (int j = 0; j != 5; ++j)
+    {
+	sf::Vector2f position(style->getBoardTopLeft() + sf::Vector2f(0.f, j * style->getFieldSize()));
+	drawRowDecoration(position, j);
+    }
+
+    // draw notation under the plane
+    sf::Color letterColor { sf::Color::Red };
+    notation.setColor(letterColor);
+    notation.setStyle(sf::Text::Regular);
+    for (int i = 0; i != 5; ++i)
+    {
+	notation.setString(style->XNotation[i]);
+	sf::Vector2f offset { style->getBoardTopLeft().x + i * style->getFieldSize(), style->getBoardTopLeft().y };
+	sf::Vector2f topLeft { offset + style->getBottomNotationPosition() };
+	notation.setPosition(topLeft);
+	canvas->draw(notation);
+    }    
+}
+
+void BoardPainter::drawRowDecoration(sf::Vector2f thePosition, int row)
+{
+    // draw notation beside the plane
+    sf::Text notation(style->YNotation[4 - row], style->fontManager->font, style->getFontSize());
+    sf::Color letterColor { sf::Color::Red };
+    notation.setColor(letterColor);
+    notation.setPosition(thePosition + style->getLeftNotationPosition());
+    canvas->draw(notation);
 }
 
 

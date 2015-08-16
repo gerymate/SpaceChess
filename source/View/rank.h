@@ -31,8 +31,11 @@ public:
     sf::FloatRect getRect();
     int getRankNumber() { return rankNumber; }
     void highlight(Model::Position position, Highlight type);
+    void setZoomLevel(double theZoomLevel);
     void update();
     Model::Position getFieldPositionFromScreenPosition(sf::Vector2f screenPosition);
+    bool isVisible() const;
+    bool isClosestToViewer() const;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:

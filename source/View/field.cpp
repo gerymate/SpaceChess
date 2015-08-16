@@ -29,10 +29,13 @@ void Field::draw(sf::RenderTarget& target, sf::RenderStates states) const
     fieldShape.setPosition(topLeft);
     sf::Color backgroundColor = (isWhiteField(content.position)) ?
 	style->WhiteFieldColor : style->BlackFieldColor;
-    if (underCursor) backgroundColor *= style->CursorHighlightColor;
-    if (touched) backgroundColor *= style->TouchHighlightColor;
-    if (highlighted) backgroundColor *= style->HighlightColor;
-    backgroundColor.a = 64; // magic constant...
+    backgroundColor.a = 96; // magic constants forever!
+    if (underCursor || touched || highlighted) {
+	if (underCursor) backgroundColor *= style->CursorHighlightColor;
+	if (touched) backgroundColor *= style->TouchHighlightColor;
+	if (highlighted) backgroundColor *= style->HighlightColor;
+	backgroundColor.a = 192;
+    }
     fieldShape.setFillColor(backgroundColor);
 
     target.draw(fieldShape, states);  

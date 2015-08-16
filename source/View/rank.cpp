@@ -43,17 +43,24 @@ void Rank::highlight(Model::Position position, Highlight type)
     }
 }
 
+void Rank::setZoomLevel(double theZoomLevel)
+{
+    zoomLevel = theZoomLevel;
+}
+
 void Rank::update()
-{    
+{   
+    if (!isVisible()) return;
+    
     drawableFields.clear();
     center = style->getBoardCenter();
     buildRank();
     // highlight fields after this !
 }
 
-
 void Rank::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    if (!isVisible()) return;
     
     drawRankDecoration(target, topLeft());
     
@@ -98,7 +105,7 @@ void Rank::drawRankDecoration(sf::RenderTarget& target, sf::Vector2f thePosition
     notation.setPosition(thePosition + scaleFactor() * style->getUpperLeftNotationPosition());
     target.draw(notation);
 
-    if (rankNumber == 0) 
+    if (false) 
     {
 	for (int j = 0; j != 5; ++j)
 	{
@@ -148,6 +155,17 @@ Model::Position Rank::getFieldPositionFromScreenPosition(sf::Vector2f screenPosi
     return cursor;
 }
 
+bool Rank::isVisible() const
+{
+    return zDepth - zoomLevel >= 0;
+}
+
+bool Rank::isClosestToViewer() const
+{
+    double rankDepth = zDepth - zoomLevel;
+    return 0 <= rankDepth && rankDepth < 1;
+}
+
 sf::Vector2f Rank::topLeft() const
 {
     float xOffset { width() / 2.0f };
@@ -157,7 +175,7 @@ sf::Vector2f Rank::topLeft() const
 
 float Rank::scaleFactor() const
 {
-    return pow(style->SCALEFACTOR, zDepth);
+    return pow(style->SCALEFACTOR, zDepth - zoomLevel);
 }
 
 float Rank::width() const

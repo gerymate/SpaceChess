@@ -26,12 +26,12 @@ struct StyleSheet
     const sf::Vector2f _FieldSize {_FIELDSIZE, _FIELDSIZE};
     const int _PLANESIZE = _FIELDSIZE * NUMBEROFFIELDSINAROW; // 5 is number of fields in a row
     const int FONTSIZE = 0.5f * _MARGINSIZE;
-    const float SCALEFACTOR = 0.8f;
-    const int BOARDHEIGHT = 300; // warning! estimation!
+    const float SCALEFACTOR = 0.85f;
+    const int BOARDHEIGHT = 300; // warning! estimation! use getBoardSize() instead! Unused at all?
     
     const sf::Color WhiteFieldColor {255, 255, 255};
     const sf::Color BlackFieldColor {150, 150, 150};
-    const sf::Color CursorHighlightColor {128, 255, 128};
+    const sf::Color CursorHighlightColor {96, 128, 96};
     const sf::Color TouchHighlightColor {0, 128, 255};
     const sf::Color HighlightColor {255, 128, 200};
     
