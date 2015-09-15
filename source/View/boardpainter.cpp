@@ -52,27 +52,29 @@ void BoardPainter::handleClick(sf::Vector2f& mousePosition)
 
 void BoardPainter::zoomIn()
 {
-    targetZoomLevel += 0.25f ;
+    targetZoomLevel += 1.0f ;
     if (targetZoomLevel > MAXZOOMLEVEL)
     {
 	targetZoomLevel = MAXZOOMLEVEL;
     }
+    zoomLevel = targetZoomLevel;
 }
 
 void BoardPainter::zoomOut()
 {
-    targetZoomLevel -= 0.25f;
+    targetZoomLevel -= 1.0f;
     if (targetZoomLevel < MINZOOMLEVEL)
     {
 	targetZoomLevel = MINZOOMLEVEL;
     }
+    zoomLevel = targetZoomLevel;
 }
 
 void BoardPainter::update()
 {    
     for (auto& rank : drawableRanks)
     {
-	rank.setZoomLevel(targetZoomLevel);
+	rank.setZoomLevel(zoomLevel);
 	rank.update();
     }
 }
@@ -92,8 +94,6 @@ void BoardPainter::draw()
     {
 	canvas->draw(drawableRanks.at(i));
     }
-
-    
 }
 
 void BoardPainter::highlightFieldUnderCursor()

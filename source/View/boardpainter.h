@@ -10,6 +10,7 @@
 #include "stylesheet.h"
 #include "field.h"
 #include "rank.h"
+#include "Util/timelychangingvalue.h"
 
 namespace View {
 
@@ -30,9 +31,10 @@ class BoardPainter
     Model::Position cursor {Model::Position::Invalid};
     Model::Position selectedField {Model::Position::Invalid};
     Model::PointerToPositionList highlightedFields;
-    const double MINZOOMLEVEL {-0.75};
+    const double MINZOOMLEVEL {0};
     const double MAXZOOMLEVEL {4};
     double targetZoomLevel {MINZOOMLEVEL};
+    Util::TimelyChangingValue zoomLevel {targetZoomLevel};
 
 public:
     BoardPainter(sf::RenderTarget* theCanvas, StyleSheet* theStyleSheet, 

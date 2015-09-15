@@ -68,3 +68,5 @@ target_link_libraries(SpaceChess SpaceChessCore SpaceChessModel SpaceChessView2D
 add_subdirectory(Model)
 add_subdirectory(View)
 add_subdirectory(Controller)
+
+add_subdirectory(Util)
