@@ -6,22 +6,22 @@
 
 TEST_CASE( "A rank is where we put it")
 {
-    sf::Vector2f center {10.0, 20.0};
     View::StyleSheet styleSheet {nullptr, nullptr};
+    sf::Vector2f center {styleSheet.getBoardCenter()};
     int rankNumber {3};
-    float realScale {(float)pow((float)styleSheet.SCALEFACTOR, rankNumber)};
+    float realScale {(float)pow((float)styleSheet.SCALEFACTOR, rankNumber)};			
     float size {(float)styleSheet.getBoardSize() * realScale};
-    float top {20.0f - size/2 };
-    float left {10.0f - size/2 };
+    float top {center.y - size / 2.0f };
+    float left {center.x - size / 2.0f };
     Model::IBoardInfo * boardInfo {nullptr};
     View::Rank aRank {&styleSheet, rankNumber, boardInfo};
 
-    REQUIRE( aRank.getRankNumber() == 3 );
+    REQUIRE( aRank.getRankNumber() == rankNumber );
     sf::FloatRect boundaries { aRank.getRect() };
-    REQUIRE( boundaries.left == left );
-    REQUIRE( boundaries.top == top );
     REQUIRE( boundaries.width == size ); 
     REQUIRE( boundaries.height == size ); 
+    REQUIRE( boundaries.left == left );
+    REQUIRE( boundaries.top == top );
     
     REQUIRE( aRank.width() == size );
     REQUIRE( aRank.height() == size );

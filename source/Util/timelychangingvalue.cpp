@@ -4,7 +4,7 @@ using namespace std::chrono;
 
 namespace Util {
 
-TimelyChangingValue::TimelyChangingValue(double theTargetValue, std::chrono::seconds theChangeDuration)
+TimelyChangingValue::TimelyChangingValue(double theTargetValue, std::chrono::microseconds theChangeDuration)
     : targetValue{theTargetValue}, changeDuration{theChangeDuration}
 {
     currentValue = targetValue;
@@ -27,8 +27,10 @@ TimelyChangingValue::operator double()
 	{
 	    currentValue = targetValue;
 	} else {
-	    steady_clock::duration timeElapsed { now - startTime };
-	    currentValue = startValue + ( (timeElapsed / changeDuration) * (targetValue - startValue) );
+	    microseconds timeElapsed = duration_cast<microseconds>( now - startTime );
+	    currentValue = startValue + ( 
+		((double)timeElapsed.count() / changeDuration.count()) 
+		* (targetValue - startValue) );
 	}
     }
     return currentValue;

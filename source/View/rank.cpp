@@ -6,6 +6,7 @@ namespace View {
 Rank::Rank(StyleSheet *theStyle, int theRank, Model::IBoardInfo* theBoard) 
     : style{theStyle}, rankNumber{theRank}, zDepth{theRank}, board{theBoard}
 {
+    center = style->getBoardCenter();
 }
     
 Rank::~Rank()
