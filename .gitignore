@@ -1,4 +1,4 @@
 build/*
 helpers/*
 *.kdev4
-
+whole/*
