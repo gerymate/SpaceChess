@@ -1,4 +1,4 @@
-// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
+// (C) Máté Gergely - gerymate@gmail.com
 #ifndef CREATION_H
 #define CREATION_H
 

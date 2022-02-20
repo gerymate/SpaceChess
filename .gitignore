@@ -2,3 +2,5 @@ build/*
 helpers/*
 *.kdev4
 whole/*
+.DS_Store
+.vscode

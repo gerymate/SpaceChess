@@ -1,4 +1,4 @@
-// (C) Máté Gergely - o7djsn - sportember@caesar.elte.hu
+// (C) Máté Gergely - gerymate@gmail.com
 #include "event.h"
 
 Event::Event(std::string theSender, std::string theMessage, std::string theParameters) 
