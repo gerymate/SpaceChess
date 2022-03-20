@@ -4,3 +4,4 @@ helpers/*
 whole/*
 .DS_Store
 .vscode
+bazel-*
