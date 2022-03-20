@@ -29,7 +29,7 @@ public:
     PointerToPositionList getCurrentlyPossibleMovesFrom(Position& from) const override;
     Player getNextPlayer() const override;
     Board* getBoard() const;
-    IBoardInfo* getBoardInfo() const;
+    IBoardInfo* getBoardInfo() const override;
     History* getHistory() const override;
     Judge* getJudge() const override;
     

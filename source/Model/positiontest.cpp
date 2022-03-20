@@ -1,5 +1,5 @@
 // (C) Máté Gergely - gerymate@gmail.com
-#include "catch.hpp"
+#include "catch2/catch.hpp"
 
 #include "position.h"
 
@@ -62,8 +62,8 @@ SCENARIO("Positions are generated from notation")
 	REQUIRE( p2.getNotation() == "Ee5" );
     }
 
-    REQUIRE_THROWS( Position p3 {"#"} );
-    REQUIRE_THROWS( Position p4 {"Eh3"} );
+    REQUIRE_THROWS( Position("#") );
+    REQUIRE_THROWS( Position("Eh3") );
 }
 
 SCENARIO("There are positions around a central position")

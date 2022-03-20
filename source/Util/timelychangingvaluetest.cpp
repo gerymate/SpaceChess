@@ -1,5 +1,5 @@
 // (C) Máté Gergely - gerymate@gmail.com
-#include "catch2/catch.hpp"
+#include "catch2/catch2/catch.hpp"
 
 #include "timelychangingvalue.h"
 
