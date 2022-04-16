@@ -3,9 +3,9 @@
 #define FIELDCONTENT_H
 
 #include "common.h"
-#include "position.h"
+#include "Model/position.h"
 #include "player.h"
-#include "figure.h"
+#include "Model/figure.h"
 
 namespace View {
 

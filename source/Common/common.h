@@ -9,6 +9,7 @@
 #include <queue>
 #include <string>
 #include "log.h"
+#include "event.h"
 
 namespace Model
 {   

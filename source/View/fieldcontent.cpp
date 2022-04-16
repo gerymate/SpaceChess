@@ -1,6 +1,6 @@
 // (C) Máté Gergely - gerymate@gmail.com
 #include "fieldcontent.h"
-#include "piece.h"
+#include "Model/piece.h"
 
 namespace View {
 

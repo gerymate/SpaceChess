@@ -1,5 +1,6 @@
 // (C) Máté Gergely - gerymate@gmail.com
 #include "rank.h"
+#include <cmath>
 
 namespace View {
 

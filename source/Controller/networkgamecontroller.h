@@ -33,7 +33,7 @@ public:
     NetworkGameController(std::shared_ptr<Core> theCore, bool isServer = true, 
 			  const std::string& theParams = "");
     virtual ~NetworkGameController();
-    virtual void mainLoop();
+    virtual void mainLoop() override;
 };
 
 }

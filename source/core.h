@@ -5,7 +5,7 @@
 #include <SFML/Window.hpp>
 #include "common.h"
 #include "Model/game.h"
-#include "View/irenderer.h"
+#include "irenderer.h"
 #include "event.h"
 
 class Core

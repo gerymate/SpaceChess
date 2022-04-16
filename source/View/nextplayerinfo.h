@@ -3,7 +3,7 @@
 #define NEXTPLAYERINFO_H
 
 #include "widget.h"
-#include "Model/player.h"
+#include "player.h"
 
 namespace View {
 

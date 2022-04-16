@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <math.h>
+#include "Common/event.h"
 
 namespace View {
 

@@ -6,7 +6,7 @@
 #include "common.h"
 #include "core.h"
 #include "Model/game.h"
-#include "View/irenderer.h"
+#include "irenderer.h"
 #include "event.h"
 
 namespace Controller

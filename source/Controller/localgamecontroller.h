@@ -23,7 +23,7 @@ protected:
 public:
     LocalGameController(std::shared_ptr<Core> theCore);
     virtual ~LocalGameController();
-    virtual void mainLoop();
+    virtual void mainLoop() override;
 };
 
 }

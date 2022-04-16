@@ -7,7 +7,7 @@
 #include "core.h"
 #include "Model/game.h"
 #include "Model/position.h"
-#include "View/render25d.h"
+#include "irenderer.h"
 
 namespace Controller
 {
