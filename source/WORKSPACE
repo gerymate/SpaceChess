@@ -7,3 +7,9 @@ http_archive(
     urls = ["https://github.com/catchorg/Catch2/archive/v2.13.8.tar.gz"],
     sha256 = "b9b592bd743c09f13ee4bf35fc30eeee2748963184f6bea836b146e6cc2a585a"
 )
+
+new_local_repository(
+    name = "sfml",
+    path = "/usr/local/opt/sfml",
+    build_file = "Dependencies/sfml.BUILD"
+)

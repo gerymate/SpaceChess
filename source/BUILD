@@ -2,7 +2,7 @@ cc_library(
     name="SpaceChessController",
     srcs=glob(["Controller/*.cpp"]),
     hdrs=glob(["**/*.h"]),
-    deps=["//Common", "//Model:SpaceChessModel"],
+    deps=["//Common", "//Model:SpaceChessModel", "@sfml//:network"],
     visibility=["//main:__pkg__"],
 )
 

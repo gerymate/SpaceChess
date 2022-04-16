@@ -9,6 +9,9 @@ Requirements:
 The following will be automatically installed:
 - to run the unit tests: Catch - https://github.com/catchorg/Catch2
 - to link with: SFML - https://www.sfml-dev.org/
+  - I found it easy to install SFML on a Mac with homebrew: brew install sfml
+
+To build the game: bazel build SpaceChess
 
 This was my BSc thesis work at Eötvös Loránd University in 2015. Transition to modern C++ technics started in 2022.
 
