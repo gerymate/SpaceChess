@@ -13,6 +13,10 @@ The following will be automatically installed:
 
 To build the game: bazel build SpaceChess
 
+Run the game from the resources/pieces directory - it's still buggy, but at least runs now...
+Click on pieces to select, click on highlighted field to move a piece there. 
+Use the mousewheel to change layer (zoom in/out)
+
 This was my BSc thesis work at Eötvös Loránd University in 2015. Transition to modern C++ technics started in 2022.
 
 If you want to contribute, the current license for all code in this repository ((except where otherwise stated, ie. svg, font and image files)) can be found here:
