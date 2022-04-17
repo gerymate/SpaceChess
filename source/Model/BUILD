@@ -9,9 +9,10 @@ cc_library(
 
 cc_test(
     name = "SpaceChessModelTests",
-    srcs = ["modeltests.cpp", "boardtest.cpp", "historytest.cpp", "positiontest.cpp", "piecetest.cpp", "kingtest.cpp", "queentest.cpp", "rooktest.cpp", "bishoptest.cpp", "knighttest.cpp", "unicorntest.cpp", "pawntest.cpp", "movetest.cpp"],
+    srcs = glob(["*test.cpp"]),
     deps = [
         "@catch2",
-        "SpaceChessModel"
+        "//test:catch-main",
+        ":SpaceChessModel"
     ],
 )

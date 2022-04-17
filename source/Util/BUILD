@@ -9,9 +9,9 @@ cc_library(
 cc_test(
     name = "SpaceChessUtilTests",
     srcs = ["timelychangingvaluetest.cpp"],
-    defines = ["CATCH_CONFIG_MAIN"],
     deps = [
         "@catch2",
+        "//test:catch-main",
         "SpaceChessUtil"
     ],
 )

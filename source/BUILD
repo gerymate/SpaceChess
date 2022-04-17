@@ -20,8 +20,3 @@ cc_binary(
     deps=[":SpaceChessCore", ":SpaceChessController", "//View:SpaceChessView"],
 )
 
-cc_test(
-    name="SpaceChessControllerTests",
-    srcs=[],
-    deps=["@catch2", "SpaceChessController"],
-)

@@ -9,9 +9,12 @@ cc_library(
 
 cc_test(
     name = "SpaceChessViewTests",
-    srcs = [],
+    srcs = glob(["*test.cpp"]),
+    includes = ["../Model/"],
     deps = [
         "@catch2",
-        "SpaceChessView"
+        "//test:catch-main",
+        ":SpaceChessView",
     ],
 )
+

@@ -12,6 +12,7 @@ The following will be automatically installed:
   - I found it easy to install SFML on a Mac with homebrew: brew install sfml
 
 To build the game: bazel build SpaceChess
+To run the tests: bazel test //...
 
 Run the game from the resources/pieces directory - it's still buggy, but at least runs now...
 Click on pieces to select, click on highlighted field to move a piece there. 
